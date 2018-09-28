@@ -12,7 +12,7 @@ class Main {
 		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
 	}
 	public function WPReliableMD_Api_Init() {
-		register_rest_route('WPReliableMD', 'config', [
+		register_rest_route(WPReliableMD_NAME, 'config', [
 			'methods'   => 'GET',
 			'callback'  => array($this,'WPReliableMD_Config_Api')
 		]);
