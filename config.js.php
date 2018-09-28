@@ -15,9 +15,9 @@ RMD_config = {
 };
 TAG;
 if ( file_exists( $config_filename ) ) {
-	$config = $default_config;
-}else{
 	$f = fopen($config_filename, "r");
 	$config = fread($f, filesize($config_filename));
+}else{
+	$config = $default_config;
 }
 echo $config;
