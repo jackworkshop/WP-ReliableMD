@@ -7,7 +7,7 @@ namespace WPReliableMD;
 class Main {
 	/* 构造函数 */
 	public function __construct() {
-		add_action( 'rest_api_init', array(this,'WPReliableMD_Api_Init'));
+		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
 	}
 	private function WPReliableMD_Api_Init() {
 		register_rest_route('WPReliableMD', 'config', [
