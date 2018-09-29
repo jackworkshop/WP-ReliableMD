@@ -27,7 +27,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "WPReliableMD\\": "src/"
+      "WPReliableMD\\": "src/",
+      "WPReliableMD\\Admin\\": "src/Admin"
     }
   },
   "require": {

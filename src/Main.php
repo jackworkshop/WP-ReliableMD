@@ -4,13 +4,17 @@
 
 namespace WPReliableMD;
 
+use WPReliableMD\Admin\Controller as AdminController;
+
 class Main {
 	protected $config_filename;
 	/* 构造函数 */
 	public function __construct() {
 		$this->config_filename = WPReliableMD_PATH.'\\config.json';
 		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
+		new AdminController(); //初始化Admin控制器
 	}
+
 	public function WPReliableMD_Api_Init() {
 		register_rest_route(WPReliableMD_NAME, 'config', [
 			'methods'   => 'GET',
