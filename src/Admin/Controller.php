@@ -21,7 +21,7 @@ class Controller {
 
 	public function enqueue_style() {
 		//Requirejs库
-		wp_enqueue_style('Github', '//necolas.github.io/normalize.css/8.0.0/normalize.css', array(), WPReliableMD_VER, true);
+		wp_enqueue_style('normalize', '//necolas.github.io/normalize.css/8.0.0/normalize.css', array(), WPReliableMD_VER, true);
 		wp_enqueue_style('Bootstrap', '//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', array(), WPReliableMD_VER, true);
 		wp_enqueue_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD.css', array(), WPReliableMD_VER, true );
 	}
