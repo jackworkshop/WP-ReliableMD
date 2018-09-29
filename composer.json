@@ -17,7 +17,13 @@
       "name": "WP-ReliableMD",
       "email": "jack9603301@163.com",
       "homepage": "https://github.com/jack9603301/WP-ReliableMD"
+    },
+    {
+      "name": "QiuJiangkun",
+      "email": "qiujiangkun@foxmail.com",
+      "homepage": "https://blog.jackhack.top/"
     }
+
   ],
   "autoload": {
     "psr-4": {
