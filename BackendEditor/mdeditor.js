@@ -8,7 +8,7 @@ $(function () {
     $('.nav').find('a[href="' + pagefile + '"]').parent().addClass('active');
 
     // Set up the live Markdown demo instances
-    initLiveDemos();
+    initMDEditors();
 
     // Set up the review quotes carousel
     initReviewQuotes();
@@ -20,9 +20,7 @@ $(function () {
 
 // Adapted from markdown-render.js
 function mathify(mathcode) {
-    return '<img src="https://chart.googleapis.com/chart?cht=tx&chl={urlmathcode}" alt="{mathcode}">'
-        .replace(/\{mathcode\}/ig, mathcode)
-        .replace(/\{urlmathcode\}/ig, encodeURIComponent(mathcode));
+  // todo add mathjax.js
 }
 
 
@@ -54,21 +52,15 @@ function highlightSyntax(targetDocument, syntaxHighlighter, codeText, codeLangua
     return codeElem.innerHTML;
 }
 
-
-function initLiveDemos() {
-    $('.livedemo').each(function () {
+/**
+ * usage: div.mdeditor>div.mdeditor-raw+div.mdeditor-rendered
+ */
+function initMDEditors() {
+    $('.mdeditor').each(function () {
         var $container = $(this);
-        var $raw = $(this).find('.livedemo-raw');
+        var $raw = $(this).find('.mdeditor-raw');
         var $raw_textarea = $raw.find('textarea');
-        var $rendered = $(this).find('.livedemo-rendered');
-        var $parent = $(this).parent();
-
-        // Load the text from the associated script/text element
-        var livedemo_text = $('script[data-livedemo="' + $parent.attr('id') + '"]').text().trim();
-        // If there's no text block, use the default
-        if (livedemo_text) {
-            $raw_textarea.val(livedemo_text);
-        }
+        var $rendered = $(this).find('.mdeditor-rendered');
 
         var markedOptions = {
             gfm: true,
