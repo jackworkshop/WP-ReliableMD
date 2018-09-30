@@ -47,19 +47,20 @@
 
 
     $(document).ready(function () {
+        var $summernote = $('#summernote');
         updateMD = undefined;
 
         function update() {
             var $note = $(".note-editable");
             var text = htmlToText($note.html());
             duplacateSingnal();
-            var pos = $note.getCurPos();
-            console.log(pos);
+            $summernote.summernote('saveRange');
             updateMD(text);
-            $note.setCurPos(pos);
+            $summernote.summernote('restoreRange');
+            $note.focus();
         }
 
-        $('#summernote').summernote({
+        $summernote.summernote({
             lang: 'zh-CN',
             height: 300,                 // set editor height
             minHeight: null,             // set minimum height of editor
