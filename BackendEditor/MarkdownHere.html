@@ -50,12 +50,6 @@
         var $summernote = $('#summernote');
         updateMD = undefined;
 
-        function update() {
-            var $note = $(".note-editable");
-            //var text = context.invoke('code');
-
-        }
-
         $summernote.summernote({
             lang: 'zh-CN',
             height: 300,                 // set editor height
@@ -63,17 +57,13 @@
             maxHeight: null,             // set maximum height of editor
             focus: true,                 // set focus to editable area after initializing summernote
             toolbar: [
-                ['font', ['bold', 'underline', 'clear']],
+                ['font', ['bold', 'italic']],
                 ['para', ['ul', 'ol']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture']],
                 ['custom', ['findnreplace']],
                 ['view', ['fullscreen']]
-            ],
-            callbacks: {
-                onKeyup: update,
-                onPaste: update
-            }
+            ]
 
         });
 //        updateMD = makeUpdateMD($(".note-editable"));

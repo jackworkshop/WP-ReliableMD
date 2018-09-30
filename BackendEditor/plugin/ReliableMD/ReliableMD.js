@@ -51,32 +51,61 @@
                         codeLanguage);
                 }
             };
+            var printRange = function (r, text) {
+                console.log(text !== undefined ? text : '', r.isOnEditable(), r.so, r.so, r.sc, r.ec);
+            };
+            var update = function () {
+                var cursor_raw_begin = 'rmd-cursor-begin';
+                var cursor_begin = '!!' + cursor_raw_begin + '!!';
+                var cursor_dom_begin = '<' + cursor_raw_begin + '>' + '</' + cursor_raw_begin + '>';
+                var temp_begin = $note.summernote('createRange');
+                temp_begin.eo = temp_begin.so;
+                temp_begin.pasteHTML(cursor_begin);
+
+                var cursor_raw_end = 'rmd-cursor-end';
+                var cursor_end = '!!' + cursor_raw_end + '!!';
+                var cursor_dom_end = '<' + cursor_raw_end + '>' + '</' + cursor_raw_end + '>';
+                var temp_end = $note.summernote('createRange');
+                temp_end.so = temp_end.eo;
+                temp_end.pasteHTML(cursor_end);
+
+
+                var raw_html = context.invoke('code');
+                raw_html = raw_html.replace(/(<b>)(.*?)(<\/b>)/g, "$1\*\*$2\*\*$3");
+                raw_html = raw_html.replace(/(<i>)(.*?)(<\/i>)/g, "$1\*$2\*$3");
+                var fnrCode = htmlToText(raw_html);
+
+                var text = marked(fnrCode, markedOptions);
+                console.log(text);
+
+                text = text.replace(cursor_begin, cursor_dom_begin);
+                text = text.replace(cursor_end, cursor_dom_end);
+
+
+                text = text.replace(/(<strong>)(.*?)(<\/strong>)/g, "$1\*\*$2\*\*$3");
+                text = text.replace(/(<em>)(.*?)(<\/em>)/g, "$1\*$2\*$3");
+                text = text.replace(/<h1.*?>(.*?)<\/h1>/g, "<h1>#$1</h1>");
+                text = text.replace(/<h2.*?>(.*?)<\/h2>/g, "<h2>##$1</h2>");
+                text = text.replace(/<h3.*?>(.*?)<\/h3>/g, "<h3>###$1</h3>");
+                text = text.replace(/<h4.*?>(.*?)<\/h4>/g, "<h4>####$1</h4>");
+                text = text.replace(/<h5.*?>(.*?)<\/h5>/g, "<h5>#####$1</h5>");
+                text = text.replace(/<h6.*?>(.*?)<\/h6>/g, "<h6>######$1</h6>");
+                console.log(text);
+                text = text.replace(/ /g, "&nbsp;");
+                $note.summernote('code', text);
+
+                window.newrange = $note.summernote('createRange');
+                newrange.sc = $(cursor_raw_begin)[0];
+                newrange.ec = $(cursor_raw_end)[0];
+                newrange.so = newrange.eo = 0;
+
+                $editor.focus();
+                newrange.select();
+
+            };
 
             this.initialize = function () {
-                $editable.bind("input propertychange", function () {
-                    var range = $note.summernote('createRange');
-                    console.log(range);
-                    range.pasteHTML('!!rmd-cursor!!');
-                    var raw_html = context.invoke('code');
-                    var fnrCode = htmlToText(raw_html);
-                    var text = marked(fnrCode, markedOptions);
-                    text = text.replace('!!rmd-cursor!!', '<rmd-cursor/>');
-                    text = text.replace(/(<strong>)(.*)(<\/strong>)/g, "$1\*\*$2\*\*$3");
-                    text = text.replace(/(<em>)(.*)(<\/em>)/g, "$1\*$2\*$3");
-
-                    $note.summernote('code', text);
-
-                    var newrange = $note.summernote('createRange');
-                    console.log(newrange);
-                    newrange.sc = newrange.ec = $('rmd-cursor')[0];
-                    newrange.so = newrange.eo = 0;
-                    console.log(newrange);
-
-
-                    range.select();
-                    $editor.focus();
-
-                });
+                $editable.bind("input propertychange", update);
                 console.log("ReliableMD is ready");
             };
 
