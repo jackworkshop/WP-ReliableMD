@@ -54,20 +54,27 @@
 
             this.initialize = function () {
                 $editable.bind("input propertychange", function () {
-                    var fnrCode = htmlToText(context.invoke('code'));
+                    var range = $note.summernote('createRange');
+                    console.log(range);
+                    range.pasteHTML('!!rmd-cursor!!');
+                    var raw_html = context.invoke('code');
+                    var fnrCode = htmlToText(raw_html);
                     var text = marked(fnrCode, markedOptions);
+                    text = text.replace('!!rmd-cursor!!', '<rmd-cursor/>');
                     text = text.replace(/(<strong>)(.*)(<\/strong>)/g, "$1\*\*$2\*\*$3");
                     text = text.replace(/(<em>)(.*)(<\/em>)/g, "$1\*$2\*$3");
 
-                    var range = $note.summernote('createRange');
-                    console.log(range);
                     $note.summernote('code', text);
 
-                    // var newrange = $note.summernote('createRange');
-                    // console.log(newrange);
-                    //
-                    // range.select();
-                    // $editor.focus();
+                    var newrange = $note.summernote('createRange');
+                    console.log(newrange);
+                    newrange.sc = newrange.ec = $('rmd-cursor')[0];
+                    newrange.so = newrange.eo = 0;
+                    console.log(newrange);
+
+
+                    range.select();
+                    $editor.focus();
 
                 });
                 console.log("ReliableMD is ready");
