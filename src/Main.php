@@ -12,7 +12,8 @@ class Main {
 	public function __construct() {
 		$this->config_filename = WPReliableMD_PATH.'\\config.json';
 		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
-		new AdminController(); //初始化Admin控制器
+		
+		add_filter('replace_editor',array($this,'WPReliableMD_init'),10,2);
 	}
 
 	public function WPReliableMD_Api_Init() {
@@ -33,6 +34,30 @@ class Main {
 				'info' => 'default config'
 			];
 		}
+	}
+	public function WPReliableMD_init( $return, $post) {
+		global $title, $post_type;
+
+		if ( true === $return && current_filter() === 'replace_editor' ) {
+			return $return;
+		}
+
+		new AdminController(); //初始化Admin控制器
+
+		//add_filter( 'screen_options_show_screen', '__return_false' );
+
+        $post_type_object = get_post_type_object( $post_type );
+		if ( ! empty( $post_type_object ) ) {
+			$title = $post_type_object->labels->edit_item;
+		}
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+
+		require_once ABSPATH . 'wp-admin/includes/meta-boxes.php';
+
+		require_once ABSPATH . 'wp-admin/admin-header.php';
+
+		return true;
+		//return false;
 	}
 }
 
