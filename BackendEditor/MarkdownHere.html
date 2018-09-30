@@ -20,7 +20,12 @@
     <!-- include summernote css/js -->
     <link href="summernote.css" rel="stylesheet">
     <script src="summernote.js"></script>
+    <script src="../MarkdownHere/marked.js"></script>
+    <script src="../MarkdownHere/jsHtmlToText.js"></script>
+    <script src="../MarkdownHere/highlightjs/highlight.js"></script>
     <script src="lang/summernote-zh-CN.js"></script>
+    <script src="plugin/FindReplace/findnreplace.js"></script>
+    <script src="plugin/ReliableMD/ReliableMD.js"></script>
 
 
 </head>
@@ -37,11 +42,6 @@
     </div>
 </div>
 
-<script src="../MarkdownHere/marked.js"></script>
-<script src="../MarkdownHere/jsHtmlToText.js"></script>
-<script src="../MarkdownHere/highlightjs/highlight.js"></script>
-<script src="jquery-fieldselection.js"></script>
-<script src="mdeditor.js"></script>
 
 <script>
 
@@ -52,12 +52,8 @@
 
         function update() {
             var $note = $(".note-editable");
-            var text = htmlToText($note.html());
-            duplacateSingnal();
-            $summernote.summernote('saveRange');
-            updateMD(text);
-            $summernote.summernote('restoreRange');
-            $note.focus();
+            //var text = context.invoke('code');
+
         }
 
         $summernote.summernote({
@@ -66,12 +62,21 @@
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
             focus: true,                 // set focus to editable area after initializing summernote
+            toolbar: [
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'ol']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']],
+                ['custom', ['findnreplace']],
+                ['view', ['fullscreen']]
+            ],
             callbacks: {
                 onKeyup: update,
                 onPaste: update
             }
+
         });
-        updateMD = makeUpdateMD($(".note-editable"));
+//        updateMD = makeUpdateMD($(".note-editable"));
     });
 </script>
 </body>
