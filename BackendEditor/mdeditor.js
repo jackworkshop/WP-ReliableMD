@@ -2,9 +2,9 @@
 /*global marked:false, hljs:false, $:false, _:false*/
 
 
-$(function () {
+function useMDEditors() {
     // Set the navbar active element to the current page
-    var pagefile = location.pathname.split('/').pop() || 'index.html';
+    var pagefile = location.pathname.split('/').pop() || 'index.html' || 'index.php';
     $('.nav').find('a[href="' + pagefile + '"]').parent().addClass('active');
 
     // Set up the live Markdown demo instances
@@ -15,7 +15,7 @@ $(function () {
 
     // Add on-hover anchor links
     initAnchorLinks();
-});
+}
 
 
 // Adapted from markdown-render.js
