@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,8 +7,6 @@
                                      initial-scale=1.0,
                                      maximum-scale=1.0,
                                      user-scalable=no">
-
-    <link href="//necolas.github.io/normalize.css/8.0.0/normalize.css" rel="stylesheet">
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -18,44 +17,57 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- include summernote css/js -->
+    <link href="summernote.css" rel="stylesheet">
+    <script src="summernote.js"></script>
+    <script src="lang/summernote-zh-CN.js"></script>
+
+
 </head>
 
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-6">
-            <h4>编辑</h4>
-        </div>
-        <div class="col-xs-6">
-            <h4>预览</h4>
-        </div>
-    </div>
-    <div class="row" style="margin-left: 1em">
-        <div class="btn-group btn-group-xs">
-            <button type="button" class="btn btn-default"><b>B</b></button>
-            <button type="button" class="btn btn-default"><em>I</em></button>
-        </div>
-    </div>
-    <div class="row mdeditor">
-        <div class="col-xs-6">
-            <div class="mdeditor-raw">
-                <textarea style="width: 100%;height: 25em; resize:none;
-                border: 1px solid #ccc!important;padding:14px;border-radius: 16px!important;"></textarea>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="mdeditor-rendered" style="width: 100%; ">
-            </div>
-        </div>
 
-        <div class="clearfix visible-xs"></div>
+    <!--<div class="clearfix visible-xs"></div>-->
+    <!--</div>-->
+    <div class="row"><h4>编辑器</h4></div>
+    <div class="row mdeditor" style="height: 25em;">
+        <div class="mdeditor-raw">
+            <textarea id="mdeditor-text" style="display: none;"></textarea>
+        </div>
+        <div id="summernote"><p>Hello Summernote</p></div>
     </div>
 </div>
 
-
 <script src="../MarkdownHere/marked.js"></script>
+<script src="../MarkdownHere/jsHtmlToText.js"></script>
 <script src="../MarkdownHere/highlightjs/highlight.js"></script>
 <script src="mdeditor.js"></script>
 
+<script>
+    function update() {
+        var input = $(".note-editable").html();
+        var $raw_text_area = $("#mdeditor-text");
+        var text = htmlToText(input);
+        $raw_text_area.html(text);
+        $raw_text_area.keyup();
+    }
+
+    $(document).ready(function () {
+        useMDEditors();
+        $('#summernote').summernote({
+            lang: 'zh-CN',
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                 // set focus to editable area after initializing summernote
+            callbacks: {
+                onKeyup: update,
+                onPaste: update
+            }
+        });
+        $(".note-editable").addClass('mdeditor-rendered');
+    });
+</script>
 </body>
 </html>
