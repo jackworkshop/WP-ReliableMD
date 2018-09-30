@@ -31,30 +31,34 @@
     <!--<div class="clearfix visible-xs"></div>-->
     <!--</div>-->
     <div class="row"><h4>编辑器</h4></div>
-    <div class="row mdeditor" style="height: 25em;">
-        <div class="mdeditor-raw">
-            <textarea id="mdeditor-text" style="display: none;"></textarea>
-        </div>
-        <div id="summernote"><p>Hello Summernote</p></div>
+    <div class="row" style="height: 25em;">
+        <textarea id="mdeditor" style="display: none;"></textarea>
+        <div id="summernote"></div>
     </div>
 </div>
 
 <script src="../MarkdownHere/marked.js"></script>
 <script src="../MarkdownHere/jsHtmlToText.js"></script>
 <script src="../MarkdownHere/highlightjs/highlight.js"></script>
+<script src="jquery-fieldselection.js"></script>
 <script src="mdeditor.js"></script>
 
 <script>
-    function update() {
-        var input = $(".note-editable").html();
-        var $raw_text_area = $("#mdeditor-text");
-        var text = htmlToText(input);
-        $raw_text_area.html(text);
-        $raw_text_area.keyup();
-    }
+
 
     $(document).ready(function () {
-        useMDEditors();
+        updateMD = undefined;
+
+        function update() {
+            var $note = $(".note-editable");
+            var text = htmlToText($note.html());
+            duplacateSingnal();
+            var pos = $note.getCurPos();
+            console.log(pos);
+            updateMD(text);
+            $note.setCurPos(pos);
+        }
+
         $('#summernote').summernote({
             lang: 'zh-CN',
             height: 300,                 // set editor height
@@ -66,7 +70,7 @@
                 onPaste: update
             }
         });
-        $(".note-editable").addClass('mdeditor-rendered');
+        updateMD = makeUpdateMD($(".note-editable"));
     });
 </script>
 </body>
