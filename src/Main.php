@@ -89,13 +89,12 @@ class Main {
 		if ( ! empty( $post_type_object ) ) {
 			$title = $post_type_object->labels->edit_item;
 		}
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 
 		require_once ABSPATH . 'wp-admin/includes/meta-boxes.php';
 
 		require_once ABSPATH . 'wp-admin/admin-header.php';
 
-		$this->WPReliableMD_Page_Init();
+		$this->WPReliableMD_Page_Init();   //初始化页面
 
 		return true;
 		//return false;
