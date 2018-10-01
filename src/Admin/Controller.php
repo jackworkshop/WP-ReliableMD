@@ -6,12 +6,9 @@ class Controller {
 	public function __construct() {
 
 		//Javascript 文件
-
-
 		add_action('admin_enqueue_scripts',array($this,'enqueue_scripts'));
 		//CSS 文件
 		add_action('admin_enqueue_scripts',array($this,'enqueue_style'));
-
 		add_filter( 'admin_body_class', array($this,'WPReliableMD_admin_body_class'));
 	}
 
