@@ -3,7 +3,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>0. DEMO</title>
+    <title>ReilableMD editor</title>
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/markdown-it/dist/markdown-it.js"></script>
     <script src="../bower_components/to-mark/dist/to-mark.js"></script>
@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
 </head>
 <body>
-<div class="explain">
-    All evetensions are enabled
+<div class="explain" style="margin-top: 1em;">
+    <h1>Input your text here</h1>
 </div>
 <div class="code-html">
     <script src="../bower_components/plantuml-encoder/dist/plantuml-encoder.js"></script>
@@ -30,70 +30,8 @@
     <link rel="stylesheet" href="../bower_components/tui-chart/dist/tui-chart.css">
 
     <div id="editSection"></div>
-    <script class="code-js">
-        var content = [
-            '| @cols=2:merged |',
-            '| --- | --- |',
-            '| table | table |',
-            '```uml',
-            'partition Conductor {',
-            '  (*) --> "Climbs on Platform"',
-            '  --> === S1 ===',
-            '  --> Bows',
-            '}',
-            '',
-            'partition Audience #LightSkyBlue {',
-            '  === S1 === --> Applauds',
-            '}',
-            '',
-            'partition Conductor {',
-            '  Bows --> === S2 ===',
-            '  --> WavesArmes',
-            '  Applauds --> === S2 ===',
-            '}',
-            '',
-            'partition Orchestra #CCCCEE {',
-            '  WavesArmes --> Introduction',
-            '  --> "Play music"',
-            '}',
-            '```',
-            '```chart',
-            ',category1,category2',
-            'Jan,21,23',
-            'Feb,31,17',
-            '',
-            'type: column',
-            'title: Monthly Revenue',
-            'x.title: Amount',
-            'y.title: Month',
-            'y.min: 1',
-            'y.max: 40',
-            'y.suffix: $',
-            '```'
-        ].join('\n');
-
-        var editor = new tui.Editor({
-            el: document.querySelector('#editSection'),
-            previewStyle: 'vertical',
-            height: '400px',
-            initialEditType: 'markdown',
-            useCommandShortcut: true,
-            initialValue: content,
-            exts: [
-                {
-                    name: 'chart',
-                    minWidth: 100,
-                    maxWidth: 600,
-                    minHeight: 100,
-                    maxHeight: 300
-                },
-                'scrollSync',
-                'colorSyntax',
-                'uml',
-                'mark',
-                'table'
-            ]
-        });
-    </script>
+    <div style="text-align: right"><button>Submit</button></div>
+    <script src="./js/WPReliableMD_Admin.js"></script>
+</div>
 </body>
 </html>

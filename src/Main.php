@@ -5,14 +5,15 @@
 namespace WPReliableMD;
 
 use WPReliableMD\Admin\Controller as AdminController;
+require_once WPReliableMD_PATH . '/src/Poster.php';
 
 class Main {
 	protected $config_filename;
 	/* 构造函数 */
 	public function __construct() {
-		$this->config_filename = WPReliableMD_PATH.'\\config.json';
+		$this->config_filename = WPReliableMD_PATH.'/config.json';
 		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
-		
+
 		add_filter('replace_editor',array($this,'WPReliableMD_init'),10,2);
 	}
 
@@ -38,6 +39,7 @@ class Main {
 
 	public function WPReliableMD_Page_Init() {
 		global $post_type_object;
+		$token = Poster::GetToken();
 ?>
 		<!--div id="titlediv">
 			<div id="titlewrap">
@@ -45,10 +47,13 @@ class Main {
 				<input type="text" name="post_title" size="30" value="<?php echo esc_attr( $post->post_title ); ?>" id="title" spellcheck="true" autocomplete="off" />
 			</div>
 		</div-->
-		<div class="code-html">
-			<div id="editSection"></div>
-		</div>
-<?php
+
+
+        <div style="height: 600px; width: 100%;">
+            <iframe src="<?php echo WPReliableMD_URL . '/BackendEditor/ReliableMD.html?token=' . $token; ?>" frameborder="0" id="contentIframe" style="width: 100%; height: 100%;"></iframe>
+        </div>
+
+		<?php
 	}
 
 	public function WPReliableMD_init( $return, $post) {
