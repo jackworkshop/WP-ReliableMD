@@ -18,9 +18,18 @@ var editor;
 jQuery(document).ready(
     function () {
         var content;
-        if (typeof $_GET['postid'] !== 'undefined') {
-            var apost = jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + $_GET['postid']);
-            content = ['title: ' + apost.title.raw, apost.content.raw].join('\n');
+        if (typeof $_GET['post'] !== 'undefined') {
+            var apost = jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + $_GET['post']);
+            console.log(apost);
+            var raw_md = '';
+
+            var rendered = apost.responseJSON.content.rendered;
+            if (rendered.indexOf('title:') === 0) {
+                rendered.replace(/<script lang="raw-markdown">(.*)<\/script>/, function (s, value) {
+                    raw_md = value;
+                });
+            }
+            content = ['title: ' + apost.title.rendered, raw_md].join('\n');
 
         }
         else {
@@ -108,7 +117,7 @@ jQuery(document).ready(
                 },
                 data: {
                     'title': title,
-                    'content': raw,
+                    'content': raw + '<script lang="raw-markdown">'+raw+'</script>',
                     'status': 'publish'
                 }
             }).done(function (response) {
