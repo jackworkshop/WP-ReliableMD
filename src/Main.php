@@ -5,6 +5,7 @@
 namespace WPReliableMD;
 
 use WPReliableMD\Admin\Controller as AdminController;
+use WPReliableMD\View\Controller as ViewController;
 use WPReliableMD\REST\Controller as RestController;
 use WPReliableMD\Poster as Poster;
 //require_once WPReliableMD_PATH . '/src/Poster.php';
@@ -17,6 +18,8 @@ class Main {
 		add_filter('replace_editor',array($this,'WPReliableMD_init'),10,2);
 
 		new RestController();  //初始化REST控制器
+
+		new ViewController();
 	}
 
 
