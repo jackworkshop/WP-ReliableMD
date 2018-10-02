@@ -63,6 +63,7 @@ class Controller {
 		$new_content = "<div class='markdown'>\n";
 		$new_content.= $content;
 		$new_content.= "\n</div>";
+		$content = $new_content;
 		return $content;
 	}
 }
