@@ -28,9 +28,9 @@ class Controller {
 		wp_enqueue_script('tui-chart', WPReliableMD_URL.'/bower_components/tui-chart/dist/tui-chart.js', array('raphael'), WPReliableMD_VER, false);
 		wp_enqueue_script('tui-editor', WPReliableMD_URL.'/bower_components/tui-editor/dist/tui-editor-Editor-all.js', array('tui-chart'), WPReliableMD_VER, false);
 		wp_enqueue_script( 'jsHtmlToText', WPReliableMD_URL . '/js/jsHtmlToText.js', array('tui-editor'), WPReliableMD_VER, false );
-		wp_enqueue_script( 'frontend-render', WPReliableMD_URL . '/js/frontend-render.js', array('jsHtmlToText'), WPReliableMD_VER, false );
+		wp_enqueue_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('jsHtmlToText'), WPReliableMD_VER, false );
 
-		wp_localize_script( 'frontend-render', 'wpApiSettings', array(
+		wp_localize_script( 'WPReliableMD_render', 'wpApiSettings', array(
 			'root' => esc_url_raw( rest_url() ),
 			 'nonce' => wp_create_nonce( 'wp_rest' )
 		));
