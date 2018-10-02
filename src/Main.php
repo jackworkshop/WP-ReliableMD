@@ -76,6 +76,8 @@ class Main {
 
 		$this->WPReliableMD_Page_Init();   //初始化页面
 
+		remove_filter('the_content', 'wpautop'); 
+
 		return true;
 		//return false;
 	}
