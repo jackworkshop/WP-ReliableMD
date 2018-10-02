@@ -58,13 +58,20 @@ class Controller {
 		}
 	}
 
-	public function WPReliableMD_Content($content) {
+	public function WPReliableMD_the_Content($content) {
 		// TODO 暂不处理
+		if(get_post_meta($post_id,'markdown',true) === 'true') {
+			//如果是markdown文章，则输出
+			$content = WPReliableMD_Content($content);
+		}
+		return $content;
+	}
+
+	static public function WPReliableMD_Content($content) {
 		$new_content = "<div class='markdown'>\n";
 		$new_content.= $content;
 		$new_content.= "\n</div>";
-		$content = $new_content;
-		return $content;
+		return $new_content;
 	}
 }
 

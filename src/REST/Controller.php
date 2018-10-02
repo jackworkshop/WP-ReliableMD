@@ -2,6 +2,8 @@
 
 namespace WPReliableMD\REST;
 
+use WPReliableMD\Admin\Controller as AdminController;
+
 class Controller {
 
 	protected $config_filename;
@@ -42,12 +44,13 @@ class Controller {
 		$data = $response->data;
 		$postid = $post->ID;
 
-		if(true) { //应判断是否是markdown
+		if(get_post_meta($post->ID,'markdown',true) === 'true') {
+			//如果是markdown文章，则输出
 			$markdown = $post->post_content;
 			$data['content']['markdown'] = $markdown;
 			//处理markdown的REST输出处理
 			$content = $markdown;
-			$content = apply_filters('the_content',$content);
+			$content = AdminController::WPReliableMD_Content($content);
 			$data['content']['rendered'] = $content;
 		}
 
