@@ -5,36 +5,18 @@
 namespace WPReliableMD;
 
 use WPReliableMD\Admin\Controller as AdminController;
-require_once WPReliableMD_PATH . '/src/Poster.php';
+use WPReliableMD\REST\Controller as RestController;
+use WPReliableMD\Poster as Poster;
+//require_once WPReliableMD_PATH . '/src/Poster.php';
 
 class Main {
-	protected $config_filename;
+	
 	/* 构造函数 */
 	public function __construct() {
-		$this->config_filename = WPReliableMD_PATH.'/config.json';
-		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
 
 		add_filter('replace_editor',array($this,'WPReliableMD_init'),10,2);
-	}
 
-	public function WPReliableMD_Api_Init() {
-		register_rest_route(WPReliableMD_NAME, 'config', [
-			'methods'   => 'GET',
-			'callback'  => array($this,'WPReliableMD_Config_Api')
-		]);
-	}
-	public function WPReliableMD_Config_Api() {
-		if ( file_exists( $this->config_filename ) ) {
-			$f = fopen($this->config_filename, "r");
-			$config = fread($f, filesize($this->config_filename));
-			return json_decode($config,TRUE);
-		} else {
-			return [
-				'enable' => true,
-				'latex' => "MathJax",
-				'info' => 'default config'
-			];
-		}
+		new RestController();  //初始化REST控制器
 	}
 
 	public function WPReliableMD_Page_Init() {
@@ -49,9 +31,20 @@ class Main {
 		</div-->
 
 
-        <div style="height: 600px; width: 100%;">
+        <!--div style="height: 600px; width: 100%;">
             <iframe src="<?php echo WPReliableMD_URL . '/BackendEditor/ReliableMD.html?token=' . $token; ?>" frameborder="0" id="contentIframe" style="width: 100%; height: 100%;"></iframe>
-        </div>
+        </div-->
+
+        <div class="explain" style="margin-top: 1em;">
+    		<h1>Input your text here</h1>
+		</div>
+
+		<div class="code-html">
+			<div id="editSection"></div>
+    		<div style="text-align: right">
+    			<button>Submit</button>
+    		</div>
+		</div>
 
 		<?php
 	}

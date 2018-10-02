@@ -28,7 +28,8 @@
   "autoload": {
     "psr-4": {
       "WPReliableMD\\": "src/",
-      "WPReliableMD\\Admin\\": "src/Admin"
+      "WPReliableMD\\Admin\\": "src/Admin",
+      "WPReliableMD\\REST\\": "src/REST"
     }
   },
   "require": {
