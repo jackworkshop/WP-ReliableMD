@@ -18,7 +18,16 @@ var editor;
 jQuery(document).ready(
     function () {
         console.log($_GET);
-        var content = [
+        var content;
+        if (typeof $_GET['postid'] !== 'undefined')
+        {
+
+        }
+        else
+        {
+
+        }
+        content = [
             'title: Your title here',
             '| @cols=2:merged |',
             '| --- | --- |',
@@ -81,32 +90,5 @@ jQuery(document).ready(
                 'table'
             ]
         });
-
-        var post = function () {
-            var value = editor.getValue();
-            var title = 'no title';
-            if (value.indexOf('title:') === 0) {
-                title = value.match(/title:(.+)/gi)[0];
-                value = value.split('\n').slice(1).join('\n');
-            }
-            console.log(title, '\n', value);
-
-            $.ajax({
-                url: wpApiSettings.root + 'wp/v2/posts/',
-                method: 'POST',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
-                },
-                data: {
-                    'title': title,
-                    'content': value
-                }
-            }).done(function (response) {
-                console.log(response);
-            });
-
-        };
-
-        jQuery('#submit').click(post);
     }
 );
