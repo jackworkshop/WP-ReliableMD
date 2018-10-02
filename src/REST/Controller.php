@@ -46,9 +46,6 @@ class Controller {
 			$markdown = $post->post_content;
 			$data['content']['markdown'] = $markdown;
 			//处理markdown的REST输出处理
-			//$content = "<div class='markdown'>\n";
-			//$content.= $markdown;
-			//$content.= "\n</div>";
 			$content = $markdown;
 			$content = apply_filters('the_content',$content);
 			$data['content']['rendered'] = $content;
