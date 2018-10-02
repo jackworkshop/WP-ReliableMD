@@ -76,7 +76,7 @@ jQuery(document).ready(
                     'title': title,
                     'content': raw,
                     'status': 'publish',
-                    'meta': 'markdown'
+                    'markdown': 'true'
                 }
             }).done(function (response) {
                 console.log(response);

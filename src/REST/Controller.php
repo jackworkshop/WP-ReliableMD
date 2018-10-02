@@ -18,6 +18,11 @@ class Controller {
 			'callback'  => array($this,'WPReliableMD_Config_Api')
 		]);
 		add_filter( 'rest_prepare_post', array($this,'WPReliableMD_REST_Posts'), 10, 3 );
+
+		register_rest_field('post','markdown',array(
+			'get_callback' => array($this,'WPReliableMD_REST_Post_markdown_Get'),
+			'update_callback' => array($this,'WPReliableMD_REST_Post_markdown_Update')
+		));
 	}
 	public function WPReliableMD_Config_Api() {
 		if ( file_exists( $this->config_filename ) ) {
@@ -49,6 +54,22 @@ class Controller {
 
 		$response->data = $data; //根据wordpress插件约定，应该修改第一参数然后返回
 		return $data;
+	}
+
+	public function WPReliableMD_REST_Post_markdown_Get($post) {
+		$markdown_tag = get_post_meta( $post['id'], 'markdown',true);
+		if($markdown_tag === 'true') {
+			return 'true';
+		} else {
+			return 'false';
+		}
+		
+	}
+
+	public function WPReliableMD_REST_Post_markdown_Update($data, $post) {
+		$postid = $post->ID;
+		update_post_meta($postid, 'markdown', $data);
+		return true;
 	}
 }
 
