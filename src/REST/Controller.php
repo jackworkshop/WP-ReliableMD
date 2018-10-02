@@ -58,16 +58,21 @@ class Controller {
 	public function WPReliableMD_REST_Post_markdown_Get($post) {
 		$markdown_tag = get_post_meta( $post['id'], 'markdown',true);
 		if($markdown_tag === 'true') {
-			return 'true';
+			return true;
 		} else {
-			return 'false';
+			return false;
 		}
 		
 	}
 
 	public function WPReliableMD_REST_Post_markdown_Update($data, $post) {
 		$postid = $post->ID;
-		update_post_meta($postid, 'markdown', $data);
+		if($data) {
+			update_post_meta($postid, 'markdown', 'true');
+		} else {
+			update_post_meta($postid, 'markdown', 'false');
+		}
+		
 		return true;
 	}
 }
