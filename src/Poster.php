@@ -7,6 +7,8 @@
  */
 namespace WPReliableMD;
 
+use stdClass;
+
 class Poster{
 	static function GetToken() {
 		$token = (string)(rand() << 16 | rand());
