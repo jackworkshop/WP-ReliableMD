@@ -1,6 +1,7 @@
+// maybe u have to use jQuery 3+
 var rmd_plugin_directory = $("script").last().attr("src") + '/../../';
 var tui_scripts_and_styles =
-    //'    <script src="'+plugin_directory+'bower_components/jquery/dist/jquery.js"></script>\n' +
+//    '    <script src="'+rmd_plugin_directory+'bower_components/jquery/dist/jquery.js"></script>\n' +
     '    <script src="'+rmd_plugin_directory+'bower_components/markdown-it/dist/markdown-it.js"></script>\n' +
     '    <script src="'+rmd_plugin_directory+'bower_components/to-mark/dist/to-mark.js"></script>\n' +
     '    <script src="'+rmd_plugin_directory+'bower_components/tui-code-snippet/dist/tui-code-snippet.js"></script>\n' +
