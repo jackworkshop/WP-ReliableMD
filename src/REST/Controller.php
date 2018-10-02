@@ -10,12 +10,6 @@ class Controller {
 
 		$this->config_filename = WPReliableMD_PATH.'/config.json';
 		add_action( 'rest_api_init', array($this,'WPReliableMD_Api_Init'));
-
-		//Javascript 文件
-		//add_action('admin_enqueue_scripts',array($this,'enqueue_scripts'));
-		//CSS 文件
-		//add_action('admin_enqueue_scripts',array($this,'enqueue_style'));
-		//add_filter( 'admin_body_class', array($this,'WPReliableMD_admin_body_class'));
 	}
 
 	public function WPReliableMD_Api_Init() {
