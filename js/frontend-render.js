@@ -1,6 +1,7 @@
+// maybe u have to use jQuery 3+
 var rmd_plugin_directory = $("script").last().attr("src") + '/../../';
 var tui_scripts_and_styles =
-    //'    <script src="'+plugin_directory+'bower_components/jquery/dist/jquery.js"></script>\n' +
+//    '    <script src="'+rmd_plugin_directory+'bower_components/jquery/dist/jquery.js"></script>\n' +
     '    <script src="'+rmd_plugin_directory+'bower_components/markdown-it/dist/markdown-it.js"></script>\n' +
     '    <script src="'+rmd_plugin_directory+'bower_components/to-mark/dist/to-mark.js"></script>\n' +
     '    <script src="'+rmd_plugin_directory+'bower_components/tui-code-snippet/dist/tui-code-snippet.js"></script>\n' +
@@ -19,7 +20,7 @@ var tui_scripts_and_styles =
     '    <link rel="stylesheet" href="'+rmd_plugin_directory+'bower_components/tui-color-picker/dist/tui-color-picker.css">\n' +
     '    <link rel="stylesheet" href="'+rmd_plugin_directory+'bower_components/tui-chart/dist/tui-chart.css">\n';
 
-document.write(tui_scripts_and_styles);
+//document.write(tui_scripts_and_styles);
 
 // usage: make a div with class markdown, write it in markdown, and it will be converted into html
 // warnning: your markdwon text must be aligned from left
