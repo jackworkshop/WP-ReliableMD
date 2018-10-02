@@ -12,6 +12,8 @@ class Controller {
 		add_filter('admin_head',array($this,'enqueue_style'),2);
 
 		add_filter( 'admin_body_class', array($this,'WPReliableMD_admin_body_class'));
+
+		add_filter('the_content',array($this,'WPReliableMD_Content'));
 	}
 	public function enqueue_scripts() {
 		wp_deregister_script('jquery'); //取消系统原有的jquery定义
@@ -54,6 +56,14 @@ class Controller {
 			// Default to is-fullscreen-mode to avoid jumps in the UI.
 			return "$classes reliablemd-editor-page is-fullscreen-mode";
 		}
+	}
+
+	public function WPReliableMD_Content($content) {
+		// TODO 暂不处理
+		$new_content = "<div class='markdown'>\n";
+		$new_content.= $content;
+		$new_content.= "\n</div>";
+		return $content;
 	}
 }
 

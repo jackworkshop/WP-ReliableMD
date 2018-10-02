@@ -40,6 +40,11 @@ class Controller {
 		if(true) { //应判断是否是markdown
 			$markdown = $post->post_content;
 			$data['content']['markdown'] = $markdown;
+			//处理markdown的REST输出处理
+			$content = "<div class='markdown'>\n";
+			$content.= $markdown;
+			$content.= "\n</div>";
+			$data['content']['rendered'] = $content;
 		}
 
 		$response->data = $data; //根据wordpress插件约定，应该修改第一参数然后返回
