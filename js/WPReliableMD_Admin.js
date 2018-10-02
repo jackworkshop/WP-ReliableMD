@@ -24,20 +24,10 @@ jQuery(document).ready(
             content = '';
             jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + post_id, function (apost) {
                 console.log(apost);
-                var raw_md = '';
-
-                var rendered = apost.content.rendered;
-                if (rendered.indexOf('title:') === 0) {
-                    rendered.replace(/<script lang="raw-markdown">(.*)<\/script>/, function (s, value) {
-                        raw_md = value;
-                    });
-                } else {
-                    raw_md = htmlToText(rendered);
-                }
+                var raw_md = apost.content.markdown || htmlToText(apost.content.rendered);
                 content = ['title: ' + apost.title.rendered, raw_md].join('\n');
                 editor.setValue(content);
             });
-
         }
         else {
             content = 'title: Your title here';
@@ -84,8 +74,9 @@ jQuery(document).ready(
                 },
                 data: {
                     'title': title,
-                    'content': raw + '<script lang="raw-markdown">' + raw + '</script>',
-                    'status': 'publish'
+                    'content': raw,
+                    'status': 'publish',
+                    'meta': 'markdown'
                 }
             }).done(function (response) {
                 console.log(response);
