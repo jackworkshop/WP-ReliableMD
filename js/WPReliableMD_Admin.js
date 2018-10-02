@@ -39,13 +39,14 @@ jQuery(document).ready(
             initialEditType: 'markdown',
             useCommandShortcut: true,
             initialValue: content,
-            exts: [{
-                name: 'chart',
-                minWidth: 100,
-                maxWidth: 600,
-                minHeight: 100,
-                maxHeight: 300
-            },
+            exts: [
+                {
+                    name: 'chart',
+                    minWidth: 100,
+                    maxWidth: 600,
+                    minHeight: 100,
+                    maxHeight: 300
+                },
                 'scrollSync',
                 'colorSyntax',
                 'uml',
@@ -75,7 +76,7 @@ jQuery(document).ready(
                     'title': title,
                     'content': raw,
                     'status': 'publish',
-                    'meta': 'markdown'
+                    'markdown': true
                 }
             }).done(function (response) {
                 console.log(response);
