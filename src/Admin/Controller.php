@@ -12,8 +12,6 @@ class Controller {
 		add_filter('admin_head',array($this,'enqueue_style'),2);
 
 		add_filter( 'admin_body_class', array($this,'WPReliableMD_admin_body_class'));
-
-		add_filter('the_content',array($this,'WPReliableMD_Content'));
 	}
 	public function enqueue_scripts() {
 		wp_deregister_script('jquery'); //取消系统原有的jquery定义
@@ -56,21 +54,6 @@ class Controller {
 			// Default to is-fullscreen-mode to avoid jumps in the UI.
 			return "$classes reliablemd-editor-page is-fullscreen-mode";
 		}
-	}
-
-	public function WPReliableMD_the_Content($content) {
-		if(get_post_meta($post_id,'markdown',true) === 'true') {
-			//如果是markdown文章，则输出
-			$content = WPReliableMD_Content($content);
-		}
-		return $content;
-	}
-
-	static public function WPReliableMD_Content($content) {
-		$new_content = "<div class='markdown'>\n";
-		$new_content.= $content;
-		$new_content.= "\n</div>";
-		return $new_content;
 	}
 }
 

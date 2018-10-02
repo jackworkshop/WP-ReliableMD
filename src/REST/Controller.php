@@ -2,7 +2,7 @@
 
 namespace WPReliableMD\REST;
 
-use WPReliableMD\Admin\Controller as AdminController;
+use WPReliableMD\View\Controller as ViewController;
 
 class Controller {
 
@@ -50,7 +50,7 @@ class Controller {
 			$data['content']['markdown'] = $markdown;
 			//处理markdown的REST输出处理
 			$content = $markdown;
-			$content = AdminController::WPReliableMD_Content($content);
+			$content = ViewController::WPReliableMD_Content($content);
 			$data['content']['rendered'] = $content;
 		}
 
