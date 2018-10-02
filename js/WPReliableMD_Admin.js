@@ -17,48 +17,64 @@ var $_GET = (function () {
 var editor;
 jQuery(document).ready(
     function () {
-        console.log($_GET);
-        var content = [
-            'title: Your title here',
-            '| @cols=2:merged |',
-            '| --- | --- |',
-            '| table | table |',
-            '```uml',
-            'partition Conductor {',
-            '  (*) --> "Climbs on Platform"',
-            '  --> === S1 ===',
-            '  --> Bows',
-            '}',
-            '',
-            'partition Audience #LightSkyBlue {',
-            '  === S1 === --> Applauds',
-            '}',
-            '',
-            'partition Conductor {',
-            '  Bows --> === S2 ===',
-            '  --> WavesArmes',
-            '  Applauds --> === S2 ===',
-            '}',
-            '',
-            'partition Orchestra #CCCCEE {',
-            '  WavesArmes --> Introduction',
-            '  --> "Play music"',
-            '}',
-            '```',
-            '```chart',
-            ',category1,category2',
-            'Jan,21,23',
-            'Feb,31,17',
-            '',
-            'type: column',
-            'title: Monthly Revenue',
-            'x.title: Amount',
-            'y.title: Month',
-            'y.min: 1',
-            'y.max: 40',
-            'y.suffix: $',
-            '```'
-        ].join('\n');
+        var content;
+        if (typeof $_GET['post'] !== 'undefined') {
+            var apost = jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + $_GET['post']);
+            console.log(apost);
+            var raw_md = '';
+
+            var rendered = apost.responseJSON.content.rendered;
+            if (rendered.indexOf('title:') === 0) {
+                rendered.replace(/<script lang="raw-markdown">(.*)<\/script>/, function (s, value) {
+                    raw_md = value;
+                });
+            }
+            content = ['title: ' + apost.title.rendered, raw_md].join('\n');
+
+        }
+        else {
+            content = [
+                'title: Your title here',
+                '| @cols=2:merged |',
+                '| --- | --- |',
+                '| table | table |',
+                '```uml',
+                'partition Conductor {',
+                '  (*) --> "Climbs on Platform"',
+                '  --> === S1 ===',
+                '  --> Bows',
+                '}',
+                '',
+                'partition Audience #LightSkyBlue {',
+                '  === S1 === --> Applauds',
+                '}',
+                '',
+                'partition Conductor {',
+                '  Bows --> === S2 ===',
+                '  --> WavesArmes',
+                '  Applauds --> === S2 ===',
+                '}',
+                '',
+                'partition Orchestra #CCCCEE {',
+                '  WavesArmes --> Introduction',
+                '  --> "Play music"',
+                '}',
+                '```',
+                '```chart',
+                ',category1,category2',
+                'Jan,21,23',
+                'Feb,31,17',
+                '',
+                'type: column',
+                'title: Monthly Revenue',
+                'x.title: Amount',
+                'y.title: Month',
+                'y.min: 1',
+                'y.max: 40',
+                'y.suffix: $',
+                '```'
+            ].join('\n');
+        }
 
         editor = new tui.Editor({
             el: document.querySelector('#editSection'),
@@ -83,13 +99,15 @@ jQuery(document).ready(
         });
 
         var post = function () {
-            var value = editor.getValue();
+            var raw = editor.getValue();
             var title = 'no title';
-            if (value.indexOf('title:') === 0) {
-                title = value.match(/title:(.+)/gi)[0];
-                value = value.split('\n').slice(1).join('\n');
+            if (raw.indexOf('title:') === 0) {
+                raw.replace(/^title: *(.+)/, function (s, value) {
+                    title = value;
+                });
+                raw = raw.split('\n').slice(1).join('\n');
             }
-            console.log(title, '\n', value);
+            console.log(title, '\n', raw);
 
             $.ajax({
                 url: wpApiSettings.root + 'wp/v2/posts/',
@@ -99,7 +117,8 @@ jQuery(document).ready(
                 },
                 data: {
                     'title': title,
-                    'content': value
+                    'content': raw + '<script lang="raw-markdown">'+raw+'</script>',
+                    'status': 'publish'
                 }
             }).done(function (response) {
                 console.log(response);
