@@ -51,9 +51,7 @@ $(document).ready(function () {
     var render = function () {
         $('.markdown').each(function () {
             var text = $(this).val() || $(this).html();
-            console.log(text.length);
-            editor.setValue(text);
-            var rendered = editor.getHtml();
+            var rendered = editor.convertor._markdownToHtmlWithCodeHighlight(text);
             $(this).html(rendered);
         });
     };
