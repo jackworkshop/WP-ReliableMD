@@ -77,6 +77,7 @@ jQuery(document).ready(
 
             $.ajax({
                 url: wpApiSettings.root + 'wp/v2/posts/' + post_id,
+                //url: wpApiSettings.root + 'WPReliableMD/posts/' + post_id,
                 method: 'POST',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);

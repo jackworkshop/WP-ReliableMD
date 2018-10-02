@@ -17,6 +17,7 @@ class Controller {
 			'methods'   => 'GET',
 			'callback'  => array($this,'WPReliableMD_Config_Api')
 		]);
+		add_filter( 'rest_prepare_post', array($this,'WPReliableMD_REST_Posts'), 10, 3 );
 	}
 	public function WPReliableMD_Config_Api() {
 		if ( file_exists( $this->config_filename ) ) {
@@ -30,6 +31,19 @@ class Controller {
 				'info' => 'default config'
 			];
 		}
+	}
+
+	public function WPReliableMD_REST_Posts($response, $post, $request  ) {
+		$data = $response->data;
+		$postid = $post->ID;
+
+		if(true) { //应判断是否是markdown
+			$markdown = $post->post_content;
+			$data['content']['markdown'] = $markdown;
+		}
+
+		$response->data = $data; //根据wordpress插件约定，应该修改第一参数然后返回
+		return $data;
 	}
 }
 
