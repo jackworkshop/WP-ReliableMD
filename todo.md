@@ -27,3 +27,7 @@ or
 	$(".content").html(md_result);
 </script>
 ```
+```html
+<iframe src="./main.html" frameborder="0" id="contentIframe"></iframe>
+
+```
