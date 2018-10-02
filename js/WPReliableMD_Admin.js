@@ -32,7 +32,6 @@ jQuery(document).ready(
         else {
             content = 'title: Your title here';
         }
-
         editor = new tui.Editor({
             el: document.querySelector('#editSection'),
             previewStyle: 'vertical',
