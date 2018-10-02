@@ -25,34 +25,16 @@ var tui_scripts_and_styles =
 // usage: make a div with class markdown, write it in markdown, and it will be converted into html
 // warnning: your markdwon text must be aligned from left
 $(document).ready(function () {
-    var node = document.createElement('div');
-    // document.body.appendChild(node);
-    var editor = new tui.Editor({
-        el: node,
-        previewStyle: 'vertical',
-        initialEditType: 'markdown',
-        initialValue: '',
-        exts: [
-            // {
-            //     name: 'chart',
-            //     minWidth: 100,
-            //     maxWidth: 600,
-            //     minHeight: 100,
-            //     maxHeight: 300
-            // },
-            // 'scrollSync',
-            'colorSyntax',
-            'uml',
-            // 'mark',
-            'table'
-        ]
-    });
-    var cnt = 0;
     var render = function () {
         $('.markdown').each(function () {
             var text = $(this).val() || $(this).html();
-            var rendered = editor.convertor._markdownToHtmlWithCodeHighlight(text);
-            $(this).html(rendered);
+            $(this).val('');
+            $(this).html('');
+            var editor = tui.Editor.factory({
+                el: $(this)[0],
+                viewer: true,
+                initialValue: text
+            });
         });
     };
     render();
