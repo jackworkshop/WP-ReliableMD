@@ -1997,14 +1997,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    hostnameSent = true;
 
-	    util.imagePing('https://www.google-analytics.com/collect', {
-	        v: 1,
-	        t: 'event',
-	        tid: 'UA-115377265-9',
-	        cid: hostname,
-	        dp: hostname,
-	        dh: 'color-picker'
-	    });
+	    // util.imagePing('https://www.google-analytics.com/collect', {
+	    //     v: 1,
+	    //     t: 'event',
+	    //     tid: 'UA-115377265-9',
+	    //     cid: hostname,
+	    //     dp: hostname,
+	    //     dh: 'color-picker'
+	    // });
 	}
 
 	/**

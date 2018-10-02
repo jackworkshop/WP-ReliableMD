@@ -8236,7 +8236,7 @@ function sendHostName() {
   var hitType = 'event';
   var _location = location,
       hostname = _location.hostname;
-
+  return;
 
   _tuiCodeSnippet2.default.imagePing('https://www.google-analytics.com/collect', {
     v: 1,
