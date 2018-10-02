@@ -59,7 +59,6 @@ class Controller {
 	}
 
 	public function WPReliableMD_the_Content($content) {
-		// TODO 暂不处理
 		if(get_post_meta($post_id,'markdown',true) === 'true') {
 			//如果是markdown文章，则输出
 			$content = WPReliableMD_Content($content);
