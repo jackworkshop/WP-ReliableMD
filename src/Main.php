@@ -19,10 +19,16 @@ class Main {
 		new RestController();  //初始化REST控制器
 	}
 
+
 	public function WPReliableMD_Page_Init() {
 		global $post_type_object;
-		$token = Poster::GetToken();
-?>
+
+		wp_localize_script( 'wp-api', 'wpApiSettings', array(
+			'root' => esc_url_raw( rest_url() ),
+			'nonce' => wp_create_nonce( 'wp_rest' )
+		) );
+
+		?>
 		<!--div id="titlediv">
 			<div id="titlewrap">
 				<label class="screen-reader-text" id="title-prompt-text" for="title"><?php echo apply_filters( 'enter_title_here', __( 'Enter title here' ), $post ); ?></label>
@@ -42,11 +48,10 @@ class Main {
 		<div class="code-html">
 			<div id="editSection"></div>
     		<div style="text-align: right">
-    			<button>Submit</button>
+    			<button id="submit">Submit</button>
     		</div>
 		</div>
-
-		<?php
+<?php
 	}
 
 	public function WPReliableMD_init( $return, $post) {

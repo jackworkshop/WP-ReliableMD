@@ -1,38 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Lenovo
- * Date: 2018/10/2
- * Time: 11:27
- */
-namespace WPReliableMD;
+/*
+see /wp/v2/posts
 
-class Poster{
-	static function GetToken() {
-		$token = (string)(rand() << 16 | rand());
-		if (!isset($_SESSION['RMD_POSTER_TOKENS']))
-			$_SESSION['RMD_POSTER_TOKENS'] = array();
-		$_SESSION['RMD_POSTER_TOKENS'][] = $token;
-		return $token;
-	}
-	static function CheckToken($token){
-		for ($i = 0; $i < $_SESSION['RMD_POSTER_TOKENS']; ++$i){
-			if($_SESSION['RMD_POSTER_TOKENS'][$i] ==$token)
-				return true;
-		}
-		return false;
-	}
-}
-
-if ( isset( $_POST['token'] ) && isset( $_POST['data'] ) ) {
-	$token = $_POST['token'];
-	$data = json_decode($_POST['data']);
-	if (Poster::CheckToken($token))
-	{
-		$obj = new stdClass();
-		$obj->success = false;
-		$obj->text = 'token error';
-		die(json_encode($obj));
-	}
-	print_r($data);
-}
+date	The date the object was published, in the site's timezone.
+date_gmt	The date the object was published, as GMT.
+slug	An alphanumeric identifier for the object unique to its type.
+status	A named status for the object.
+One of: publish, future, draft, pending, private
+password	A password to protect access to the content and excerpt.
+title	The title for the object.
+content	The content for the object.
+author	The ID for the author of the object.
+excerpt	The excerpt for the object.
+featured_media	The ID of the featured media for the object.
+comment_status	Whether or not comments are open on the object.
+One of: open, closed
+ping_status	Whether or not the object can be pinged.
+One of: open, closed
+format	The format for the object.
+One of: standard, aside, chat, gallery, link, image, quote, status, video, audio
+meta	Meta fields.
+sticky	Whether or not the object should be treated as sticky.
+template	The theme file to use to display the object.
+One of:
+categories	The terms assigned to the object in the category taxonomy.
+tags	The terms assigned to the object in the post_tag taxonomy.
+*/
+?>
