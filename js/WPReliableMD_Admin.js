@@ -18,62 +18,29 @@ var editor;
 jQuery(document).ready(
     function () {
         var content;
+        var post_id = '';
         if (typeof $_GET['post'] !== 'undefined') {
-            var apost = jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + $_GET['post']);
-            console.log(apost);
-            var raw_md = '';
+            post_id = $_GET['post'];
+            content = '';
+            jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + post_id, function (apost) {
+                console.log(apost);
+                var raw_md = '';
 
-            var rendered = apost.responseJSON.content.rendered;
-            if (rendered.indexOf('title:') === 0) {
-                rendered.replace(/<script lang="raw-markdown">(.*)<\/script>/, function (s, value) {
-                    raw_md = value;
-                });
-            }
-            content = ['title: ' + apost.title.rendered, raw_md].join('\n');
+                var rendered = apost.content.rendered;
+                if (rendered.indexOf('title:') === 0) {
+                    rendered.replace(/<script lang="raw-markdown">(.*)<\/script>/, function (s, value) {
+                        raw_md = value;
+                    });
+                } else {
+                    raw_md = htmlToText(rendered);
+                }
+                content = ['title: ' + apost.title.rendered, raw_md].join('\n');
+                editor.setValue(content);
+            });
 
         }
         else {
-            content = [
-                'title: Your title here',
-                '| @cols=2:merged |',
-                '| --- | --- |',
-                '| table | table |',
-                '```uml',
-                'partition Conductor {',
-                '  (*) --> "Climbs on Platform"',
-                '  --> === S1 ===',
-                '  --> Bows',
-                '}',
-                '',
-                'partition Audience #LightSkyBlue {',
-                '  === S1 === --> Applauds',
-                '}',
-                '',
-                'partition Conductor {',
-                '  Bows --> === S2 ===',
-                '  --> WavesArmes',
-                '  Applauds --> === S2 ===',
-                '}',
-                '',
-                'partition Orchestra #CCCCEE {',
-                '  WavesArmes --> Introduction',
-                '  --> "Play music"',
-                '}',
-                '```',
-                '```chart',
-                ',category1,category2',
-                'Jan,21,23',
-                'Feb,31,17',
-                '',
-                'type: column',
-                'title: Monthly Revenue',
-                'x.title: Amount',
-                'y.title: Month',
-                'y.min: 1',
-                'y.max: 40',
-                'y.suffix: $',
-                '```'
-            ].join('\n');
+            content = 'title: Your title here';
         }
 
         editor = new tui.Editor({
@@ -107,25 +74,25 @@ jQuery(document).ready(
                 });
                 raw = raw.split('\n').slice(1).join('\n');
             }
-            console.log(title, '\n', raw);
 
             $.ajax({
-                url: wpApiSettings.root + 'wp/v2/posts/',
+                url: wpApiSettings.root + 'wp/v2/posts/' + post_id,
                 method: 'POST',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
                 },
                 data: {
                     'title': title,
-                    'content': raw + '<script lang="raw-markdown">'+raw+'</script>',
+                    'content': raw + '<script lang="raw-markdown">' + raw + '</script>',
                     'status': 'publish'
                 }
             }).done(function (response) {
                 console.log(response);
             });
 
-        };
 
+        };
         jQuery('#submit').click(post);
+
     }
 );
