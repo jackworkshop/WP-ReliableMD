@@ -37,10 +37,16 @@ class Main {
 		}
 	}
 
+
 	public function WPReliableMD_Page_Init() {
 		global $post_type_object;
-		$token = Poster::GetToken();
-?>
+
+		wp_localize_script( 'wp-api', 'wpApiSettings', array(
+			'root' => esc_url_raw( rest_url() ),
+			'nonce' => wp_create_nonce( 'wp_rest' )
+		) );
+
+		?>
 		<!--div id="titlediv">
 			<div id="titlewrap">
 				<label class="screen-reader-text" id="title-prompt-text" for="title"><?php echo apply_filters( 'enter_title_here', __( 'Enter title here' ), $post ); ?></label>
@@ -50,7 +56,7 @@ class Main {
 
 
         <div style="height: 600px; width: 100%;">
-            <iframe src="<?php echo WPReliableMD_URL . '/BackendEditor/ReliableMD.html?token=' . $token; ?>" frameborder="0" id="contentIframe" style="width: 100%; height: 100%;"></iframe>
+            <iframe src="<?php echo WPReliableMD_URL . '/BackendEditor/ReliableMD.html';?>" frameborder="0" id="contentIframe" style="width: 100%; height: 100%;"></iframe>
         </div>
 
 		<?php
