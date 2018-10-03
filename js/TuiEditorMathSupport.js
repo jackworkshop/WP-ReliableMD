@@ -1,5 +1,3 @@
-console.log('fuck');
-
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['tui-editor'], factory);
