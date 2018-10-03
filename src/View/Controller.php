@@ -16,6 +16,7 @@ class Controller {
 	public function enqueue_scripts() {
 		wp_deregister_script('jquery'); //取消系统原有的jquery定义
 		wp_enqueue_script('jquery-tui-editor', WPReliableMD_URL.'/bower_components/jquery/dist/jquery.js', false, WPReliableMD_VER, false);
+		//wp_enqueue_script('require', WPReliableMD_URL.'/js/require.js', array('jquery-tui-editor'), WPReliableMD_VER, false);
 		wp_enqueue_script('markdown-it', WPReliableMD_URL.'/bower_components/markdown-it/dist/markdown-it.js', array('jquery-tui-editor'), WPReliableMD_VER, false);
 		wp_enqueue_script('to-mark', WPReliableMD_URL.'/bower_components/to-mark/dist/to-mark.js', array('markdown-it'), WPReliableMD_VER, false);
 		wp_enqueue_script('tui-code-snippet', WPReliableMD_URL.'/bower_components/tui-code-snippet/dist/tui-code-snippet.js', array('to-mark'), WPReliableMD_VER, false);
@@ -31,9 +32,11 @@ class Controller {
 		wp_enqueue_script( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.js', array('tui-editor'), WPReliableMD_VER, false );
 		wp_enqueue_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('katex'), WPReliableMD_VER, false );
 
-		wp_localize_script( 'WPReliableMD_render', 'wpApiSettings', array(
-			'root' => esc_url_raw( rest_url() ),
-			 'nonce' => wp_create_nonce( 'wp_rest' )
+		wp_localize_script( 'WPReliableMD_rende', 'ReliableMD', array(
+			'api_root' => esc_url_raw( rest_url() ),
+			 'nonce' => wp_create_nonce( 'wp_rest' ),
+			 'js_root' => WPReliableMD_URL.'/js',
+			 'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
 		));
 	}
 
