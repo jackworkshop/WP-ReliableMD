@@ -22,6 +22,13 @@ var tui_scripts_and_styles =
 
 //document.write(tui_scripts_and_styles);
 
+function entityToString(entity) {
+    var div = document.createElement('div');
+    div.innerHTML = entity;
+    var res = div.innerText || div.textContent;
+    return res;
+}
+
 // usage: make a div with class markdown, write it in markdown, and it will be converted into html
 // warnning: your markdwon text must be aligned from left
 $(document).ready(function () {
@@ -30,7 +37,8 @@ $(document).ready(function () {
             var text = $(this).val() || $(this).html();
             $(this).val('');
             $(this).html('');
-            var editor = tui.Editor.factory({
+            text = entityToString(text);
+            var viewer = tui.Editor.factory({
                 el: $(this)[0],
                 viewer: true,
                 initialValue: text,
@@ -48,6 +56,7 @@ $(document).ready(function () {
                     'table'
                 ]
             });
+            window.viewer = viewer;
         });
     };
     render();
