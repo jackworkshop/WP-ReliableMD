@@ -24,7 +24,7 @@ jQuery(document).ready(
             content = '';
             jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + post_id, function (apost) {
                 console.log(apost);
-                var raw_md = apost.markdown ? apost.content.markdown || htmlToText(apost.content.rendered);
+                var raw_md = apost.markdown ? apost.content.markdown : htmlToText(apost.content.rendered);
                 content = ['title: ' + apost.title.rendered, raw_md].join('\n');
                 editor.setValue(content);
             });
