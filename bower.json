@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "tui-editor": "^1.2.6",
-    "katex": "^0.9.0"
+    "katex": "^0.9.0",
+    "markdown-it-math": "^4.0.0"
   }
 }

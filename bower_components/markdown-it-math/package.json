@@ -1,0 +1,49 @@
+{
+  "name": "markdown-it-math",
+  "version": "4.0.0",
+  "description": "Markdown-it plugin to include math in your document",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "browserify": "(echo \"/*! ${npm_package_name} ${npm_package_version} ${npm_package_homepage} @license MIT */\"; browserify ./ -s markdownitMath) > dist/markdown-it-math.js",
+    "predist": "npm run test",
+    "dist": "rm -fr dist; mkdir dist; npm run browserify; npm run minify",
+    "lint": "eslint index.js lib/",
+    "minify": "uglifyjs dist/markdown-it-math.js -b beautify=false,ascii-only=true -c -m --preamble \"/*! ${npm_package_name} ${npm_package_version} ${npm_package_homepage} @license MIT */\" > dist/markdown-it-math.min.js",
+    "prepublish": "npm run dist",
+    "pretest": "npm run lint",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runarberg/markdown-it-math"
+  },
+  "keywords": [
+    "markdown-it",
+    "markdown-it-plugin",
+    "markdown",
+    "MathML",
+    "AsciiMath"
+  ],
+  "author": "Rúnar Berg Baugsson Sigríðarson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/runarberg/markdown-it-math/issues"
+  },
+  "homepage": "https://github.com/runarberg/markdown-it-math",
+  "optionalDependencies": {
+    "ascii2mathml": "^0.5.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "eslint": "^1.4.3",
+    "markdown-it": "^4.1.0",
+    "markdown-it-testgen": "^0.1.4",
+    "mocha": "^2.3.2",
+    "texzilla": "^0.9.9",
+    "uglifyjs": "^2.4.10"
+  }
+}
