@@ -19,9 +19,9 @@ console.log('fuck');
             inlineRenderer: require('ascii2mathml')(this.rendererOptions),
             blockRenderer: require('ascii2mathml')(Object.assign({ display: 'block' },
                 this.renderingOptions))
-        }
+        };
         previewer.convertor.constructor.getMarkdownitHighlightRenderer()
-            .use(require('markdown-it-math') [, options]);
+            .use(require('markdown-it-math'), options);
     });
 
 });
