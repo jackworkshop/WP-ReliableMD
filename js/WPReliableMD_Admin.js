@@ -1,3 +1,9 @@
+require('../bower_components/codemirror/lib/codemirror.css'); // codemirror
+require('../bower_components/tui-editor/dist/tui-editor.css'); // editor ui
+require('../bower_components/tui-editor/dist/tui-editor-contents.css'); // editor content
+require('../bower_components/highlight.js/styles/github.css'); // code block highlight
+
+
 var $_GET = (function () {
     var url = window.document.location.href.toString();
     var u = url.split("?");
@@ -13,10 +19,10 @@ var $_GET = (function () {
         return {};
     }
 })();
-
-var editor;
 jQuery(document).ready(
     function () {
+        var Editor = require('tui-editor');
+        var editor;
         var content;
         var post_id = '';
         if (typeof $_GET['post'] !== 'undefined') {
@@ -32,7 +38,7 @@ jQuery(document).ready(
         else {
             content = 'title: Your title here';
         }
-        editor = new tui.Editor({
+        editor = new Editor({
             el: document.querySelector('#editSection'),
             previewStyle: 'vertical',
             height: '400px',

@@ -1,5 +1,5 @@
 {
-  "name": "WP-ReliableMD",
+  "name": "WP_ReliableMD",
   "homepage": "https://github.com/jack9603301/WP-ReliableMD",
   "authors": [
     "jack960330 <jack9603301@163.com>",
@@ -26,6 +26,7 @@
     "tui-editor": "^1.2.6",
     "katex": "^0.9.0",
     "markdown-it-math": "^4.0.0",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "canvas-js": "^2.3.0"
   }
 }
