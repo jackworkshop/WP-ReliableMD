@@ -14,7 +14,7 @@ requirejs.config({
         'to-mark': 'to-mark/dist/to-mark',
         'tui-code-snippet': 'tui-code-snippet/dist/tui-code-snippet',
         'tui-color-picker': 'tui-color-picker/dist/tui-color-picker',
-        'highlight': 'highlightjs/highlight.pack.js',
+        'highlightjs': 'highlightjs/highlight.pack',
         'squire-rte': 'squire-rte/build/squire-raw',
         'plantuml-encoder': 'plantuml-encoder/dist/plantuml-encoder',
         'tui-chart': 'tui-chart/dist/tui-chart',
