@@ -7,7 +7,6 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        'app': '../js/app',
         'tui-editor': 'tui-editor/dist/tui-editor-Editor-all',
         'jquery': 'jquery/dist/jquery',
         'codemirror': 'codemirror/lib/codemirror',
@@ -19,7 +18,7 @@ requirejs.config({
         'squire-rte': 'squire-rte/build/squire-raw',
         'plantuml-encoder': 'plantuml-encoder/dist/plantuml-encoder',
         'tui-chart': 'tui-chart/dist/tui-chart',
-        '/raphael/raphael.js': '/raphael/raphael'
+        'raphael': 'raphael/raphael'
 
     }
 });
