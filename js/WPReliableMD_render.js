@@ -46,10 +46,10 @@ var render = function () {
         $(this).html('');
         text = entityToString(text);
         text = text.replace(/\$\$(.*)\$\$/g, function (t) {
-            return "\n\n<div class='latex-block'>" + processLatex(t) + "</div>\n";
+            return "<br><div class='latex' style='display: block;'>" + processLatex(t) + "</div>\n";
         });
         text = text.replace(/\$(.*)\$/g, function (t) {
-            return "<div class='latex-inline'>" + processLatex(t) + "</div>";
+            return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
         });
         var viewer = tui.Editor.factory({
             el: $(this)[0],
@@ -71,12 +71,8 @@ var render = function () {
         });
 
     });
-    $('.latex-block').each(function () {
+    $('.latex').each(function () {
         katex.render($(this).val() || $(this).html(), $(this)[0]);
-    });
-    $('.latex-inline').each(function () {
-        var text = katex.renderToString($(this).val() || $(this).html());
-        $(this).html(text);
     });
 };
 // usage: make a div with class markdown, write it in markdown, and it will be converted into html
