@@ -45,7 +45,8 @@ class Controller {
 		wp_enqueue_style('tui-editor-contents', WPReliableMD_URL.'/bower_components/tui-editor/dist/tui-editor-contents.css', array('tui-editor'), WPReliableMD_VER, false);
 		wp_enqueue_style('tui-color-picker', WPReliableMD_URL.'/bower_components/tui-color-picker/dist/tui-color-picker.css', array('tui-editor-contents'), WPReliableMD_VER, false);
 		wp_enqueue_style('tui-chart', WPReliableMD_URL.'/bower_components/tui-chart/dist/tui-chart.css', array('tui-color-picker'), WPReliableMD_VER, false);
-		wp_enqueue_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array('tui-chart'), WPReliableMD_VER, false );
+		wp_enqueue_style( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.css', array('tui-editor'), WPReliableMD_VER, false );
+		wp_enqueue_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array('katex'), WPReliableMD_VER, false );
 	}
 
 	public function WPReliableMD_the_Content($content) {
