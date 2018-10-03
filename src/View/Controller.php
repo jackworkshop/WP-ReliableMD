@@ -49,7 +49,7 @@ class Controller {
 
 	public function WPReliableMD_the_Content($content) {
 		if(get_post_meta(get_the_ID(),'markdown',true) === 'true') {
-			//如果是markdown文章，则输出
+			//如果是markdown文章，则输出，不使用前面处理的结果，直接取文章数据
 			$post = get_post(get_the_ID());
 			$content = $post->post_content;
 			$content = $this->WPReliableMD_Content($content);

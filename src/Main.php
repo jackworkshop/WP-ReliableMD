@@ -19,7 +19,7 @@ class Main {
 
 		new RestController();  //初始化REST控制器
 
-		new ViewController();
+		new ViewController(); //初始化前端渲染控制器
 	}
 
 
