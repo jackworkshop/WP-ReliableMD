@@ -31,9 +31,11 @@ class Controller {
 		wp_enqueue_script( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.js', array('tui-editor'), WPReliableMD_VER, false );
 		wp_enqueue_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array('katex'), WPReliableMD_VER, false );
 
-		wp_localize_script( 'ReliableMD', 'wpApiSettings', array(
-			'root' => esc_url_raw( rest_url() ),
-			 'nonce' => wp_create_nonce( 'wp_rest' )
+		wp_localize_script( 'ReliableMD', 'ReliableMD', array(
+			'api_root' => esc_url_raw( rest_url() ),
+			 'nonce' => wp_create_nonce( 'wp_rest' ),
+			 'js_root' => WPReliableMD_URL.'/js',
+			 'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
 		));
 	}
 

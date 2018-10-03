@@ -22,7 +22,7 @@ jQuery(document).ready(
         if (typeof $_GET['post'] !== 'undefined') {
             post_id = $_GET['post'];
             content = '';
-            jQuery.get(wpApiSettings.root + 'wp/v2/posts/' + post_id, function (apost) {
+            jQuery.get(ReliableMD.api_root + 'wp/v2/posts/' + post_id, function (apost) {
                 console.log(apost);
                 var raw_md = apost.markdown ? apost.content.markdown : htmlToText(apost.content.rendered);
                 content = ['title: ' + apost.title.rendered, raw_md].join('\n');
@@ -66,11 +66,11 @@ jQuery(document).ready(
             }
 
             $.ajax({
-                url: wpApiSettings.root + 'wp/v2/posts/' + post_id,
-                //url: wpApiSettings.root + 'WPReliableMD/posts/' + post_id,
+                url: ReliableMD.api_root + 'wp/v2/posts/' + post_id,
+                //url: ReliableMD.root + 'WPReliableMD/posts/' + post_id,
                 method: 'POST',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', ReliableMD.nonce);
                 },
                 data: {
                     'title': title,
