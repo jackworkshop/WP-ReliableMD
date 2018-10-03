@@ -30,7 +30,8 @@ class Controller {
 		wp_enqueue_script('tui-editor', WPReliableMD_URL.'/bower_components/tui-editor/dist/tui-editor-Editor-all.js', array('tui-chart'), WPReliableMD_VER, false);
 		wp_enqueue_script( 'jsHtmlToText', WPReliableMD_URL . '/js/jsHtmlToText.js', array('tui-editor'), WPReliableMD_VER, false );
 		wp_enqueue_script( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.js', array('tui-editor'), WPReliableMD_VER, false );
-		wp_enqueue_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array('katex'), WPReliableMD_VER, false );
+		wp_enqueue_script('require', WPReliableMD_URL.'/js/require.js', array('katex'), WPReliableMD_VER, false);
+		wp_enqueue_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array('require'), WPReliableMD_VER, false );
 
 		wp_localize_script( 'ReliableMD', 'ReliableMD', array(
 			'api_root' => esc_url_raw( rest_url() ),
