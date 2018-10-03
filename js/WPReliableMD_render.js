@@ -45,12 +45,12 @@ var render = function () {
         $(this).val('');
         $(this).html('');
         text = entityToString(text);
-        text = text.replace(/\$\$(.*)\$\$/g, function (t) {
-            return "<br><div class='latex' style='display: block;'>" + processLatex(t) + "</div>\n";
-        });
-        text = text.replace(/\$(.*)\$/g, function (t) {
-            return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
-        });
+        // text = text.replace(/\$\$(.*)\$\$/g, function (t) {
+        //     return "<br><div class='latex' style='display: block;'>" + processLatex(t) + "</div>\n";
+        // });
+        // text = text.replace(/\$(.*)\$/g, function (t) {
+        //     return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
+        // });
         var viewer = tui.Editor.factory({
             el: $(this)[0],
             viewer: true,
@@ -66,14 +66,16 @@ var render = function () {
                 'colorSyntax',
                 'uml',
                 'mark',
-                'table'
+                'table',
+                'mathsupport'
             ]
         });
 
+
     });
-    $('.latex').each(function () {
-        katex.render($(this).val() || $(this).html(), $(this)[0]);
-    });
+    // $('.latex').each(function () {
+    //     katex.render($(this).val() || $(this).html(), $(this)[0]);
+    // });
 };
 // usage: make a div with class markdown, write it in markdown, and it will be converted into html
 // warnning: your markdwon text must be aligned from left
