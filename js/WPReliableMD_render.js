@@ -33,7 +33,20 @@ $(document).ready(function () {
             var editor = tui.Editor.factory({
                 el: $(this)[0],
                 viewer: true,
-                initialValue: text
+                initialValue: text,
+                exts: [
+                    {
+                        name: 'chart',
+                        minWidth: 100,
+                        maxWidth: 600,
+                        minHeight: 100,
+                        maxHeight: 300
+                    },
+                    'colorSyntax',
+                    'uml',
+                    'mark',
+                    'table'
+                ]
             });
         });
     };
