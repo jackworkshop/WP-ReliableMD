@@ -26,11 +26,6 @@ class Main {
 	public function WPReliableMD_Page_Init() {
 		global $post_type_object;
 
-		wp_localize_script( 'wp-api', 'wpApiSettings', array(
-			'root' => esc_url_raw( rest_url() ),
-			'nonce' => wp_create_nonce( 'wp_rest' )
-		) );
-
 		?>
 		<!--div id="titlediv">
 			<div id="titlewrap">
