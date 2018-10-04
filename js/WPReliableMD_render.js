@@ -1,10 +1,9 @@
-define(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
+define(['jquery', 'tui-editor', 'mathsupport'], function ($, Editor) {
     var callback = function (jqnode) {
         return jqnode;
     };
     var renderer = {};
-    renderer.setCallback = function(func)
-    {
+    renderer.setCallback = function (func) {
         callback = func;
     };
     renderer.entityToString = function (entity) {
@@ -44,8 +43,7 @@ define(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
                     'mathsupport'
                 ]
             });
-
-            // window.viewer = viewer;
+            $('[data-te-task]').removeAttr('data-te-task');
         });
     };
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html
