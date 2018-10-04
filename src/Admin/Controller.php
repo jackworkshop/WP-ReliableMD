@@ -28,6 +28,7 @@ class Controller {
 		);
 
 		wp_localize_script( 'ReliableMD', 'ReliableMD', $ReliableMDSetting);
+		wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting);
 	}
 
 	public function enqueue_style() {
