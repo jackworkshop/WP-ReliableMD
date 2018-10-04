@@ -1,7 +1,5 @@
 <?php
 
-/* 插件的主执行文件 */
-
 namespace WPReliableMD;
 
 use WPReliableMD\Admin\Controller as AdminController;
@@ -9,11 +7,9 @@ use WPReliableMD\View\Controller as ViewController;
 use WPReliableMD\REST\Controller as RestController;
 use WPReliableMD\Environment\Controller as EnvironmentController;
 use WPReliableMD\Poster as Poster;
-//require_once WPReliableMD_PATH . '/src/Poster.php';
 
 class Main {
 
-	/* 构造函数 */
 	public function __construct() {
 
 		$this->env = new EnvironmentController(); //初始化插件环境控制器
@@ -24,10 +20,9 @@ class Main {
 
 		$this->admin = new AdminController();
 
-		add_filter('replace_editor',array($this->admin,'WPReliableMD_init'),10,2);
+		add_filter( 'replace_editor', array( $this->admin, 'WPReliableMD_init' ), 10, 2 );
 
 	}
-
 
 
 }
