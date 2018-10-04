@@ -1,7 +1,9 @@
-// Start the main app logic.
-requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($) {
-    var Editor = require('tui-editor');
 
+requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
+    var callback = typeof WPReliableMDRenderer_callback !== 'undefined' ? WPReliableMDRenderer_callback : function (jqnode) {
+        return jqnode[0];
+        // you must return a DOM Node
+    };
     function entityToString(entity) {
         var div = document.createElement('div');
         div.innerHTML = entity;
@@ -21,7 +23,7 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($) {
             //     return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
             // });
             var viewer = new Editor.factory({
-                el: $(this)[0],
+                el: callback($(this)),
                 viewer: true,
                 initialValue: text,
                 exts: [
