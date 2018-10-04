@@ -31,7 +31,7 @@ class Controller {
 //		wp_enqueue_script( 'jsHtmlToText', WPReliableMD_URL . '/js/jsHtmlToText.js', array('tui-editor'), WPReliableMD_VER, false );
 //		wp_enqueue_script( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.js', array('tui-editor'), WPReliableMD_VER, false );
 
-		wp_enqueue_script('require', WPReliableMD_URL.'/js/require.js', array(), WPReliableMD_VER, false);
+		wp_enqueue_script('require', WPReliableMD_URL.'/js/require.js', array('jquery-tui-editor'), WPReliableMD_VER, false);
 		wp_enqueue_script('require-paths', WPReliableMD_URL.'/js/require_paths.js', array('require'), WPReliableMD_VER, false);
 		wp_enqueue_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('require-paths'), WPReliableMD_VER, false );
 
