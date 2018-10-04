@@ -15,7 +15,7 @@ class Controller {
 	}
 	public function enqueue_scripts() {
 		wp_deregister_script('jquery'); //取消系统原有的jquery定义
-//		wp_enqueue_script('jquery-tui-editor', WPReliableMD_URL.'/bower_components/jquery/dist/jquery.js', false, WPReliableMD_VER, false);
+		wp_enqueue_script('jquery-tui-editor', WPReliableMD_URL.'/bower_components/jquery/dist/jquery.js', false, WPReliableMD_VER, false);
 		//wp_enqueue_script('require', WPReliableMD_URL.'/js/require.js', array('jquery-tui-editor'), WPReliableMD_VER, false);
 //		wp_enqueue_script('markdown-it', WPReliableMD_URL.'/bower_components/markdown-it/dist/markdown-it.js', array('jquery-tui-editor'), WPReliableMD_VER, false);
 //		wp_enqueue_script('to-mark', WPReliableMD_URL.'/bower_components/to-mark/dist/to-mark.js', array('markdown-it'), WPReliableMD_VER, false);
