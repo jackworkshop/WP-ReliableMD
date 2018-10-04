@@ -21,20 +21,21 @@ function configure_requirejs() {
             'squire-rte': lib_dep + 'squire-rte/build/squire-raw',
             'plantuml-encoder': lib_dep + 'plantuml-encoder/dist/plantuml-encoder',
             'tui-chart': lib_dep + 'tui-chart/dist/tui-chart',
-            'raphael': lib_dep + 'raphael/raphael',
             'mathsupport': lib_js + 'TuiEditorMathSupport',
             'katex': lib_dep + 'katex/dist/katex',
+            'eve': lib_dep + 'eve/eve',
+            'raphael-core': lib_js + 'raphael/raphael.core',
+            'raphael-svg': lib_js + 'raphael/raphael.svg',
+            'raphael-vml': lib_js + 'raphael/raphael.vml',
+            'raphael': lib_js + 'raphael/raphael.amd',
             'markdown-it-mathsupport': lib_js + 'markdown-it-mathsupport/markdown-it-mathsupport',
         },
         shim: {
-            'eve': {
-                exports: "eve"
-            },
             'raphael': {
-                deps: ["eve"],
-                exports: "Raphael"
+                exports: 'Raphael'
             }
-        });
+        }
+    });
 }
 
 configure_requirejs();
