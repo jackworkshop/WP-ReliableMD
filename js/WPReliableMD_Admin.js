@@ -82,6 +82,7 @@ requirejs(['jquery', 'tui-editor', 'mathsupport'], function ($, Editor) {
                     }
                 }).done(function (response) {
                     console.log(response);
+                    alert('Posted passage');
                 });
 
 
