@@ -42,13 +42,13 @@ class Controller {
 	}
 
 	static public function WPReliableMD_Content($content) {
-		$new_content = "<div class='markdown-block'><div class='markdown-error'>";
+		$new_content = "<div class='markdown-block'><div class='markdown-error'><p>";
 		$new_content .= __("This is a Markdown article. If it can not be displayed, the possible reasons are as follows:");
 		$new_content .= "<ol>";
 		$new_content .= "<li>".__("JavaScript script is disabled")."</li>";
 		$new_content .= "<li>".__("Javascript error occurred, please contact administrator.")."</li>";
 		$new_content .= "<li>".__("Browsers do not support Javascript or server return value exceptions.")."</li>";
-		$new_content .= "</ol></div>";
+		$new_content .= "</ol></p></div>";
 		$new_content .= "<div class='markdown' style='display:none;'>";
 		$new_content .= $content;
 		$new_content .= "</div></div>";

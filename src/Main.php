@@ -10,6 +10,14 @@ use WPReliableMD\Poster as Poster;
 
 class Main {
 
+	private $env;
+
+	private $rest;
+
+	private $view;
+
+	private $admin;
+
 	public function __construct() {
 
 		$this->env = new EnvironmentController(); //初始化插件环境控制器
