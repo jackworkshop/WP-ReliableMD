@@ -1,8 +1,12 @@
 
 requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
-    var callback = typeof WPReliableMDRenderer_callback !== 'undefined' ? WPReliableMDRenderer_callback : function (jqnode) {
+    var callback = function (jqnode) {
         return jqnode[0];
         // you must return a DOM Node
+    };
+    window.setReliableMDRenderer_Callback = function(func)
+    {
+        callback = func;
     };
     function entityToString(entity) {
         var div = document.createElement('div');
