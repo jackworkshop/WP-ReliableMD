@@ -34,9 +34,11 @@ class Controller {
 		wp_enqueue_script('require-paths', WPReliableMD_URL.'/js/require_paths.js', array('katex'), WPReliableMD_VER, false);
 		wp_enqueue_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('require-paths'), WPReliableMD_VER, false );
 
-		wp_localize_script( 'require-paths', 'ReliableMD', array(
-			 'js_root' => WPReliableMD_URL.'/js/',
-			 'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
+		wp_localize_script( 'WPReliableMD_render', 'ReliableMD', array(
+			'api_root' => esc_url_raw( rest_url() ),
+			'nonce' => wp_create_nonce( 'wp_rest' )
+			'js_root' => WPReliableMD_URL.'/js/',
+			'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
 		));
 	}
 
