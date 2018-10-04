@@ -5,6 +5,9 @@
 
 > [Markdown-it](https://github.com/markdown-it/markdown-it) plugin to bypass LaTeX math for mathjax processing.
 
+    edited by QiuJiangkun
+    - support callback
+
 Processes TeX displayed math
 
 `$$1 *2* 3$$` => `\[1 *2* 3\]`

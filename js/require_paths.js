@@ -22,7 +22,7 @@ function configure_requirejs() {
             'raphael': 'raphael/raphael',
             'mathsupport': '../js/TuiEditorMathSupport',
             'katex': 'katex/dist/katex',
-            'markdown-it-mathjax': '../js/markdown-it-mathjax/markdown-it-mathjax',
+            'markdown-it-mathsupport': '../js/markdown-it-mathsupport/markdown-it-mathsupport',
         }
 
     });

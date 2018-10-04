@@ -10,12 +10,19 @@
     var options = {
         enable_debug: false,
         renderer: function (text, type) {
-            if (enable_debug) {
+            if (options.enable_debug) {
                 console.log(text, type);
             }
-            return text;
+            if (type === 'InlineMath') {
+                return '\\(' + text + '\\)'
+            }
+            else // type === 'DisplayMath'
+            {
+                return '\\[' + text + '\\]';
+            }
         }
     };
+
     function math(state, silent) {
         var startMathPos = state.pos;
         if (state.src.charCodeAt(startMathPos) !== 0x5C /* \ */) {
@@ -56,7 +63,7 @@
     function texMath(state, silent) {
         var startMathPos = state.pos;
         if (state.src.charCodeAt(startMathPos) !== 0x24 /* $ */) {
-            return false
+            return false;
         }
 
         // Parse tex math according to http://pandoc.org/README.html#math
@@ -66,32 +73,32 @@
             endMarker = '$$';
             if (state.src.charCodeAt(++startMathPos) === 0x24 /* $ */) {
                 // 3 markers are too much
-                return false
+                return false;
             }
         } else {
             // Skip if opening $ is succeeded by a space character
             if (afterStartMarker === 0x20 /* space */ || afterStartMarker === 0x09 /* \t */ || afterStartMarker === 0x0a /* \n */) {
-                return false
+                return false;
             }
         }
         var endMarkerPos = state.src.indexOf(endMarker, startMathPos);
         if (endMarkerPos === -1) {
-            return false
+            return false;
         }
         if (state.src.charCodeAt(endMarkerPos - 1) === 0x5C /* \ */) {
-            return false
+            return false;
         }
         var nextPos = endMarkerPos + endMarker.length;
         if (endMarker.length === 1) {
             // Skip if $ is preceded by a space character
             var beforeEndMarker = state.src.charCodeAt(endMarkerPos - 1);
             if (beforeEndMarker === 0x20 /* space */ || beforeEndMarker === 0x09 /* \t */ || beforeEndMarker === 0x0a /* \n */) {
-                return false
+                return false;
             }
             // Skip if closing $ is succeeded by a digit (eg $5 $10 ...)
             var suffix = state.src.charCodeAt(nextPos);
             if (suffix >= 0x30 && suffix < 0x3A) {
-                return false
+                return false;
             }
         }
 
@@ -100,7 +107,7 @@
             token.content = state.src.slice(startMathPos, endMarkerPos)
         }
         state.pos = nextPos;
-        return true
+        return true;
     }
 
     function escapeHtml(html) {
@@ -112,7 +119,7 @@
             if (result[key] === undefined) {
                 result[key] = defaults[key]
             }
-            return result
+            return result;
         }, options)
     }
 
