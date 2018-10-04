@@ -1686,7 +1686,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @ignore
 	 */
 	function sendHostname(applicationId) {
-		return;
 	    var url = 'https://www.google-analytics.com/collect';
 	    var hostname = location.hostname;
 	    var hitType = 'event';
@@ -3518,7 +3517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
+	
 	/**
 	 * @fileoverview
 	 *  Implements the Map object.

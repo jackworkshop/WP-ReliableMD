@@ -1,6 +1,5 @@
 // Start the main app logic.
 requirejs(['jquery', 'tui-editor'], function ($, Editor) {
-    var Editor = require('tui-editor');
     var $_GET = (function () {
         var url = window.document.location.href.toString();
         var u = url.split("?");

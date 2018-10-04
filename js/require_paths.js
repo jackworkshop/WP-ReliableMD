@@ -22,7 +22,6 @@ function configure_requirejs() {
             'raphael': 'raphael/raphael',
             'mathsupport': '../js/TuiEditorMathSupport',
             'katex': 'katex/dist/katex',
-            'mathjax': 'mathjax/dist/mathjax',
             'markdown-it-mathjax': '../js/markdown-it-mathjax/markdown-it-mathjax',
         }
 

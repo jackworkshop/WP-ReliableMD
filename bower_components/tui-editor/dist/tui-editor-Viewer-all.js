@@ -8,7 +8,7 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("to-mark"), require("tui-chart"), require("markdown-it"), require("highlightjs"), require("tui-color-picker"), require("plantuml-encoder"));
 	else if(typeof define === 'function' && define.amd)
-		define(["jquery", "tui-code-snippet", "to-mark", "tui-chart", "markdown-it", "highlightjs", "tui-color-picker", "plantuml-encoder"], factory);
+		define(["jquery", "tui-code-snippet", "to-mark", "tui-chart", "markdown-it", "highlight.js", "tui-color-picker", "plantuml-encoder"], factory);
 	else if(typeof exports === 'object')
 		exports["Editor"] = factory(require("jquery"), require("tui-code-snippet"), require("to-mark"), require("tui-chart"), require("markdown-it"), require("highlightjs"), require("tui-color-picker"), require("plantuml-encoder"));
 	else
@@ -8236,7 +8236,7 @@ function sendHostName() {
   var hitType = 'event';
   var _location = location,
       hostname = _location.hostname;
-  return;
+
 
   _tuiCodeSnippet2.default.imagePing('https://www.google-analytics.com/collect', {
     v: 1,

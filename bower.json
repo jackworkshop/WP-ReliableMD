@@ -25,6 +25,7 @@
   "dependencies": {
     "tui-editor": "^1.2.6",
     "katex": "^0.9.0",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "MathJax": "^2.7.5"
   }
 }
