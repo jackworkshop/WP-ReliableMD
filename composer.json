@@ -30,7 +30,8 @@
       "WPReliableMD\\": "src/",
       "WPReliableMD\\Admin\\": "src/Admin",
       "WPReliableMD\\REST\\": "src/REST",
-      "WPReliableMD\\View\\": "src/View"
+      "WPReliableMD\\View\\": "src/View",
+      "WPReliableMD\\Environment\\": "src/Environment"
     }
   },
   "require": {
