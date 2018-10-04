@@ -40,7 +40,7 @@ requirejs(['jquery', 'tui-editor', 'mathsupport'], function ($) {
                 ]
             });
 
-            window.viewer = viewer;
+            // window.viewer = viewer;
         });
     };
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html
