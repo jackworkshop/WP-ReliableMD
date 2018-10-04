@@ -45,7 +45,7 @@ define(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
                 ]
             });
 
-            // window.viewer = viewer;
+            //window.viewer = viewer;
         });
     };
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html
