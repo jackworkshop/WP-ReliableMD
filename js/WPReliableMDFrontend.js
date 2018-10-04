@@ -1,8 +1,9 @@
 // todo here
-requirejs(['jquery',  'ReliableMD_render'], function ($, render) {
-    render.setCallback(function (jqnode) {
+requirejs(['jquery', 'ReliableMD_render'], function ($, render) {
+    window.renderer.setCallback(function (jqnode) {
         //return jQuery('markdown-block');
-        return $('.markdown-block');
+        var $markdown = $('.markdown-block');
+        return $markdown;
     });
 });
 

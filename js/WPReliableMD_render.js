@@ -1,11 +1,10 @@
-
-requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
+define(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
     var callback = function (jqnode) {
-        return jqnode[0];
-        // you must return a DOM Node
+        return jqnode;
     };
     var renderer = {};
-    renderer.setReliableMD_Callback = function(func)
+    window.renderer = renderer;
+    renderer.setCallback = function(func)
     {
         callback = func;
     };
@@ -18,8 +17,8 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
     renderer.render = function () {
         $('.markdown').each(function () {
             var text = $(this).val() || $(this).html();
-            $(this).val('');
-            $(this).html('');
+            var ele = callback($(this))
+            ele.html('');
             text = renderer.entityToString(text);
             // text = text.replace(/\$\$(.*)\$\$/g, function (t) {
             //     return "<br><div class='latex' style='display: block;'>" + processLatex(t) + "</div>\n";
@@ -28,7 +27,7 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
             //     return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
             // });
             var viewer = new Editor.factory({
-                el: callback($(this)),
+                el: ele[0],
                 viewer: true,
                 initialValue: text,
                 exts: [
@@ -56,6 +55,5 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
         renderer.render();
     });
     //module.exports = renderer;
-    window.renderer = renderer;
 });
 

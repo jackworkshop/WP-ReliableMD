@@ -23,9 +23,9 @@ class Controller {
 		wp_register_script('require', WPReliableMD_URL.'/js/require.js', array(), WPReliableMD_VER, false);
 		wp_register_script('require-paths', WPReliableMD_URL.'/js/require_paths.js', array('require'), WPReliableMD_VER, false);
 		wp_register_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array('require-paths'), WPReliableMD_VER, false );
-		wp_register_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('require-paths'), WPReliableMD_VER, false );
-		wp_register_script( 'WPReliableMDFrontend', WPReliableMD_URL . '/js/WPReliableMDFrontend.js', array('WPReliableMD_render'), WPReliableMD_VER, false);
-		wp_localize_script( 'WPReliableMD_render', 'ReliableMD', $ReliableMDSetting);
+
+		wp_register_script( 'WPReliableMDFrontend', WPReliableMD_URL . '/js/WPReliableMDFrontend.js', array('require-paths'), WPReliableMD_VER, false);
+		wp_localize_script( 'WPReliableMDFrontend', 'ReliableMD', $ReliableMDSetting);
 		wp_localize_script( 'ReliableMD', 'ReliableMD', $ReliableMDSetting);
 		wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting);
 

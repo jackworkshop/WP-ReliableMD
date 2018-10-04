@@ -12,7 +12,7 @@ use WPReliableMD\Poster as Poster;
 //require_once WPReliableMD_PATH . '/src/Poster.php';
 
 class Main {
-	
+
 	/* 构造函数 */
 	public function __construct() {
 
@@ -30,17 +30,6 @@ class Main {
 		global $post_type_object;
 
 		?>
-		<!--div id="titlediv">
-			<div id="titlewrap">
-				<label class="screen-reader-text" id="title-prompt-text" for="title"><?php echo apply_filters( 'enter_title_here', __( 'Enter title here' ), $post ); ?></label>
-				<input type="text" name="post_title" size="30" value="<?php echo esc_attr( $post->post_title ); ?>" id="title" spellcheck="true" autocomplete="off" />
-			</div>
-		</div-->
-
-
-        <!--div style="height: 600px; width: 100%;">
-            <iframe src="<?php echo WPReliableMD_URL . '/BackendEditor/ReliableMD.html?token=' . $token; ?>" frameborder="0" id="contentIframe" style="width: 100%; height: 100%;"></iframe>
-        </div-->
 
         <div class="explain" style="margin-top: 1em;">
     		<h1>Input your text here</h1>
@@ -77,7 +66,7 @@ class Main {
 
 		$this->WPReliableMD_Page_Init();   //初始化页面
 
-		remove_filter('the_content', 'wpautop'); 
+		remove_filter('the_content', 'wpautop');
 
 		return true;
 		//return false;

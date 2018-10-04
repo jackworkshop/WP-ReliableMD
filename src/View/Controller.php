@@ -16,7 +16,7 @@ class Controller {
 	public function enqueue_scripts() {
 		wp_enqueue_script('require');
 		wp_enqueue_script('require-paths');
-		wp_enqueue_script( 'WPReliableMD_render');
+//		wp_enqueue_script( 'WPReliableMD_render');
 		wp_enqueue_script( 'WPReliableMDFrontend');
 	}
 
@@ -49,9 +49,9 @@ class Controller {
 		$new_content .= "<li>".__("Javascript error occurred, please contact administrator.")."</li>";
 		$new_content .= "<li>".__("Browsers do not support Javascript or server return value exceptions.")."</li>";
 		$new_content .= "</ol></div>";
-		$new_content .= "<pre class='markdown' style='display:none;'>";
+		$new_content .= "<div class='markdown' style='display:none;'>";
 		$new_content .= $content;
-		$new_content .= "</pre></div>";
+		$new_content .= "</div></div>";
 		$content = $new_content;
 		return $content;
 	}
