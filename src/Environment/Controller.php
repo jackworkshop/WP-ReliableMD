@@ -18,22 +18,16 @@ class Controller {
 			'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/'
 		);
 
-		wp_register_script('require', WPReliableMD_URL.'/js/require.js', array(''), WPReliableMD_VER, false);
+		wp_deregister_script('jquery');
+
+		wp_register_script('require', WPReliableMD_URL.'/js/require.js', array(), WPReliableMD_VER, false);
 		wp_register_script('require-paths', WPReliableMD_URL.'/js/require_paths.js', array('require'), WPReliableMD_VER, false);
-		if(is_admin())
-		{
-			wp_register_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array('require-paths'), WPReliableMD_VER, false );
-
-			wp_localize_script( 'ReliableMD', 'ReliableMD', $ReliableMDSetting);
-			wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting);
-
-		} else {
-			wp_register_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('require-paths'), WPReliableMD_VER, false );
-
-			wp_localize_script( 'WPReliableMD_render', 'ReliableMD', $ReliableMDSetting);
-
-			wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting);
-		}
+		wp_register_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array('require-paths'), WPReliableMD_VER, false );
+		wp_register_script( 'WPReliableMD_render', WPReliableMD_URL . '/js/WPReliableMD_render.js', array('require-paths'), WPReliableMD_VER, false );
+		wp_register_script( 'WPReliableMDFrontend', WPReliableMD_URL . '/js/WPReliableMDFrontend.js', array('WPReliableMD_render'), WPReliableMD_VER, false);
+		wp_localize_script( 'WPReliableMD_render', 'ReliableMD', $ReliableMDSetting);
+		wp_localize_script( 'ReliableMD', 'ReliableMD', $ReliableMDSetting);
+		wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting);
 
 	}
 
@@ -46,9 +40,7 @@ class Controller {
 		wp_register_style('tui-color-picker', WPReliableMD_URL.'/bower_components/tui-color-picker/dist/tui-color-picker.css', array('tui-editor-contents'), WPReliableMD_VER, false);
 		wp_register_style('tui-chart', WPReliableMD_URL.'/bower_components/tui-chart/dist/tui-chart.css', array('tui-color-picker'), WPReliableMD_VER, false);
 		wp_register_style( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.css', array('tui-editor'), WPReliableMD_VER, false );
-		if(is_admin()) {
-			wp_register_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array('katex'), WPReliableMD_VER, false );
-		}
+		wp_register_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array('katex'), WPReliableMD_VER, false );
 	}
 }
 

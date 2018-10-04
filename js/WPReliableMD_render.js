@@ -55,7 +55,7 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
     $(document).ready(function () {
         renderer.render();
     });
-    // module.export = renderer;
+    //module.exports = renderer;
     window.renderer = renderer;
 });
 

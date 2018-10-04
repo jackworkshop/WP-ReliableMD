@@ -29,6 +29,7 @@ function configure_requirejs() {
             'raphael-vml': lib_js + 'raphael/raphael.vml',
             'raphael': lib_js + 'raphael/raphael.amd',
             'markdown-it-mathsupport': lib_js + 'markdown-it-mathsupport/markdown-it-mathsupport',
+            'ReliableMD_render': lib_js + 'WPReliableMD_render',
         },
         shim: {
             'raphael': {

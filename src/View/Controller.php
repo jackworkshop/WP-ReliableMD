@@ -17,6 +17,7 @@ class Controller {
 		wp_enqueue_script('require');
 		wp_enqueue_script('require-paths');
 		wp_enqueue_script( 'WPReliableMD_render');
+		wp_enqueue_script( 'WPReliableMDFrontend');
 	}
 
 	public function enqueue_style() {
