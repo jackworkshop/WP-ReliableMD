@@ -18,10 +18,7 @@ class Controller {
 			'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/'
 		);
 
-		wp_deregister_script('jquery'); //取消系统原有的jquery定义
-//		wp_register_script('jquery', WPReliableMD_URL.'/bower_components/jquery/dist/jquery.js', false, WPReliableMD_VER, false);
-//		wp_enqueue_script('jquery');
-		wp_register_script('require', WPReliableMD_URL.'/js/require.js', array('jquery'), WPReliableMD_VER, false);
+		wp_register_script('require', WPReliableMD_URL.'/js/require.js', array(''), WPReliableMD_VER, false);
 		wp_register_script('require-paths', WPReliableMD_URL.'/js/require_paths.js', array('require'), WPReliableMD_VER, false);
 		if(is_admin())
 		{
