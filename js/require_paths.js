@@ -25,6 +25,7 @@ function configure_requirejs() {
             'mathjax': 'mathjax/dist/mathjax',
             'markdown-it-mathjax': '../js/markdown-it-mathjax/markdown-it-mathjax',
         }
+
     });
 }
 configure_requirejs();
