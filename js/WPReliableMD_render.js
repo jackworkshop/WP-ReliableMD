@@ -3,7 +3,6 @@ define(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
         return jqnode;
     };
     var renderer = {};
-    window.renderer = renderer;
     renderer.setCallback = function(func)
     {
         callback = func;
@@ -55,5 +54,6 @@ define(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
         renderer.render();
     });
     //module.exports = renderer;
+    return renderer;
 });
 
