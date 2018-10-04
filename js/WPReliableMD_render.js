@@ -4,22 +4,23 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
         return jqnode[0];
         // you must return a DOM Node
     };
-    window.setReliableMDRenderer_Callback = function(func)
+    var renderer = {};
+    renderer.setReliableMD_Callback = function(func)
     {
         callback = func;
     };
-    function entityToString(entity) {
+    renderer.entityToString = function (entity) {
         var div = document.createElement('div');
         div.innerHTML = entity;
         return div.innerText || div.textContent;
-    }
+    };
 
-    var render = function () {
+    renderer.render = function () {
         $('.markdown').each(function () {
             var text = $(this).val() || $(this).html();
             $(this).val('');
             $(this).html('');
-            text = entityToString(text);
+            text = renderer.entityToString(text);
             // text = text.replace(/\$\$(.*)\$\$/g, function (t) {
             //     return "<br><div class='latex' style='display: block;'>" + processLatex(t) + "</div>\n";
             // });
@@ -52,7 +53,9 @@ requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($, Editor) {
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html
     // warnning: your markdwon text must be aligned from left
     $(document).ready(function () {
-        render();
+        renderer.render();
     });
+    // module.export = renderer;
+    window.renderer = renderer;
 });
 
