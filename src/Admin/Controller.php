@@ -22,7 +22,9 @@ class Controller {
 
 		wp_localize_script( 'ReliableMD', 'ReliableMD', array(
 			'api_root' => esc_url_raw( rest_url() ),
-			'nonce' => wp_create_nonce( 'wp_rest' )
+			'nonce' => wp_create_nonce( 'wp_rest' ),
+			'js_root' => WPReliableMD_URL.'/js/',
+			'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
 		));
 
 		wp_localize_script( 'require-paths', 'ReliableMD', array(
