@@ -8,7 +8,7 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("markdown-it"), require("to-mark"), require("highlightjs"), require("squire-rte"));
 	else if(typeof define === 'function' && define.amd)
-		define(["jquery", "tui-code-snippet", "codemirror", "markdown-it", "to-mark", "highlightjs", "squire-rte"], factory);
+		define(["jquery", "tui-code-snippet", "codemirror", "markdown-it", "to-mark", "highlight.js", "squire-rte"], factory);
 	else if(typeof exports === 'object')
 		exports["Editor"] = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("markdown-it"), require("to-mark"), require("highlightjs"), require("squire-rte"));
 	else
@@ -1768,7 +1768,7 @@ function sendHostName() {
   var _location = location,
       hostname = _location.hostname;
 
-  return;
+
   _tuiCodeSnippet2.default.imagePing('https://www.google-analytics.com/collect', {
     v: 1,
     t: hitType,

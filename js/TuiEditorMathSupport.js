@@ -1,25 +1,29 @@
-(function(root, factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['tui-editor'], factory);
+        define(['tui-editor', 'markdown-it-mathsupport', 'katex'], factory);
     } else if (typeof exports === 'object') {
         factory(require('tui-editor'));
     } else {
         factory(root['tui']['Editor']);
     }
-})(this, function(Editor) {
-    Editor.defineExtension('mathsupport', function() {
-        var options = {
-            inlineOpen: '$',
-            inlineClose: '$',
-            blockOpen: '$$',
-            blockClose: '$$',
-            renderingOptions: {},
-            inlineRenderer: require('ascii2mathml')(this.rendererOptions),
-            blockRenderer: require('ascii2mathml')(Object.assign({ display: 'block' },
-                this.renderingOptions))
+})(this, function (Editor) {
+    var math_render = require('katex').renderToString;
+    Editor.defineExtension('mathsupport', function () {
+        var option = {
+            renderer: function (text, type) {
+                if (type === 'InlineMath') {
+                    return '<span style="display: inline;">' + math_render(text) + '</span>'
+                }
+                else // type === 'DisplayMath'
+                {
+                    return '<span style="display: block;">' + math_render(text) + '</span>'
+                }
+            }
         };
-        previewer.convertor.constructor.getMarkdownitHighlightRenderer()
-            .use(require('markdown-it-math'), options);
-    });
-
+        Editor.markdownitHighlight
+            .use(require('markdown-it-mathsupport')(option));
+    })
 });
+
+
+

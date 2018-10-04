@@ -6,7 +6,7 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("to-mark"), require("tui-chart"), require("squire-rte"), require("markdown-it"), require("highlight.js"), require("tui-color-picker"), require("plantuml-encoder"));
+		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("to-mark"), require("tui-chart"), require("squire-rte"), require("markdown-it"), require("highlightjs"), require("tui-color-picker"), require("plantuml-encoder"));
 	else if(typeof define === 'function' && define.amd)
 		define(["jquery", "tui-code-snippet", "codemirror", "to-mark", "tui-chart", "squire-rte", "markdown-it", "highlightjs", "tui-color-picker", "plantuml-encoder"], factory);
 	else if(typeof exports === 'object')
@@ -4099,7 +4099,7 @@ function sendHostName() {
   var _location = location,
       hostname = _location.hostname;
 
-  return;
+
   _tuiCodeSnippet2.default.imagePing('https://www.google-analytics.com/collect', {
     v: 1,
     t: hitType,
