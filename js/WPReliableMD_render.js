@@ -1,5 +1,5 @@
 // Start the main app logic.
-requirejs(['jquery', 'tui-editor', 'mathsupport'], function ($) {
+requirejs(['jquery', 'tui-editor',  'mathsupport'], function ($) {
     var Editor = require('tui-editor');
 
     function entityToString(entity) {

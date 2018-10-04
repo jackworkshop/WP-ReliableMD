@@ -25,9 +25,17 @@ function configure_requirejs() {
             'mathsupport': lib_js + 'TuiEditorMathSupport',
             'katex': lib_dep + 'katex/dist/katex',
             'markdown-it-mathsupport': lib_js + 'markdown-it-mathsupport/markdown-it-mathsupport',
-        }
-
-    });
+        },
+        shim: {
+            'eve': {
+                exports: "eve"
+            },
+            'raphael': {
+                deps: ["eve"],
+                exports: "Raphael"
+            }
+        });
 }
+
 configure_requirejs();
 

@@ -6,13 +6,18 @@
     <title>ReilableMD editor</title>
     <script src="../js/require.js"></script>
     <script src="../js/require_paths.js"></script>
-    <script src="../js/WPReliableMD_render.js"></script>
-    <link rel="stylesheet" href="../bower_components/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
-    <link rel="stylesheet" href="../bower_components/tui-editor/dist/tui-editor.css">
-    <link rel="stylesheet" href="../bower_components/tui-editor/dist/tui-editor-contents.css">
-    <link rel="stylesheet" href="../bower_components/tui-color-picker/dist/tui-color-picker.css">
-    <link rel="stylesheet" href="../bower_components/katex/dist/katex.css">
+    <!--<script src="../js/WPReliableMD_render.js"></script>-->
+    <!--<link rel="stylesheet" href="../bower_components/codemirror/lib/codemirror.css">-->
+    <!--<link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">-->
+    <!--<link rel="stylesheet" href="../bower_components/tui-editor/dist/tui-editor.css">-->
+    <!--<link rel="stylesheet" href="../bower_components/tui-editor/dist/tui-editor-contents.css">-->
+    <!--<link rel="stylesheet" href="../bower_components/tui-color-picker/dist/tui-color-picker.css">-->
+    <!--<link rel="stylesheet" href="../bower_components/katex/dist/katex.css">-->
+    <script>
+        requirejs(['raphael', 'katex'], function (r, k) {
+            console.log(r, k);
+        })
+    </script>
 </head>
 <body>
 <div class="code-html">
@@ -76,6 +81,7 @@ y.title: Month
 y.suffix: $
 legend.visible: false
 ```
+
 
 # UML
 
