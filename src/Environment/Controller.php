@@ -19,8 +19,8 @@ class Controller {
 		);
 
 		wp_deregister_script('jquery'); //取消系统原有的jquery定义
-		wp_register_script('jquery', WPReliableMD_URL.'/bower_components/jquery/dist/jquery.js', false, WPReliableMD_VER, false);
-		wp_enqueue_script('jquery');
+//		wp_register_script('jquery', WPReliableMD_URL.'/bower_components/jquery/dist/jquery.js', false, WPReliableMD_VER, false);
+//		wp_enqueue_script('jquery');
 		wp_register_script('require', WPReliableMD_URL.'/js/require.js', array('jquery'), WPReliableMD_VER, false);
 		wp_register_script('require-paths', WPReliableMD_URL.'/js/require_paths.js', array('require'), WPReliableMD_VER, false);
 		if(is_admin())
@@ -37,7 +37,7 @@ class Controller {
 
 			wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting);
 		}
-		
+
 	}
 
 	public function register_style() {
