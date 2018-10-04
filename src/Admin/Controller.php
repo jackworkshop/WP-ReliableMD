@@ -26,11 +26,6 @@ class Controller {
 			'js_root' => WPReliableMD_URL.'/js/',
 			'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
 		));
-
-		wp_localize_script( 'require-paths', 'ReliableMD', array(
-			'js_root' => WPReliableMD_URL.'/js/',
-			'js_dep_lib_root' => WPReliableMD_URL.'/bower_components/',
-		));
 	}
 
 	public function enqueue_style() {
