@@ -1,6 +1,6 @@
 function configure_requirejs() {
     var lib_dep = typeof ReliableMD !== 'undefined' ? ReliableMD.js_dep_lib_root : '../bower_components/';
-    var lib_js = typeof ReliableMD !== 'undefined' ? ReliableMD.js_root : '../js';
+    var lib_js = typeof ReliableMD !== 'undefined' ? ReliableMD.js_root : '../js/';
     requirejs.config({
         //By default load any module IDs from js/lib
         baseUrl: '.',
