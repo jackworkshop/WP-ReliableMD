@@ -1594,7 +1594,10 @@ var requirejs, require, define;
                 //an URL to a file, or if it starts with a slash, contains a query arg (i.e. ?)
                 //or ends with .js, then assume the user meant to use an url and not a module id.
                 //The slash is important for protocol-less URLs as well as full paths.
-                if (req.jsExtRegExp.test(moduleName)) {
+
+                //modified: to support highlight.js 2018/10/4 by QiuJiangkun
+                //+ !config.paths[moduleName] &&
+                if (!config.paths[moduleName] && req.jsExtRegExp.test(moduleName)) {
                     //Just a plain path, not module name lookup, so just return it.
                     //Add extension if it is included. This is a bit wonky, only non-.js things pass
                     //an extension, this method probably needs to be reworked.

@@ -6,11 +6,11 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("to-mark"), require("tui-chart"), require("markdown-it"), require("highlightjs"), require("tui-color-picker"), require("plantuml-encoder"));
+		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("to-mark"), require("tui-chart"), require("markdown-it"), require("highlight.js"), require("tui-color-picker"), require("plantuml-encoder"));
 	else if(typeof define === 'function' && define.amd)
 		define(["jquery", "tui-code-snippet", "to-mark", "tui-chart", "markdown-it", "highlight.js", "tui-color-picker", "plantuml-encoder"], factory);
 	else if(typeof exports === 'object')
-		exports["Editor"] = factory(require("jquery"), require("tui-code-snippet"), require("to-mark"), require("tui-chart"), require("markdown-it"), require("highlightjs"), require("tui-color-picker"), require("plantuml-encoder"));
+		exports["Editor"] = factory(require("jquery"), require("tui-code-snippet"), require("to-mark"), require("tui-chart"), require("markdown-it"), require("highlight.js"), require("tui-color-picker"), require("plantuml-encoder"));
 	else
 		root["tui"] = root["tui"] || {}, root["tui"]["Editor"] = factory(root["$"], (root["tui"] && root["tui"]["util"]), root["toMark"], (root["tui"] && root["tui"]["chart"]), root["markdownit"], root["hljs"], (root["tui"] && root["tui"]["colorPicker"]), root["plantumlEncoder"]);
 })(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_29__, __WEBPACK_EXTERNAL_MODULE_39__, __WEBPACK_EXTERNAL_MODULE_48__, __WEBPACK_EXTERNAL_MODULE_80__, __WEBPACK_EXTERNAL_MODULE_82__) {

@@ -17,7 +17,7 @@ function configure_requirejs() {
             'to-mark': lib_dep + 'to-mark/dist/to-mark',
             'tui-code-snippet': lib_dep + 'tui-code-snippet/dist/tui-code-snippet',
             'tui-color-picker': lib_dep + 'tui-color-picker/dist/tui-color-picker',
-            'highlightjs': lib_dep + 'highlightjs/highlight.pack',
+            'highlight.js': lib_dep + 'highlightjs/highlight.pack',
             'squire-rte': lib_dep + 'squire-rte/build/squire-raw',
             'plantuml-encoder': lib_dep + 'plantuml-encoder/dist/plantuml-encoder',
             'tui-chart': lib_dep + 'tui-chart/dist/tui-chart',

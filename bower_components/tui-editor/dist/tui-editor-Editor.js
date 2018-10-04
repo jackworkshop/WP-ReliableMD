@@ -6,11 +6,11 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("markdown-it"), require("to-mark"), require("highlightjs"), require("squire-rte"));
+		module.exports = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("markdown-it"), require("to-mark"), require("highlight.js"), require("squire-rte"));
 	else if(typeof define === 'function' && define.amd)
 		define(["jquery", "tui-code-snippet", "codemirror", "markdown-it", "to-mark", "highlight.js", "squire-rte"], factory);
 	else if(typeof exports === 'object')
-		exports["Editor"] = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("markdown-it"), require("to-mark"), require("highlightjs"), require("squire-rte"));
+		exports["Editor"] = factory(require("jquery"), require("tui-code-snippet"), require("codemirror"), require("markdown-it"), require("to-mark"), require("highlight.js"), require("squire-rte"));
 	else
 		root["tui"] = root["tui"] || {}, root["tui"]["Editor"] = factory(root["$"], (root["tui"] && root["tui"]["util"]), root["CodeMirror"], root["markdownit"], root["toMark"], root["hljs"], root["Squire"]);
 })(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_22__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_31__, __WEBPACK_EXTERNAL_MODULE_64__) {
