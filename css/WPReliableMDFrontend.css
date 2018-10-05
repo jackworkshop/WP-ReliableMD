@@ -3,10 +3,17 @@
 }
 
 .tui-editor-contents .task-list-item {
-	border: 0 !important;
 	padding-left: 22px !important;
-	padding: 0em 0 !important;
 	list-style: none !important;
 	padding-left: 22px !important;
 	margin-left: -22px !important;
+	border-bottom: unset !important;
+}
+
+.tui-editor-contents ul li {
+	overflow: unset !important;
+	list-style: disc !important;
+	padding-left: 8px !important;
+	margin-left: -5px;
+	border-bottom: unset !important;
 }
