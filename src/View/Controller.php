@@ -12,14 +12,14 @@ class Controller {
 		add_filter( 'wp_head', array( $this, 'enqueue_scripts' ), 2 );
 		//CSS
 		add_filter( 'wp_head', array( $this, 'enqueue_style' ), 2 );
+		//markdown解析
 		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
-		add_filter( 'the_excerpt', array( $this, 'home_the_excerpt' ) );
-
-//		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
+		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
+		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
 	}
 
-	function home_the_excerpt( $post_excerpt ) {
+	function the_excerpt( $post_excerpt ) {
 		$post_id = get_the_ID();
 		if ( ! has_excerpt() ) {
 			$post         = get_post( $post_id );
