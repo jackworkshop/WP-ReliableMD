@@ -9,7 +9,9 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
     renderer.entityToString = function (entity) {
         var div = document.createElement('div');
         div.innerHTML = entity;
-        return div.innerText || div.textContent;
+        var s = div.innerText || div.textContent;
+        s = s.replace('&#8211;', '-');
+        return s;
     };
 
     renderer.render = function () {
