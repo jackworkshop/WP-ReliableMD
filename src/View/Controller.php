@@ -13,29 +13,29 @@ class Controller {
 		//CSS
 		add_filter( 'wp_head', array( $this, 'enqueue_style' ), 2 );
 		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
-		//add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
+		add_filter( 'the_excerpt', array( $this, 'home_the_excerpt' ) );
 
-		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
+//		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
 	}
 
-	/*function the_excerpt($post_excerpt) {
+	function home_the_excerpt($post_excerpt) {
 		$post_id = get_the_ID();
-		//return $post_excerpt;
-		if ( !has_excerpt() ) {
-			if ( get_post_meta( $post_id, 'markdown', true ) === 'true' ) {
-				$post    = get_post( $post_id );
-				//$post_excerpt = $this->parser->makeHtml( substr( $post->post_content, 0, 50 ));
-				$post_excerpt = "<p>";
-				//$post_excerpt .= __("This is a markdown article. Users do not have a summary of the article, so they cannot be displayed.");
-				$post_excerpt .= "[markdown]".substr( $post->post_content, 0, 50 )."[/markdown]";
-				//$post_excerpt = $this->parser->makeHtml( substr( $post->post_content, 0, 50 ).apply_filters( 'excerpt_more', '' ));
-				$post_excerpt .= apply_filters( 'excerpt_more', '' );
-				$post_excerpt .= "</p>";
+		if ( ! has_excerpt() ) {
+			$post         = get_post( $post_id );
+			$post_excerpt = $post->post_content;
+		}
+
+		if ( get_post_meta( $post_id, 'markdown', true ) === 'true' ) {
+			$post_excerpt = (new parser())->makeHtml( $post_excerpt );
+			if(preg_match('#<p>((\w|[^x00-xff]).+?)</p>#', $post_excerpt, $mc))
+			{
+				$post_excerpt = $mc[1];
 			}
 		}
-		return do_shortcode($post_excerpt);
-	}*/
+
+		return substr($post_excerpt, 0, 50);
+	}
 
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'require' );
