@@ -23,7 +23,7 @@ requirejs(['jquery', 'tui-editor', 'mathsupport', 'htmlToText'], function ($, Ed
             if (typeof $_GET['post'] !== 'undefined') {
                 post_id = $_GET['post'];
                 content = '';
-                jQuery.get(ReliableMD.api_root + 'wp/v2/posts/' + post_id, function (apost) {
+                $.get(ReliableMD.api_root + 'wp/v2/posts/' + post_id, function (apost) {
                     console.log(apost);
                     var raw_md = apost.markdown ? apost.content.markdown : htmlToText(apost.content.rendered);
                     content = ['title: ' + apost.title.rendered, raw_md].join('\n');

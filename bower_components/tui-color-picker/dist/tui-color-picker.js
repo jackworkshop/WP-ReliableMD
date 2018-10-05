@@ -1990,6 +1990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @ignore
 	 */
 	function sendHostname() {
+		return;
 	    var hostname = location.hostname;
 
 	    if (hostnameSent) {

@@ -17,8 +17,7 @@ adam-p: modified to be a module
 */
 
 ;define([], function() {
-
-
+    
     function htmlToText(html, extensions) {
         var text = html, i;
 
