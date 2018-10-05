@@ -41,6 +41,7 @@ class Controller {
 		wp_register_style( 'tui-chart', WPReliableMD_URL . '/bower_components/tui-chart/dist/tui-chart.css', array( 'tui-color-picker' ), WPReliableMD_VER, false );
 		wp_register_style( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.css', array( 'tui-editor' ), WPReliableMD_VER, false );
 		wp_register_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array( 'katex' ), WPReliableMD_VER, false );
+		wp_register_style( 'WPReliableMDFrontend', WPReliableMD_URL . '/css/WPReliableMDFrontend.css', array( 'katex' ), WPReliableMD_VER, false );
 	}
 }
 
