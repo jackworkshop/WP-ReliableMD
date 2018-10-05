@@ -15,7 +15,7 @@ requirejs(['jquery', 'tui-editor', 'mathsupport', 'htmlToText'], function ($, Ed
             return {};
         }
     })();
-    jQuery(document).ready(
+    $(document).ready(
         function () {
             var editor;
             var content;

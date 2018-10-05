@@ -11,6 +11,7 @@ function configure_requirejs() {
         //the paths config could be for a directory.
         paths: {
             'tui-editor': lib_dep + 'tui-editor/dist/tui-editor-Editor-all',
+            'tui-viewer': lib_dep + 'tui-editor/dist/tui-editor-Viewer-all',
             'jquery': lib_dep + 'jquery/dist/jquery',
             'codemirror': lib_dep + 'codemirror/lib/codemirror',
             'markdown-it': lib_dep + 'markdown-it/dist/markdown-it',
@@ -30,7 +31,7 @@ function configure_requirejs() {
             'raphael': lib_js + 'raphael/raphael.amd',
             'markdown-it-mathsupport': lib_js + 'markdown-it-mathsupport/markdown-it-mathsupport',
             'ReliableMD_render': lib_js + 'WPReliableMD_render',
-            'htmlToText': lib_js + 'jshtmlToText'
+            'htmlToText': lib_js + 'jsHtmlToText'
         },
         shim: {
             'raphael': {
