@@ -16,7 +16,7 @@ HTML decoding functionality provided by: http://code.google.com/p/google-trekker
 adam-p: modified to be a module
 */
 
-;(function() {
+;define([], function() {
 
 
     function htmlToText(html, extensions) {
@@ -260,7 +260,6 @@ adam-p: modified to be a module
         this.htmlToText = htmlToText;
         this.EXPORTED_SYMBOLS = EXPORTED_SYMBOLS;
     }
+    return htmlToText;
 
-}).call(function() {
-    return this || (typeof window !== 'undefined' ? window : global);
-}());
+});
