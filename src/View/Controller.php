@@ -6,6 +6,8 @@ use WPReliableMD\View\Hyperdown\Parser as Parser;
 
 class Controller {
 
+	private $parser;
+
 	public function __construct() {
 
 		//Javascript 文件
@@ -13,25 +15,30 @@ class Controller {
 		//CSS
 		add_filter( 'wp_head', array( $this, 'enqueue_style' ), 2 );
 		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
-		add_filter( 'the_excerpt', array( $this, 'home_the_excerpt' ) );
+		//add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
+
+		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
+
 		$this->parser       = new Parser();
 	}
 
-	function home_the_excerpt() {
+	/*function the_excerpt($post_excerpt) {
 		$post_id = get_the_ID();
-		if ( has_excerpt() ) {
-			$post_excerpt = apply_filters( 'excerpt_more', '' );
-			$post_excerpt = str_replace( '...', '', $post_excerpt );
-		} else {
-			$post         = get_post( $post_id );
-			$post_excerpt = substr( $post->post_content, 0, 50 );
+		//return $post_excerpt;
+		if ( !has_excerpt() ) {
+			if ( get_post_meta( $post_id, 'markdown', true ) === 'true' ) {
+				$post    = get_post( $post_id );
+				//$post_excerpt = $this->parser->makeHtml( substr( $post->post_content, 0, 50 ));
+				$post_excerpt = "<p>";
+				//$post_excerpt .= __("This is a markdown article. Users do not have a summary of the article, so they cannot be displayed.");
+				$post_excerpt .= "[markdown]".substr( $post->post_content, 0, 50 )."[/markdown]";
+				//$post_excerpt = $this->parser->makeHtml( substr( $post->post_content, 0, 50 ).apply_filters( 'excerpt_more', '' ));
+				$post_excerpt .= apply_filters( 'excerpt_more', '' );
+				$post_excerpt .= "</p>";
+			}
 		}
-
-		if ( get_post_meta( $post_id, 'markdown', true ) === 'true' ) {
-			$post_excerpt = $this->parser->makeHtml( $post_excerpt );
-		}
-		return $post_excerpt;
-	}
+		return do_shortcode($post_excerpt);
+	}*/
 
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'require' );
@@ -59,6 +66,10 @@ class Controller {
 			$content = $this->WPReliableMD_Content( $content );
 		}
 		return $content;
+	}
+
+	public function WPReliableMD_Shortcode_Markdown($attr, $content) {
+		return $this->WPReliableMD_Content($content);
 	}
 
 	public function WPReliableMD_Content( $content ) {
