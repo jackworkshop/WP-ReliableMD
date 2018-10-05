@@ -17,7 +17,7 @@ class Main {
 
 		new ViewController(); //初始化前端渲染控制器
 
-		new AdminController();
+		new AdminController(); //初始化后台控制器
 
 	}
 
