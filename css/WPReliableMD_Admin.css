@@ -5,3 +5,6 @@
 .arrow {
     margin-left: 0px !important;
 }
+.entry-content a{
+    box-shadow: none !important;
+}
