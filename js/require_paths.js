@@ -30,6 +30,7 @@ function configure_requirejs() {
             'raphael': lib_js + 'raphael/raphael.amd',
             'markdown-it-mathsupport': lib_js + 'markdown-it-mathsupport/markdown-it-mathsupport',
             'ReliableMD_render': lib_js + 'WPReliableMD_render',
+            'htmlToText': lib_js + 'jshtmlToText'
         },
         shim: {
             'raphael': {

@@ -4088,6 +4088,7 @@ var hostnameSent = false;
  * @ignore
  */
 function sendHostName() {
+    return;
   if (hostnameSent) {
     return;
   }
