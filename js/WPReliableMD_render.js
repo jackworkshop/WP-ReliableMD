@@ -1,6 +1,6 @@
 define(['jquery', 'tui-editor', 'mathsupport'], function ($, Editor) {
-    var callback = function (jqnode) {
-        return jqnode;
+    var callback = function ($node) {
+        return $node;
     };
     var renderer = {};
     renderer.setCallback = function (func) {

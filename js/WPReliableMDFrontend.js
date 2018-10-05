@@ -1,9 +1,8 @@
 
 requirejs(['jquery', 'ReliableMD_render'], function ($, render) {
-    render.setCallback(function (jqnode) {
+    render.setCallback(function ($node) {
         //return jQuery('markdown-block');
-        var $markdown = $('.markdown-block').parent();
-        return $markdown;
+        return $node.parent().attr('class') === 'markdown-block' ? $node.parent() : $node;
     });
 });
 
