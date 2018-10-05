@@ -1,4 +1,4 @@
-define(['jquery', 'tui-viewer', 'mathsupport'], function ($, Viewer) {
+define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
     var callback = function ($node) {
         return $node;
     };

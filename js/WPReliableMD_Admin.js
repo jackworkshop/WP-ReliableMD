@@ -1,5 +1,5 @@
 // Start the main app logic.
-requirejs(['jquery', 'tui-editor', 'mathsupport', 'htmlToText'], function ($, Editor, mathsupport, htmlToText) {
+requirejs(['jquery', 'tui-editor', 'editor-mathsupport', 'htmlToText'], function ($, Editor, mathsupport, htmlToText) {
     var $_GET = (function () {
         var url = window.document.location.href.toString();
         var u = url.split("?");

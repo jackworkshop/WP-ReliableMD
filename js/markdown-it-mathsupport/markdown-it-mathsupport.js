@@ -1,10 +1,10 @@
 ;(function (root, factory) {
     if (typeof exports === 'object') {
-        module.exports = factory()
+        module.exports = factory();
     } else if (typeof define === 'function') {
-        define(factory) // eslint-disable-line no-undef
+        define(factory); // eslint-disable-line no-undef
     } else {
-        root.markdownitMathjax = factory()
+        root['markdown-it-mathsupport'] = factory();
     }
 })(this, function () {
     var options = {
