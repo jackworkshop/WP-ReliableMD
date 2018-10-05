@@ -32,7 +32,7 @@ class Controller {
 	}
 
 	public function register_style() {
-		wp_register_style( 'normalize', '//necolas.github.io/normalize.css/8.0.0/normalize.css', array(), WPReliableMD_VER, false );
+		wp_register_style( 'normalize', WPReliableMD_URL . '/css/normalize.css', array(), WPReliableMD_VER, false );
 		wp_register_style( 'codemirror', WPReliableMD_URL . '/bower_components/codemirror/lib/codemirror.css', array( 'normalize' ), WPReliableMD_VER, false );
 		wp_register_style( 'github', WPReliableMD_URL . '/bower_components/highlightjs/styles/github.css', array( 'codemirror' ), WPReliableMD_VER, false );
 		wp_register_style( 'tui-editor', WPReliableMD_URL . '/bower_components/tui-editor/dist/tui-editor.css', array( 'github' ), WPReliableMD_VER, false );
