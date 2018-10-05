@@ -22,7 +22,11 @@
         };
         Editor.markdownitHighlight
             .use(require('markdown-it-mathsupport')(option));
-    })
+
+        Editor.codeBlockManager.setReplacer('latex', function(ltx) {
+            return option.renderer(ltx, 'DisplayMath');
+        });
+    });
 });
 
 
