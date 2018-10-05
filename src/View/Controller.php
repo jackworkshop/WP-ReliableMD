@@ -29,6 +29,7 @@ class Controller {
 		wp_enqueue_style('tui-color-picker');
 		wp_enqueue_style('tui-chart');
 		wp_enqueue_style( 'katex');
+		wp_enqueue_style( 'WPReliableMDFrontend');
 	}
 
 	public function WPReliableMD_the_Content($content) {
