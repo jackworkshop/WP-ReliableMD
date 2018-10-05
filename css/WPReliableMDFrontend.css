@@ -1,3 +1,12 @@
 .entry-content a{
     box-shadow: none !important;
 }
+
+.tui-editor-contents .task-list-item {
+	border: 0 !important;
+	padding-left: 22px !important;
+	padding: 0em 0 !important;
+	list-style: none !important;
+	padding-left: 22px !important;
+	margin-left: -22px !important;
+}
