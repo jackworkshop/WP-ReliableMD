@@ -1,4 +1,4 @@
-define(['jquery', 'tui-editor', 'mathsupport'], function ($, Editor) {
+define(['jquery', 'tui-viewer', 'mathsupport'], function ($, Viewer) {
     var callback = function ($node) {
         return $node;
     };
@@ -24,7 +24,7 @@ define(['jquery', 'tui-editor', 'mathsupport'], function ($, Editor) {
             // text = text.replace(/\$(.*)\$/g, function (t) {
             //     return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
             // });
-            var viewer = new Editor.factory({
+            var viewer = new Viewer({
                 el: ele[0],
                 viewer: true,
                 initialValue: text,
