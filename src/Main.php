@@ -28,8 +28,6 @@ class Main {
 
 		$this->admin = new AdminController();
 
-		add_filter( 'replace_editor', array( $this->admin, 'WPReliableMD_init' ), 10, 2 );
-
 	}
 
 

@@ -6,6 +6,8 @@ class Controller {
 
 	public function __construct() {
 
+		add_filter( 'replace_editor', array( $this, 'WPReliableMD_init' ), 10, 2 );
+
 		//Javascript 文件
 		add_filter( 'admin_head', array( $this, 'enqueue_scripts' ), 2 );
 		//CSS 文件
@@ -82,7 +84,6 @@ class Controller {
 		remove_filter( 'the_content', 'wpautop' );
 
 		return true;
-		//return false;
 	}
 }
 
