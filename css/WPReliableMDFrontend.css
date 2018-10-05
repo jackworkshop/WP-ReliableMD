@@ -17,3 +17,10 @@
 	margin-left: -5px;
 	border-bottom: unset !important;
 }
+
+.tui-editor-contents ol li {
+	overflow: unset !important;
+	padding-left: 8px !important;
+	margin-left: -5px;
+	border-bottom: unset !important;
+}
