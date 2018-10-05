@@ -17,6 +17,8 @@ class Controller {
 		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
 		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
+		add_filter('widget_text', 'do_shortcode');
+
 	}
 
 	function the_excerpt( $post_excerpt ) {
@@ -68,7 +70,7 @@ class Controller {
 	}
 
 	public function WPReliableMD_Shortcode_Markdown( $attr, $content ) {
-		return $this->WPReliableMD_Content( $content );
+		return $this->WPReliableMD_Content(str_replace('&#8211;','-',$content));
 	}
 
 	public function WPReliableMD_Content( $content ) {
