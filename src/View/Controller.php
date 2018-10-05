@@ -6,8 +6,6 @@ use WPReliableMD\View\Hyperdown\Parser as Parser;
 
 class Controller {
 
-	private $parser;
-
 	public function __construct() {
 
 		//Javascript 文件
@@ -19,7 +17,6 @@ class Controller {
 
 		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
-		$this->parser       = new Parser();
 	}
 
 	/*function the_excerpt($post_excerpt) {
@@ -73,7 +70,7 @@ class Controller {
 	}
 
 	public function WPReliableMD_Content( $content ) {
-		$backend_rendered = $this->parser->makeHtml($content);
+		$backend_rendered = (new Parser())->makeHtml($content);
 		$new_content = "<div class='markdown-block'>";
 		$new_content .= "<div class='markdown' style='display:none;'>{$content}</div>";
 		$new_content .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
