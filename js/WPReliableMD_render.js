@@ -15,7 +15,7 @@ define(['jquery', 'tui-editor', 'mathsupport'], function ($, Editor) {
     renderer.render = function () {
         $('.markdown').each(function () {
             var text = $(this).val() || $(this).html();
-            var ele = callback($(this))
+            var ele = callback($(this));
             ele.html('');
             text = renderer.entityToString(text);
             // text = text.replace(/\$\$(.*)\$\$/g, function (t) {
