@@ -19,7 +19,7 @@ class Controller {
 
 	}
 
-	function home_the_excerpt($post_excerpt) {
+	function home_the_excerpt( $post_excerpt ) {
 		$post_id = get_the_ID();
 		if ( ! has_excerpt() ) {
 			$post         = get_post( $post_id );
@@ -27,14 +27,15 @@ class Controller {
 		}
 
 		if ( get_post_meta( $post_id, 'markdown', true ) === 'true' ) {
-			$post_excerpt = (new parser())->makeHtml( $post_excerpt );
-			if(preg_match('#<p>((\w|[^x00-xff]).+?)</p>#', $post_excerpt, $mc))
-			{
+			$post_excerpt = ( new parser() )->makeHtml( $post_excerpt );
+			if ( preg_match( '#<p>((\w|\d|[^x00-xff]).+?)</p>#', $post_excerpt, $mc ) ) {
 				$post_excerpt = $mc[1];
+			} else {
+				$post_excerpt = __('This post has no common text');
 			}
 		}
 
-		return substr($post_excerpt, 0, 50);
+		return substr( $post_excerpt, 0, 50 );
 	}
 
 	public function enqueue_scripts() {
@@ -62,20 +63,21 @@ class Controller {
 			$content = $post->post_content;
 			$content = $this->WPReliableMD_Content( $content );
 		}
+
 		return $content;
 	}
 
-	public function WPReliableMD_Shortcode_Markdown($attr, $content) {
-		return $this->WPReliableMD_Content($content);
+	public function WPReliableMD_Shortcode_Markdown( $attr, $content ) {
+		return $this->WPReliableMD_Content( $content );
 	}
 
 	public function WPReliableMD_Content( $content ) {
-		$backend_rendered = (new Parser())->makeHtml($content);
-		$new_content = "<div class='markdown-block'>";
-		$new_content .= "<div class='markdown' style='display:none;'>{$content}</div>";
-		$new_content .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
-		$new_content .= "</div>";
-		$content     = $new_content;
+		$backend_rendered = ( new Parser() )->makeHtml( $content );
+		$new_content      = "<div class='markdown-block'>";
+		$new_content      .= "<div class='markdown' style='display:none;'>{$content}</div>";
+		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
+		$new_content      .= "</div>";
+		$content          = $new_content;
 
 		return $content;
 	}
