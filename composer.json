@@ -31,7 +31,9 @@
       "WPReliableMD\\Admin\\": "src/Admin",
       "WPReliableMD\\REST\\": "src/REST",
       "WPReliableMD\\View\\": "src/View",
-      "WPReliableMD\\Environment\\": "src/Environment"
+      "WPReliableMD\\Environment\\": "src/Environment",
+      "WPReliableMD\\View\\Hyperdown\\": "src/View/Hyperdown"
+
     }
   },
   "require": {

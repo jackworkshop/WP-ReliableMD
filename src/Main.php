@@ -6,7 +6,6 @@ use WPReliableMD\Admin\Controller as AdminController;
 use WPReliableMD\View\Controller as ViewController;
 use WPReliableMD\REST\Controller as RestController;
 use WPReliableMD\Environment\Controller as EnvironmentController;
-use WPReliableMD\Poster as Poster;
 
 class Main {
 

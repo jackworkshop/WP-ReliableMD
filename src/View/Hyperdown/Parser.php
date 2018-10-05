@@ -1,7 +1,6 @@
 <?php
 
-namespace HyperDown;
-
+namespace WPReliableMD\View\HyperDown;
 /**
  * Parser
  *
