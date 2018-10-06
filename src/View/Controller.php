@@ -70,13 +70,27 @@ class Controller {
 	}
 
 	public function WPReliableMD_Shortcode_Markdown( $attr, $content ) {
-		return $this->WPReliableMD_Content(str_replace('&#8211;','-',$content));
+		return $this->WPReliableMD_Content($this->WPReliableMD_AntiTransfer($content));
+	}
+
+	public function WPReliableMD_AntiTransfer($content)  {
+		$AntiTransfer = array(
+			'&gt;' => '>',
+			'&lt;' => '<',
+		);
+
+
+		foreach ($AntiTransfer as $key => $value) {
+			$content = str_replace($key,$value,$content);
+		}
+		return $content;
 	}
 
 	public function WPReliableMD_Content( $content ) {
-		$backend_rendered = ( new Parser() )->makeHtml( $content );
+		$parser = new Parser();
 		$new_content      = "<div class='markdown-block'>";
 		$new_content      .= "<div class='markdown' style='display:none;'>{$content}</div>";
+		$backend_rendered = $parser->makeHtml( $content );
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
 		$new_content      .= "</div>";
 		$content          = $new_content;
