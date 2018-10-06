@@ -14,7 +14,7 @@
 
 namespace WPReliableMDRoot;
 
-use WPReliableMD\Main;
+use WPReliableMD\Main as Main;
 
 define('WPReliableMD_NAME','WPReliableMD');
 define('WPReliableMD_VER','1.0');
