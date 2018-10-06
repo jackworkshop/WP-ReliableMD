@@ -77,6 +77,8 @@ class Controller {
 
 		require_once ABSPATH . 'wp-admin/includes/meta-boxes.php';
 
+		require_once ABSPATH . 'wp-admin/includes/revision.php';
+
 		require_once ABSPATH . 'wp-admin/admin-header.php';
 
 		$this->WPReliableMD_Page_Init();   //初始化页面
