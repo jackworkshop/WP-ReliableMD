@@ -1,0 +1,4 @@
+[gerrit]
+host=review.github.com
+port=29418
+project=jack9603301/WP-ReliableMD.git
