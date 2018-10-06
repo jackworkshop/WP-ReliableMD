@@ -88,9 +88,9 @@ class Controller {
 
 	public function WPReliableMD_Content( $content ) {
 		$parser = new Parser();
+		$backend_rendered = $parser->makeHtml( $content );
 		$new_content      = "<div class='markdown-block'>";
 		$new_content      .= "<div class='markdown' style='display:none;'>{$content}</div>";
-		$backend_rendered = $parser->makeHtml( $content );
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
 		$new_content      .= "</div>";
 		$content          = $new_content;
