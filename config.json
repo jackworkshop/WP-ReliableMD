@@ -1,3 +1,9 @@
 {
-	"enable": true
+	"enable": true,
+	"RenderMode": "FullRender",
+	"ext": {
+		"math": {
+			"engine": "Katex"
+		}
+	}
 }
