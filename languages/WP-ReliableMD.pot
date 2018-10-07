@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WP ReliableMD\n"
-"POT-Creation-Date: 2018-10-07 09:52+0800\n"
+"POT-Creation-Date: 2018-10-07 09:55+0800\n"
 "PO-Revision-Date: 2018-10-07 09:38+0800\n"
 "Last-Translator: \n"
 "Language-Team: WP ReliableMD\n"
@@ -21,7 +21,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#. When extracting abstracts from a Markdown article, there is no hint to extract information.
 #: src/View/Controller.php:36
 msgid "This post has no common text"
 msgstr ""
