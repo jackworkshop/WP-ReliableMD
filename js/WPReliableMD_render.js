@@ -6,11 +6,10 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
     renderer.setCallback = function (func) {
         callback = func;
     };
-    renderer.entityToString = function (entity) {
-        var div = document.createElement('div');
-        div.innerHTML = entity;
-        var s = div.innerText || div.textContent;
-        s = s.replace('&#8211;', '-');
+    renderer.entityToString = function (s) {
+        s = s.replace(/&#8211;/g, '-');
+        s = s.replace(/&lt;/g, '<');
+        s = s.replace(/&gt;/g, '>');
         return s;
     };
 
@@ -20,12 +19,9 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
             var ele = callback($(this));
             ele.html('');
             text = renderer.entityToString(text);
-            // text = text.replace(/\$\$(.*)\$\$/g, function (t) {
-            //     return "<br><div class='latex' style='display: block;'>" + processLatex(t) + "</div>\n";
-            // });
-            // text = text.replace(/\$(.*)\$/g, function (t) {
-            //     return "<div class='latex' style='display: inline;'>" + processLatex(t) + "</div>";
-            // });
+
+            console.log(text);
+
             var viewer = new Viewer({
                 el: ele[0],
                 viewer: true,
