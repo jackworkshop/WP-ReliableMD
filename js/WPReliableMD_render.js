@@ -20,7 +20,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
             ele.html('');
             text = renderer.entityToString(text);
 
-            console.log(text);
+            //console.log(text);
 
             var viewer = new Viewer({
                 el: ele[0],
