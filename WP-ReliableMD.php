@@ -18,6 +18,7 @@ use WPReliableMD\Main as Main;
 
 define('WPReliableMD_NAME','WPReliableMD');
 define('WPReliableMD_VER','1.0');
+define('WPReliableMD_FILE',plugin_basename( __FILE__ ));
 define('WPReliableMD_URL', plugins_url( '', __FILE__ ) ); //插件资源路径
 define('WPReliableMD_PATH', dirname( __FILE__ ) ); //插件路径文件夹
 
