@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WP ReliableMD\n"
-"POT-Creation-Date: 2018-10-07 09:55+0800\n"
+"POT-Creation-Date: 2018-10-07 23:22+0800\n"
 "PO-Revision-Date: 2018-10-07 09:38+0800\n"
 "Last-Translator: \n"
 "Language-Team: WP ReliableMD\n"
@@ -21,6 +21,18 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
+#: src/Meta/Controller.php:15
+msgid "Settings"
+msgstr ""
+
+#: src/Meta/Controller.php:16 src/Meta/Controller.php:26
+msgid "Github"
+msgstr ""
+
+#: src/Meta/Controller.php:25
+msgid "Issues"
+msgstr ""
+
 #: src/View/Controller.php:36
 msgid "This post has no common text"
 msgstr ""
@@ -35,7 +47,9 @@ msgid "https://github.com/jack9603301/WP-ReliableMD"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Perhaps this is the best and most perfect Markdown editor in WordPress"
+msgid ""
+"A reliable, beautiful and powerful markdown plugin for wordpress, "
+"supporting editing and rendering"
 msgstr ""
 
 #. Author of the plugin/theme
