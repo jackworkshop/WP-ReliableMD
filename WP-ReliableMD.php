@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       WP ReliableMD
  * Plugin URI:        https://github.com/jack9603301/WP-ReliableMD
- * Description:       Perhaps this is the best and most perfect Markdown editor in WordPress
+ * Description:       A reliable, beautiful and powerful markdown plugin for wordpress, supporting editing and rendering
  * Version:           1.0
  * Author:            WP-ReliableMD
  * Author URI:        https://github.com/jack9603301/WP-ReliableMD
