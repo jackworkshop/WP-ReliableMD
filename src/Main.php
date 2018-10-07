@@ -12,6 +12,8 @@ class Main {
 
 	public function __construct() {
 
+		add_action('plugins_loaded', array($this,'EnableLanguages'));
+
 		new EnvironmentController(); //初始化插件环境控制器
 
 		new RestController();  //初始化REST控制器
@@ -22,6 +24,10 @@ class Main {
 
 		new MetaController(); //初始化插件元信息控制器
 
+	}
+
+	function EnableLanguages() {
+		load_plugin_textdomain(WPReliableMD_FILE,false,WPReliableMD_PATH.'/languages/'); // 启用本地化
 	}
 
 
