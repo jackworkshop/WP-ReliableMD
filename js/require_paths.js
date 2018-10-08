@@ -10,10 +10,13 @@ function configure_requirejs() {
         
         //never require the same module with different names
         
-        //***********fixed**********
         //never includes a ".js" extension since
         //the paths config could be for a directory.
-        // QiuJiangkun before 2018/10/8
+        
+        //***********fixed**********
+        // Do not define a module name like "highlight.js"
+        // for it will be explained as a path, rather than a module name
+        // fixed by QiuJiangkun before 2018/10/8
         //**************************
         
         
