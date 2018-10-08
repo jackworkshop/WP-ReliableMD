@@ -66,11 +66,11 @@ class Controller {
 			$content = $this->WPReliableMD_Content( $content );
 		}
 
-		return $content;
+		return do_shortcode($content);
 	}
 
 	public function WPReliableMD_Shortcode_Markdown( $attr, $content ) {
-		return $this->WPReliableMD_Content($this->WPReliableMD_AntiTransfer($content));
+		return do_shortcode($this->WPReliableMD_Content($this->WPReliableMD_AntiTransfer($content)));
 	}
 
 	public function WPReliableMD_AntiTransfer($content)  {
