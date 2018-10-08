@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WP ReliableMD\n"
-"POT-Creation-Date: 2018-10-07 23:22+0800\n"
+"POT-Creation-Date: 2018-10-08 15:53+0800\n"
 "PO-Revision-Date: 2018-10-07 09:38+0800\n"
 "Last-Translator: \n"
 "Language-Team: WP ReliableMD\n"
@@ -30,7 +30,15 @@ msgid "Github"
 msgstr ""
 
 #: src/Meta/Controller.php:25
-msgid "Issues"
+msgid "Issus"
+msgstr ""
+
+#: src/Meta/Controller.php:27
+msgid "Gitlab"
+msgstr ""
+
+#: src/Meta/Controller.php:28
+msgid "Gitee"
 msgstr ""
 
 #: src/View/Controller.php:36
