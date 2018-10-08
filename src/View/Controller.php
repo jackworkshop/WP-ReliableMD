@@ -37,7 +37,7 @@ class Controller {
 			}
 		}
 
-		return substr( $post_excerpt, 0, 50 );
+		return do_shortcode(substr( $post_excerpt, 0, 50 ));
 	}
 
 	public function enqueue_scripts() {
