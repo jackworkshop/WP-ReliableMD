@@ -7,8 +7,16 @@ function configure_requirejs() {
         //except, if the module ID starts with "app",
         //load it from the js/app directory. paths
         //config is relative to the baseUrl, and
+        
+        //never require the same module with different names
+        
+        //***********fixed**********
         //never includes a ".js" extension since
         //the paths config could be for a directory.
+        // QiuJiangkun before 2018/10/8
+        //**************************
+        
+        
         paths: {
             'tui-editor': lib_dep + 'tui-editor/dist/tui-editor-Editor-all',
             'tui-viewer': lib_dep + 'tui-editor/dist/tui-editor-Viewer-all',
@@ -39,7 +47,8 @@ function configure_requirejs() {
             'raphael': {
                 exports: 'Raphael'
             }
-        }
+        },
+        waitSeconds: 30
     });
 }
 
