@@ -121,6 +121,7 @@ class Controller {
 				wp_cache_set($post_id,$backend_rendered,'markdown_backend_rendered:excerpt');
 			}
 		} else {
+			//如果是文章缓存
 			$backend_rendered = wp_cache_get($post_id,'markdown_backend_rendered');
 			if($backend_rendered === false) {
 				$parser = new Parser();
