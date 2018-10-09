@@ -32,12 +32,14 @@ class Controller {
 			$post_excerpt = ( new parser() )->makeHtml( $post_excerpt );
 			if ( preg_match( '#<p>((\w|\d|[^x00-xff]).+?)</p>#', $post_excerpt, $mc ) ) {
 				$post_excerpt = $mc[1];
+				$post_excerpt = apply_filters('markdown_the_excerpt',$post_excerpt);
 			} else {
 				$post_excerpt = __('This post has no common text');
+				$post_excerpt = apply_filters('markdown_the_excerpt_no_text_extract',$post_excerpt);
 			}
 		}
 
-		return do_shortcode(substr( $post_excerpt, 0, 50 ));
+		return do_shortcode(substr( $post_excerpt, 0, apply_filters('excerpt_length',50) ));
 	}
 
 	public function enqueue_scripts() {
