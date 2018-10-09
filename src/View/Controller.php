@@ -17,6 +17,8 @@ class Controller {
 		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
 		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
+		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,2);
+
 		add_filter('widget_text', 'do_shortcode');
 
 	}
@@ -90,12 +92,9 @@ class Controller {
 
 	public function WPReliableMD_Content( $content ) {
 
-		if ( get_post_meta( get_the_ID(), 'markdown', true ) === 'true' ) {
-			$content = apply_filters('markdown_content',$content);  //执行HOOK，进行处理
-		}
+		$content = apply_filters('markdown_content',$content);  //执行HOOK，进行处理
 
-		$parser = new Parser();
-		$backend_rendered = $parser->makeHtml( $content );
+		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$content);  //可由用户覆盖解析效果
 		$new_content      = "<div class='markdown-block'>";
 		$new_content      .= "<div class='markdown' style='display:none;'>{$content}</div>";
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
@@ -103,6 +102,12 @@ class Controller {
 		$content          = $new_content;
 
 		return $content;
+	}
+
+	public function WPReliableMD_BackendRendered($backend_rendered,$content) {
+		$parser = new Parser();
+		$backend_rendered = $parser->makeHtml( $content );
+		return $backend_rendered;
 	}
 }
 
