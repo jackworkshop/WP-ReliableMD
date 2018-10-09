@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WPReliableMD\\View\\Hyperdown\\' => array($baseDir . '/src/View/Hyperdown'),
     'WPReliableMD\\View\\' => array($baseDir . '/src/View'),
     'WPReliableMD\\REST\\' => array($baseDir . '/src/REST'),
     'WPReliableMD\\Meta\\' => array($baseDir . '/src/Meta'),

@@ -2,7 +2,7 @@
 
 namespace WPReliableMD\View;
 
-use WPReliableMD\View\Hyperdown\Parser as Parser;
+use WPReliableMD\View\Parser as Parser;
 
 class Controller {
 

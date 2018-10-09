@@ -9,7 +9,6 @@ class ComposerStaticInit7cec0839d220061e8bd8c7f3a25867b9
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
-            'WPReliableMD\\View\\Hyperdown\\' => 28,
             'WPReliableMD\\View\\' => 18,
             'WPReliableMD\\REST\\' => 18,
             'WPReliableMD\\Meta\\' => 18,
@@ -20,10 +19,6 @@ class ComposerStaticInit7cec0839d220061e8bd8c7f3a25867b9
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPReliableMD\\View\\Hyperdown\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/View/Hyperdown',
-        ),
         'WPReliableMD\\View\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/View',
