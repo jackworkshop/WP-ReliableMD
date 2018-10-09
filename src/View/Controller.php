@@ -111,8 +111,14 @@ class Controller {
 	}
 
 	public function WPReliableMD_BackendRendered($backend_rendered,$content) {
-		$parser = new Parser();
-		$backend_rendered = $parser->makeHtml( $content );
+		$post_id = get_the_ID();
+		$backend_rendered = wp_cache_get($post_id,'markdown_backend_rendered');
+		if($backend_rendered === false) {
+			$parser = new Parser();
+			$backend_rendered = $parser->makeHtml( $content );
+			wp_cache_set($post_id,$backend_rendered,'markdown_backend_rendered');
+		}
+		
 		return $backend_rendered;
 	}
 }
