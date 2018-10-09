@@ -87,6 +87,11 @@ class Controller {
 	}
 
 	public function WPReliableMD_Content( $content ) {
+
+		if ( get_post_meta( get_the_ID(), 'markdown', true ) === 'true' ) {
+			$content = apply_filters('markdown_content',$content);  //执行HOOK，进行处理
+		}
+
 		$parser = new Parser();
 		$backend_rendered = $parser->makeHtml( $content );
 		$new_content      = "<div class='markdown-block'>";
