@@ -83,6 +83,8 @@ class Controller {
 			'&lt;' => '<',
 		);
 
+		$AntiTransfer = apply_filters('markdown_antiTransfer',$AntiTransfer);
+
 
 		foreach ($AntiTransfer as $key => $value) {
 			$content = str_replace($key,$value,$content);
