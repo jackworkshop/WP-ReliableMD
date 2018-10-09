@@ -17,7 +17,7 @@ class Controller {
 		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
 		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
-		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,2);
+		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,3);
 
 		add_filter('widget_text', 'do_shortcode');
 
@@ -25,13 +25,13 @@ class Controller {
 
 	function the_excerpt( $post_excerpt ) {
 		$post_id = get_the_ID();
+		$post = get_post( $post_id );
 		if ( ! has_excerpt() ) {
-			$post         = get_post( $post_id );
 			$post_excerpt = $post->post_content;
 		}
 
 		if ( get_post_meta( $post_id, 'markdown', true ) === 'true' ) {
-			$post_excerpt = ( new parser() )->makeHtml( $post_excerpt );
+			$post_excerpt = apply_filters('markdown_backend_rendered',$post_excerpt,$post->post_content,true);
 			if ( preg_match( '#<p>((\w|\d|[^x00-xff]).+?)</p>#', $post_excerpt, $mc ) ) {
 				$post_excerpt = $mc[1];
 				$post_excerpt = apply_filters('markdown_the_excerpt',$post_excerpt);
@@ -98,7 +98,7 @@ class Controller {
 
 		$backend_rendered = null;
 
-		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$content);  //可由用户覆盖解析效果
+		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$content,false);  //可由用户覆盖解析效果
 		$new_content      = "<div class='markdown-block'>";
 		$new_content      .= "<div class='markdown' style='display:none;'>{$content}</div>";
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
@@ -110,13 +110,23 @@ class Controller {
 		return $content;
 	}
 
-	public function WPReliableMD_BackendRendered($backend_rendered,$content) {
+	public function WPReliableMD_BackendRendered($backend_rendered,$content,$excerpt_bool) {
 		$post_id = get_the_ID();
-		$backend_rendered = wp_cache_get($post_id,'markdown_backend_rendered');
-		if($backend_rendered === false) {
-			$parser = new Parser();
-			$backend_rendered = $parser->makeHtml( $content );
-			wp_cache_set($post_id,$backend_rendered,'markdown_backend_rendered');
+		if($excerpt_bool) {
+			//如果是摘要缓存
+			$backend_rendered = wp_cache_get($post_id,'markdown_backend_rendered:excerpt');
+			if($backend_rendered === false) {
+				$parser = new Parser();
+				$backend_rendered = $parser->makeHtml( $content );
+				wp_cache_set($post_id,$backend_rendered,'markdown_backend_rendered:excerpt');
+			}
+		} else {
+			$backend_rendered = wp_cache_get($post_id,'markdown_backend_rendered');
+			if($backend_rendered === false) {
+				$parser = new Parser();
+				$backend_rendered = $parser->makeHtml( $content );
+				wp_cache_set($post_id,$backend_rendered,'markdown_backend_rendered');
+			}
 		}
 		
 		return $backend_rendered;
