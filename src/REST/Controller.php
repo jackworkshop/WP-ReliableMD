@@ -52,6 +52,7 @@ class Controller {
 			$content = $markdown;
 			$content = ViewController::WPReliableMD_Content($content);
 			$data['content']['rendered'] = $content;
+			$data = apply_filters('markdown_rest_post_override',$data);
 		}
 
 		$response->data = $data; //根据wordpress插件约定，应该修改第一参数然后返回
