@@ -92,7 +92,7 @@ class Controller {
 
 	public function WPReliableMD_Content( $content ) {
 
-		$content = apply_filters('markdown_content',$content);  //执行HOOK，进行处理
+		$content = apply_filters('markdown_text',$content);  //执行HOOK，进行处理
 
 		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$content);  //可由用户覆盖解析效果
 		$new_content      = "<div class='markdown-block'>";
@@ -100,6 +100,8 @@ class Controller {
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
 		$new_content      .= "</div>";
 		$content          = $new_content;
+
+		$content = apply_filters('markdown_content',$content);  //执行HOOK，进行处理
 
 		return $content;
 	}
