@@ -3,8 +3,8 @@
 }
 
 #wpbody-content {
-	position: fixed;
-    height: 90%;
+    position: fixed;
+    height: 100%;
     width: 85%;
 }
 .code-html {
@@ -15,6 +15,7 @@
 }
 #editSection {
 	box-sizing: border-box;
-	height: 100% !important;
+	height: 90% !important;
+	/* to show submit buttom*/
 	width: 100%;
 }
