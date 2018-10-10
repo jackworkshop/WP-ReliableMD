@@ -1,7 +1,20 @@
-.code-html {
-    margin-right: 1em;
-}
-
 .arrow {
     margin-left: 0px !important;
+}
+
+#wpbody-content {
+	position: fixed;
+    height: 90%;
+    width: 85%;
+}
+.code-html {
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+}
+#editSection {
+	box-sizing: border-box;
+	height: 100% !important;
+	width: 100%;
 }
