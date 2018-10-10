@@ -52,6 +52,13 @@ class Controller {
 			$content = $markdown;
 			$content = ViewController::WPReliableMD_Content($content);
 			$data['content']['rendered'] = $content;
+
+			/*
+		 	 * filter  : markdown_rest_post_override($data)
+		 	 * comment : The REST API interface implements the post type article to retrieve the JSON field when it is fetch.
+		 	 * params  :
+		 	 *   - $data : JSON before processing.
+		 	 */
 			$data = apply_filters('markdown_rest_post_override',$data);
 		}
 
