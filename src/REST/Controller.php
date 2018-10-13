@@ -23,6 +23,10 @@ class Controller {
 			'methods'   => 'POST',
 			'callback'  => array($this,'WPReliableMD_Config_Api_Set')
 		]);
+		register_rest_route(WPReliableMD_NAME, 'markdown/render/(?P<id>[\d]+)', [
+			'methods'   => 'PUSH',
+			'callback'  => array($this,'WPReliableMD_Cache_markdown_render')
+		]);
 		add_filter( 'rest_prepare_post', array($this,'WPReliableMD_REST_Posts'), 10, 3 );
 
 		register_rest_field('post','markdown',array(
@@ -52,6 +56,11 @@ class Controller {
 		} else {
 			return $request->get_json_params();
 		}
+	}
+
+	public function WPReliableMD_Cache_markdown_render($request) {
+		$id = $request['id'];
+		wp_cache_set($id,$request->get_body(),'markdown_backend_rendered');
 	}
 
 	public function WPReliableMD_REST_Posts($response, $post, $request  ) {
