@@ -55,7 +55,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
                 ]
             });
             $('[data-te-task]').removeAttr('data-te-task');
-			save_cache(text, viewer.preview.getHTML());
+			setTimeout(function(){save_cache(text, ele.html());}, 3000);
         });
     };
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html
