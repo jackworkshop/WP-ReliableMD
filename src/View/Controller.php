@@ -19,6 +19,8 @@ class Controller {
 
 		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,3);
 
+		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1);
+
 		add_filter('widget_text', 'do_shortcode');
 
 	}
@@ -155,6 +157,14 @@ class Controller {
 		$content = apply_filters('markdown_content',$content);  //执行HOOK，进行处理
 
 		return $content;
+	}
+
+	public function WPReliableMD_MarkdownText_Transference($markdown) {
+		//转义处理
+
+		$markdown = str_replace(array("\r\n", "\r", "\n"),'&br',$markdown);
+		
+		return $markdown;
 	}
 
 	public function WPReliableMD_BackendRendered($backend_rendered,$content,$excerpt_bool) {
