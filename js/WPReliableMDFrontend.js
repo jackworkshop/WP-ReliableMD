@@ -9,8 +9,13 @@ requirejs(['jquery'], function($){
 		return "" + h;
 	};
 	var callback = function ($node) {
-        return $node.parent().attr('class') === 'markdown-block' ? $node.parent() : $node;
-    };
+        	if($node.parent().attr('class') === 'markdown-block')
+			return $node.parent()
+		var $new_node = $("<div></div>");
+		$node.after($new_node);
+		$node.remove();
+		return $new_node;
+    	};
 	var cached = function(text)
 	{
 		return window.localStorage.getItem(hash(text));
