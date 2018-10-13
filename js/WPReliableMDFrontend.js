@@ -24,7 +24,7 @@ requirejs(['jquery'], function($){
 			++cnt;
 		else{
 			console.log("used cache", hash(text));
-			callback($(this)).html(ca);
+			callback($(this)).html(ca).attr('class','tui-editor-contents');
 		}
 	});
 	if(cnt > 0) {
