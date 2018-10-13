@@ -1,4 +1,13 @@
 define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
+	var hash = function(text){
+		// if you wanna enable cache, the hash function must be the same as it in WP-ReliableMDFrontend.js
+		var h = 0;
+		for(var i = 0; i < text.length; ++i){
+			h = h * 10007 + text[i].charCodeAt();
+			h %= 1e9 + 7;
+		}
+		return "" + h;
+	};
     var callback = function ($node) {
         return $node;
     };
@@ -12,20 +21,24 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
         s = s.replace(/&gt;/g, '>');
         return s;
     };
-
+	var save_cache = function(text, rendered){
+		console.log("saved cache", hash(text));
+		window.localStorage.setItem(hash(text), rendered);
+	};
+	
     renderer.render = function () {
         $('.markdown').each(function () {
             var text = $(this).val() || $(this).html();
             var ele = callback($(this));
             ele.html('');
-            text = renderer.entityToString(text);
+            ptext = renderer.entityToString(text);
 
             //console.log(text);
 
             var viewer = new Viewer({
                 el: ele[0],
                 viewer: true,
-                initialValue: text,
+                initialValue: ptext,
                 exts: [
                     {
                         name: 'chart',
@@ -42,6 +55,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
                 ]
             });
             $('[data-te-task]').removeAttr('data-te-task');
+			save_cache(text, viewer.preview.getHTML());
         });
     };
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html
