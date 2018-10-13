@@ -1,5 +1,6 @@
 {
 	"enable": true,
+	"force-render": false,
 	"math": {
 		"engine": "Katex"
 	}

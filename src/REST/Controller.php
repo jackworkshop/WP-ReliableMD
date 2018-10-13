@@ -19,6 +19,10 @@ class Controller {
 			'methods'   => 'GET',
 			'callback'  => array($this,'WPReliableMD_Config_Api')
 		]);
+		register_rest_route(WPReliableMD_NAME, 'config', [
+			'methods'   => 'POST',
+			'callback'  => array($this,'WPReliableMD_Config_Api_Set')
+		]);
 		add_filter( 'rest_prepare_post', array($this,'WPReliableMD_REST_Posts'), 10, 3 );
 
 		register_rest_field('post','markdown',array(
@@ -37,6 +41,16 @@ class Controller {
 				'latex' => "MathJax",
 				'info' => 'default config'
 			];
+		}
+	}
+
+	public function WPReliableMD_Config_Api_Set($request) {
+		if ( file_exists( $this->config_filename ) ) {
+			$f = fopen($this->config_filename, "w");
+			fwrite($f, json_encode($request->get_json_params()));
+			return $request->get_json_params();
+		} else {
+			return $request->get_json_params();
 		}
 	}
 
