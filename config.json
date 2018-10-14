@@ -1,7 +1,18 @@
 {
 	"enable": true,
+	"shortcode-render" : true,
 	"math": {
+		"enable" : true,
 		"engine": "Katex"
+	},
+	"uml" : {
+		"enable" : true
+	},
+	"chart" : {
+		"enable" : true
+	},
+	"table" : {
+		"enable-merge-ext" : true
 	},
 	"dev-mode" : {
 		"enable" : false,
