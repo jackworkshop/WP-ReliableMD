@@ -15,15 +15,12 @@ class Controller {
 		//markdown解析
 		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
 		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
-		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
-
 		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,3);
-
 		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1);
-
 		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
-
 		add_filter('widget_text', 'do_shortcode');
+
+		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
 	}
 
