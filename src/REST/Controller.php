@@ -24,7 +24,7 @@ class Controller {
 			'callback'  => array($this,'WPReliableMD_Config_Api_Set')
 		]);
 		register_rest_route(WPReliableMD_NAME, 'markdown/render/(?P<id>[\d]+)', [
-			'methods'   => 'PUSH',
+			'methods'   => 'PUT',
 			'callback'  => array($this,'WPReliableMD_Cache_markdown_render')
 		]);
 		add_filter( 'rest_prepare_post', array($this,'WPReliableMD_REST_Posts'), 10, 3 );
