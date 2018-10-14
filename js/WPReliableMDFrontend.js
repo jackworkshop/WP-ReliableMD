@@ -23,7 +23,7 @@ requirejs(['jquery'], function($){
 	var cnt = 0;
 	
 	$('.markdown').each(function () {
-		var text = $(this).val() || $(this).html();
+		var text = $(this).text();
 		var ca = cached(text);
 		if(ca === null)
 			++cnt;
