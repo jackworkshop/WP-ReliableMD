@@ -19,6 +19,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
         s = s.replace(/&#8211;/g, '-');
         s = s.replace(/&lt;/g, '<');
         s = s.replace(/&gt;/g, '>');
+	s = s.replace(/&br;/g, '\n');
         return s;
     };
 	var save_cache = function(text, rendered){
