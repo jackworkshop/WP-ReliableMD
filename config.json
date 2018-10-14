@@ -1,7 +1,10 @@
 {
 	"enable": true,
-	"force-render": false,
 	"math": {
 		"engine": "Katex"
+	},
+	"dev-mode" : {
+		"enable" : false,
+		"force-render": false
 	}
 }
