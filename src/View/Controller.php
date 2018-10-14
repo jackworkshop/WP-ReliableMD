@@ -21,7 +21,7 @@ class Controller {
 
 		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1);
 
-		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_AntiTransfer'),1);
+		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
 
 		add_filter('widget_text', 'do_shortcode');
 
@@ -108,7 +108,7 @@ class Controller {
 		return do_shortcode($this->WPReliableMD_Content($content));  //解析，执行
 	}
 
-	public function WPReliableMD_AntiTransfer($markdown)  {
+	public function WPReliableMD_MarkdownShortcodeText_AntiTransfer($markdown)  {
 		$AntiTransfer = array(
 			'&gt;' => '>',
 			'&lt;' => '<',
