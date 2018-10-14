@@ -48,8 +48,9 @@ class Controller {
 			 	 * comment : This filter Hook process extracts the summary processing when extracting the abstract.
 			 	 * params  :
 			 	 *   - $post_excerpt : Subject before treatment
+			 	 *   - $is_auto_get_excerpt : Do you extract abstract text?
 			 	 */
-				$post_excerpt = apply_filters('markdown_the_excerpt',$post_excerpt);
+				$post_excerpt = apply_filters('markdown_the_excerpt',$post_excerpt,true);
 			} else {
 				$post_excerpt = __('This post has no common text');
 				/*
@@ -57,8 +58,9 @@ class Controller {
 			 	 * comment : This filter Hook processing does not extract the summary processing when extracting the abstract.
 			 	 * params  :
 			 	 *   - $post_excerpt : Subject before treatment
+			 	 *   - $is_auto_get_excerpt : Do you extract abstract text?
 			 	 */
-				$post_excerpt = apply_filters('markdown_the_excerpt_no_text_extract',$post_excerpt);
+				$post_excerpt = apply_filters('markdown_the_excerpt',$post_excerpt,false);
 			}
 		}
 
