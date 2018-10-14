@@ -29,7 +29,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
 	
     renderer.render = function () {
         $('.markdown').each(function () {
-            var text = $(this).val() || $(this).html();
+            var text = $(this).text();
             var ele = callback($(this));
             ele.html('');
             ptext = renderer.entityToString(text);
