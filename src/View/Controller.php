@@ -171,7 +171,7 @@ class Controller {
 	public function WPReliableMD_MarkdownText_Transference($markdown) {
 		//转义处理
 
-		$markdown = str_replace(array("\r\n", "\r", "\n"),'&br',$markdown);
+		$markdown = str_replace(array("\r\n", "\r", "\n"),'&br;',$markdown);
 		
 		return $markdown;
 	}
