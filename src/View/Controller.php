@@ -112,6 +112,7 @@ class Controller {
 		$AntiTransfer = array(
 			'&gt;' => '>',
 			'&lt;' => '<',
+			'&amp;' => '&'
 		);
 
 		/*
@@ -174,6 +175,7 @@ class Controller {
 		//转义处理
 
 		$markdown = str_replace(array("\r\n", "\r", "\n"),'&br;',$markdown);
+		$markdown = str_replace('&amp;br;','&br;',$markdown);
 		
 		return $markdown;
 	}
