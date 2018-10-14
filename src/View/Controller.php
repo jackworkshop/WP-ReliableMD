@@ -21,6 +21,8 @@ class Controller {
 
 		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1);
 
+		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_AntiTransfer'),1);
+
 		add_filter('widget_text', 'do_shortcode');
 
 	}
@@ -96,10 +98,17 @@ class Controller {
 	}
 
 	public function WPReliableMD_Shortcode_Markdown( $attr, $content ) {
-		return do_shortcode($this->WPReliableMD_Content($this->WPReliableMD_AntiTransfer($content)));
+		/*
+		 * filter  : markdown_shortcode_text($markdown)
+		 * comment : Markdown text for short code parser.
+		 * params  :
+		 *   - $markdown : Markdown text before input processing.
+		 */
+		$content = apply_filters('markdown_shortcode_text',$content);
+		return do_shortcode($this->WPReliableMD_Content($content));  //解析，执行
 	}
 
-	public function WPReliableMD_AntiTransfer($content)  {
+	public function WPReliableMD_AntiTransfer($markdown)  {
 		$AntiTransfer = array(
 			'&gt;' => '>',
 			'&lt;' => '<',
@@ -115,18 +124,18 @@ class Controller {
 
 
 		foreach ($AntiTransfer as $key => $value) {
-			$content = str_replace($key,$value,$content);
+			$markdown = str_replace($key,$value,$markdown);
 		}
-		return $content;
+		return $markdown;
 	}
 
 	public function WPReliableMD_Content( $content ) {
 
 		/*
-		* filter  : markdown_text($content)
+		* filter  : markdown_text($markdown)
 		* comment : The original content of markdown is processed and then processed.
 		* params  :
-		*   - $content : Subject before treatment
+		*   - $markdown : Subject before treatment
 		*/
 
 		$content = apply_filters('markdown_text',$content);  //执行HOOK，进行处理
