@@ -131,15 +131,6 @@ class Controller {
 
 	public function WPReliableMD_Content( $content ) {
 
-		/*
-		* filter  : markdown_text($markdown)
-		* comment : The original content of markdown is processed and then processed.
-		* params  :
-		*   - $markdown : Subject before treatment
-		*/
-
-		$content = apply_filters('markdown_text',$content);  //执行HOOK，进行处理
-
 		$backend_rendered = null;
 		/*
 		* filter  : markdown_backend_rendered($backend_rendered,$content,$excerpt_bool)
@@ -150,6 +141,17 @@ class Controller {
 		*   - $excerpt_bool : If it is an article, it is false, if it is a summary, then it is true.
 		*/
 		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$content,false);  //可由用户覆盖解析效果
+
+		/*
+		* filter  : markdown_text($markdown)
+		* comment : The original content of markdown is processed and then processed.
+		* params  :
+		*   - $markdown : Subject before treatment
+		*/
+
+		$content = apply_filters('markdown_text',$content);  //执行HOOK，进行处理
+
+
 		$new_content      = "<div class='markdown-block'>";
 		$new_content      .= "<pre class='markdown' style='display:none;'>{$content}</pre>";
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
