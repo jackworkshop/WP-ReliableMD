@@ -59,6 +59,10 @@ class Controller {
 	}
 
 	public function WPReliableMD_Cache_markdown_render($request) {
+		$content_type = $this->get_content_type();
+		if ( empty( $content_type ) || 'text/html' !== $content_type['value'] ) {
+			return new WP_Error( 'rest_invalid_fontent_type', __( 'Invalid Content-type.' ));
+		}
 		$id = $request['id'];
 		wp_cache_set($id,$request->get_body(),'markdown_backend_rendered');
 	}
