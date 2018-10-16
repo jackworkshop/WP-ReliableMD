@@ -16,7 +16,7 @@ class Controller {
 		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
 		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
 		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,3);
-		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1);
+		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1,2);
 		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
 		add_filter('widget_text', 'do_shortcode');
 
@@ -131,6 +131,19 @@ class Controller {
 	public function WPReliableMD_Content( $content ) {
 
 		$backend_rendered = null;
+
+		$backend_rendered_text = $content;
+
+		/*
+		* filter  : markdown_text($markdown)
+		* comment : The original content of markdown is processed and then processed.
+		* params  :
+		*   - $markdown : Subject before treatment
+		*   - $is_backend_rendered : If the result is input to the pre renderer, it is true, otherwise it is false.
+		*/
+
+		$backend_rendered_text = apply_filters('markdown_text',$backend_rendered_text,true);  //执行HOOK，进行处理
+
 		/*
 		* filter  : markdown_backend_rendered($backend_rendered,$content,$excerpt_bool)
 		* comment : The original markdown data is preprocessed by the back end, and the rendering result is returned.
@@ -146,9 +159,10 @@ class Controller {
 		* comment : The original content of markdown is processed and then processed.
 		* params  :
 		*   - $markdown : Subject before treatment
+		*   - $is_backend_rendered : If the result is input to the pre renderer, it is true, otherwise it is false.
 		*/
 
-		$content = apply_filters('markdown_text',$content);  //执行HOOK，进行处理
+		$content = apply_filters('markdown_text',$content,false);  //执行HOOK，进行处理
 
 
 		$new_content      = "<div class='markdown-block'>";
@@ -169,10 +183,13 @@ class Controller {
 		return $content;
 	}
 
-	public function WPReliableMD_MarkdownText_Transference($markdown) {
+	public function WPReliableMD_MarkdownText_Transference($markdown,$is_backend_rendered) {
 		//转义处理
 
-		$markdown = str_replace(array("\r\n", "\r", "\n"),'&br;',$markdown);
+		if(!$is_backend_rendered) {
+			$markdown = str_replace(array("\r\n", "\r", "\n"),'&br;',$markdown);
+		}
+		
 		
 		return $markdown;
 	}
