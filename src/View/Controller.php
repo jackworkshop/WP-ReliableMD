@@ -152,7 +152,7 @@ class Controller {
 		*   - $content : Subject before treatment
 		*   - $excerpt_bool : If it is an article, it is false, if it is a summary, then it is true.
 		*/
-		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$content,false);  //可由用户覆盖解析效果
+		$backend_rendered = apply_filters('markdown_backend_rendered',$backend_rendered,$backend_rendered_text,false);  //可由用户覆盖解析效果
 
 		/*
 		* filter  : markdown_text($markdown)
