@@ -3,6 +3,27 @@
 namespace WPReliableMD\View;
 
 use WPReliableMD\View\Parser as Parser;
+	
+class Controller {
+
+	public function __construct() {
+
+		//Javascript 文件
+		add_filter( 'wp_head', array( $this, 'enqueue_scripts' ), 2 );
+		//CSS
+		add_filter( 'wp_head', array( $this, 'enqueue_style' ), 2 );
+		//markdown解析
+		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
+		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
+		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,3);
+		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1,2);
+		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
+		add_filter('widget_text', 'do_shortcode');
+
+		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
+
+	}
+
 	/*
 	Utf-8、gb2312都支持的汉字截取函数
 	cut_str(字符串, 截取长度, 开始长度, 编码);
@@ -43,25 +64,6 @@ use WPReliableMD\View\Parser as Parser;
 			}
 			return $tmpstr;
 		}
-	}
-class Controller {
-
-	public function __construct() {
-
-		//Javascript 文件
-		add_filter( 'wp_head', array( $this, 'enqueue_scripts' ), 2 );
-		//CSS
-		add_filter( 'wp_head', array( $this, 'enqueue_style' ), 2 );
-		//markdown解析
-		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
-		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
-		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,3);
-		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1,2);
-		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
-		add_filter('widget_text', 'do_shortcode');
-
-		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
-
 	}
 
 	function the_excerpt( $post_excerpt ) {
@@ -104,7 +106,7 @@ class Controller {
 			}
 		}
 
-		return do_shortcode(cut_str( $post_excerpt, 0, apply_filters('excerpt_length',50) ));
+		return do_shortcode($this->cut_str( $post_excerpt, 0, apply_filters('excerpt_length',50) ));
 	}
 
 	public function enqueue_scripts() {
