@@ -12,14 +12,15 @@
         var option = {
             renderer: function (text, type) {
                 if (type === 'InlineMath') {
-                    return '<span style="display: inline;">' + math_render(text) + '</span>'
+                    return '<span style="display: inline;">' + math_render(text, {displayMode: false}) + '</span>'
                 }
                 else // type === 'DisplayMath'
                 {
-                    return '<span style="display: block;">' + math_render(text) + '</span>'
+                    return '<span style="display: block;">' + math_render(text, {displayMode: true}) + '</span>'
                 }
             }
         };
+
 
         EditorOrViewer.defineExtension('mathsupport', function () {
             EditorOrViewer.markdownitHighlight
