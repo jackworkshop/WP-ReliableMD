@@ -19,15 +19,15 @@ class Controller {
 		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1,2);
 		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
 		add_filter('widget_text', 'do_shortcode');
-		add_filter('markdown_the_excerpt',array($this,'cut_str'),1,2);
-		add_filter('markdown_excerpt_cut_str',array($this,'cut_str_utf8'),1,3);
-		add_filter('markdown_excerpt_cut_str',array($this,'cut_str_gb2312'),1,3);
+		add_filter('markdown_the_excerpt',array($this,'WPReliableMD_Encode_Process'),1,2);
+		add_filter('markdown_excerpt_encode_process',array($this,'WPReliableMD_Encode_Process_Utf8'),1,3);
+		add_filter('markdown_excerpt_encode_process',array($this,'WPReliableMD_Encode_Process_Gb2312'),1,3);
 
 		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
 	}
 
-	public function cut_str($string,$is_auto_get_excerpt)
+	public function WPReliableMD_Encode_Process($string,$is_auto_get_excerpt)
 	{
 		$code = get_bloginfo('charset');
 		$sublen = apply_filters('excerpt_length',50);
@@ -40,12 +40,12 @@ class Controller {
 			 *   - $sublen : Processing string length.
 			 *   - $code : Encoding of processing data.
 			 */
-			$string = apply_filters('markdown_excerpt_cut_str',$string,$sublen,$code);
+			$string = apply_filters('markdown_excerpt_encode_process',$string,$sublen,$code);
 		}
 		return $string;
 	}
 
-	public function cut_str_utf8($string,$sublen,$code) {
+	public function WPReliableMD_Encode_Process_Utf8($string,$sublen,$code) {
 		$start = 0;
 		if($code == "UTF-8") {
 			//UTF-8处理
@@ -58,7 +58,7 @@ class Controller {
 		return $string;
 	}
 
-	public function cut_str_gb2312($string,$sublen,$code) {
+	public function WPReliableMD_Encode_Process_Gb2312($string,$sublen,$code) {
 		$start = 0;
 		if($code == "GB2312") {
 			//GB2312
