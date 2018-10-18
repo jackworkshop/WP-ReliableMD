@@ -9,12 +9,12 @@ class Controller {
 	public function __construct() {
 
 		//Javascript 文件
-		add_filter( 'wp_head', array( $this, 'enqueue_scripts' ), 2 );
+		add_filter( 'wp_head', array( $this, 'WPReliableMD_Enqueue_Scripts' ), 2 );
 		//CSS
-		add_filter( 'wp_head', array( $this, 'enqueue_style' ), 2 );
+		add_filter( 'wp_head', array( $this, 'WPReliableMD_Enqueue_Style' ), 2 );
 		//markdown解析
 		add_filter( 'the_content', array( $this, 'WPReliableMD_the_Content' ) );
-		add_filter( 'the_excerpt', array( $this, 'the_excerpt' ) );
+		add_filter( 'the_excerpt', array( $this, 'WPReliableMD_the_excerpt' ) );
 		add_filter('markdown_backend_rendered',array($this,'WPReliableMD_BackendRendered'),1,4);
 		add_filter('markdown_text',array($this,'WPReliableMD_MarkdownText_Transference'),1,2);
 		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
@@ -89,7 +89,7 @@ class Controller {
 		return $string;
 	}
 
-	function the_excerpt( $post_excerpt ) {
+	function WPReliableMD_the_excerpt( $post_excerpt ) {
 		$post_id = get_the_ID();
 		$post = get_post( $post_id );
 		if ( ! has_excerpt() ) {
@@ -133,13 +133,13 @@ class Controller {
 		return do_shortcode($post_excerpt);
 	}
 
-	public function enqueue_scripts() {
+	public function WPReliableMD_Enqueue_Scripts() {
 		wp_enqueue_script( 'require' );
 		wp_enqueue_script( 'require-paths' );
 		wp_enqueue_script( 'WPReliableMDFrontend' );
 	}
 
-	public function enqueue_style() {
+	public function WPReliableMD_Enqueue_Style() {
 		wp_enqueue_style( 'normalize' );
 		wp_enqueue_style( 'codemirror' );
 		wp_enqueue_style( 'github' );

@@ -5,11 +5,11 @@ namespace WPReliableMD\Environment;
 class Controller {
 
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_script' ) );
-		add_action( 'init', array( $this, 'register_style' ) );
+		add_action( 'init', array( $this, 'WPReliableMD_Register_Script' ) );
+		add_action( 'init', array( $this, 'WPReliableMD_Register_Style' ) );
 	}
 
-	public function register_script() {
+	public function WPReliableMD_Register_Script() {
 		//定义脚本本地化数据
 		$ReliableMDSetting = array(
 			'api_root'        => esc_url_raw( rest_url() ),
@@ -31,7 +31,7 @@ class Controller {
 
 	}
 
-	public function register_style() {
+	public function WPReliableMD_Register_Style() {
 		wp_register_style( 'normalize', WPReliableMD_URL . '/css/normalize.css', array(), WPReliableMD_VER, false );
 		wp_register_style( 'codemirror', WPReliableMD_URL . '/bower_components/codemirror/lib/codemirror.css', array( 'normalize' ), WPReliableMD_VER, false );
 		wp_register_style( 'github', WPReliableMD_URL . '/bower_components/highlightjs/styles/github.css', array( 'codemirror' ), WPReliableMD_VER, false );

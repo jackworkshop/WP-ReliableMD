@@ -9,20 +9,20 @@ class Controller {
 		add_filter( 'replace_editor', array( $this, 'WPReliableMD_init' ), 10, 2 );
 
 		//Javascript 文件
-		add_filter( 'admin_head', array( $this, 'enqueue_scripts' ), 2 );
+		add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Scripts' ), 2 );
 		//CSS 文件
-		add_filter( 'admin_head', array( $this, 'enqueue_style' ), 2 );
+		add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Style' ), 2 );
 
 		add_filter( 'admin_body_class', array( $this, 'WPReliableMD_admin_body_class' ) );
 	}
 
-	public function enqueue_scripts() {
+	public function WPReliableMD_Enqueue_Scripts() {
 		wp_enqueue_script( 'require' );
 		wp_enqueue_script( 'require-paths' );
 		wp_enqueue_script( 'ReliableMD' );
 	}
 
-	public function enqueue_style() {
+	public function WPReliableMD_Enqueue_Style() {
 		wp_enqueue_style( 'normalize' );
 		wp_enqueue_style( 'codemirror' );
 		wp_enqueue_style( 'github' );
