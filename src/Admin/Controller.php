@@ -34,13 +34,14 @@ class Controller {
 		wp_enqueue_style( 'ReliableMD' );
 	}
 
-	public function WPReliableMD_admin_body_class() {
+	public function WPReliableMD_admin_body_class($classes) {
 		if ( current_theme_supports( 'editor-styles' ) && current_theme_supports( 'dark-editor-style' ) ) {
-			return "$classes reliablemd-editor-page is-fullscreen-mode is-dark-theme";
+			$classes .= "reliablemd-editor-page is-fullscreen-mode is-dark-theme";
 		} else {
 			// Default to is-fullscreen-mode to avoid jumps in the UI.
-			return "$classes reliablemd-editor-page is-fullscreen-mode";
+			$classes .= "reliablemd-editor-page is-fullscreen-mode";
 		}
+		return $classes;
 	}
 
 	public function WPReliableMD_Page_Init() {
