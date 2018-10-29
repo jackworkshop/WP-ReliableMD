@@ -194,7 +194,7 @@ class Controller {
 		return $markdown;
 	}
 
-	public function WPReliableMD_Content( $content,$is_shortcode_tag = false ) {
+	public static function WPReliableMD_Content( $content,$is_shortcode_tag = false ) {
 
 		$backend_rendered = null;
 
@@ -233,7 +233,7 @@ class Controller {
 
 
 		$new_content      = "<div class='markdown-block'>";
-		$new_content      .= "<script class='markdown' type='text/markdown'>{$content}</script>";
+		$new_content      .= "<pre class='markdown' style='display:none;'>{$content}</pre>";
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
 		$new_content      .= "</div>";
 		$content          = $new_content;
@@ -254,7 +254,7 @@ class Controller {
 		//转义处理
 
 		if(!$is_backend_rendered) {
-			$markdown = str_replace(array("\r\n", "\r", "\n"),'%br%',$markdown);
+			$markdown = str_replace(array("\r\n", "\r", "\n"),'&br;',$markdown);
 		}
 		
 		
