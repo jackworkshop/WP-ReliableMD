@@ -46,8 +46,8 @@ class Controller {
 
 	public function WPReliableMD_Page_Init() {
 		global $post_type_object;
-		WPReliableMD_Enqueue_Scripts();
-		WPReliableMD_Enqueue_Style();
+		$this->WPReliableMD_Enqueue_Scripts();
+		$this->WPReliableMD_Enqueue_Style();
 
 		?>
 
