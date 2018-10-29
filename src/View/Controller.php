@@ -233,7 +233,7 @@ class Controller {
 
 
 		$new_content      = "<div class='markdown-block'>";
-		$new_content      .= "<script class='markdown' type="text/markdown">{$content}</script>";
+		$new_content      .= "<script class='markdown' type='text/markdown'>{$content}</script>";
 		$new_content      .= "<div class='markdown-backend-rendered'>{$backend_rendered}</div>";
 		$new_content      .= "</div>";
 		$content          = $new_content;
