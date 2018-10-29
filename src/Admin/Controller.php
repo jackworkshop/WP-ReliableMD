@@ -9,9 +9,9 @@ class Controller {
 		add_filter( 'replace_editor', array( $this, 'WPReliableMD_init' ), 10, 2 );
 
 		//Javascript 文件
-		add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Scripts' ), 2 );
+		//add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Scripts' ), 2 );
 		//CSS 文件
-		add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Style' ), 2 );
+		//add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Style' ), 2 );
 
 		add_filter( 'admin_body_class', array( $this, 'WPReliableMD_admin_body_class' ) );
 	}
@@ -46,6 +46,8 @@ class Controller {
 
 	public function WPReliableMD_Page_Init() {
 		global $post_type_object;
+		WPReliableMD_Enqueue_Scripts();
+		WPReliableMD_Enqueue_Style();
 
 		?>
 

@@ -254,7 +254,7 @@ class Controller {
 		//转义处理
 
 		if(!$is_backend_rendered) {
-			$markdown = str_replace(array("\r\n", "\r", "\n"),'&br;',$markdown);
+			$markdown = str_replace(array("\r\n", "\r", "\n"),'%br%',$markdown);
 		}
 		
 		
