@@ -1,5 +1,9 @@
 .arrow {
-    margin-left: 0px !important;
+	margin-left: 0px !important;
+}
+
+#wpfooter {
+	display: none;
 }
 
 #wpbody-content {
