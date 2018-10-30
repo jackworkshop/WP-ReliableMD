@@ -82,6 +82,7 @@ requirejs(['jquery', 'tui-editor', 'editor-mathsupport', 'htmlToText'], function
                     }
                 }).done(function (response) {
                     console.log(response);
+					post_id = response.id;
                     alert('Posted passage');
                 });
 
