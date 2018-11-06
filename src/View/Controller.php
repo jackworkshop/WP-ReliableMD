@@ -89,7 +89,7 @@ class Controller {
 		return $string;
 	}
 
-	function WPReliableMD_the_excerpt( $post_excerpt ) {
+	public function WPReliableMD_the_excerpt( $post_excerpt ) {
 		$post_id = get_the_ID();
 		$post = get_post( $post_id );
 		if ( ! has_excerpt() ) {
