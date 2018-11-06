@@ -3,7 +3,7 @@
  * Plugin Name:       WP ReliableMD
  * Plugin URI:        https://github.com/jack9603301/WP-ReliableMD
  * Description:       A reliable, beautiful and powerful markdown plugin for wordpress, supporting editing and rendering
- * Version:           1.0
+ * Version:           0.5
  * Author:            WP-ReliableMD
  * Author URI:        https://github.com/jack9603301/WP-ReliableMD
  * License:           GPL-3.0+
