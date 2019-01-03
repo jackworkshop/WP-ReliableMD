@@ -1,4 +1,19 @@
 requirejs(['jquery'], function($){
+	var $_GET = (function () {
+        var url = window.document.location.href.toString();
+        var u = url.split("?");
+        if (typeof(u[1]) === "string") {
+            u = u[1].split("&");
+            var get = {};
+            for (var i in u) {
+                var j = u[i].split("=");
+                get[j[0]] = j[1];
+            }
+            return get;
+        } else {
+            return {};
+        }
+    })();
 	var hash = function(text){
 		var h = 0;
 		for(var i = 0; i < text.length; ++i){
@@ -39,4 +54,22 @@ requirejs(['jquery'], function($){
     		render.setCallback(callback);
 		});
 	}
+
+	$('.tui-editor-contents').each(function() {
+		var text = $(this).html();
+		console.log(ReliableMD);
+        $.ajax({
+            url: ReliableMD.api_root + 'WP-ReliableMD/markdown/render/' + ReliableMD.id,
+            //url: ReliableMD.root + 'WPReliableMD/posts/' + post_id,
+            method: 'PUT',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', ReliableMD.nonce);
+            },
+            data: text
+        }).done(function (response) {
+            console.log(response);
+			post_id = response.id;
+            console.log('Update Object Cached');
+        });
+	});
 });

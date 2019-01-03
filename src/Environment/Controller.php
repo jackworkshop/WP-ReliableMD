@@ -15,7 +15,7 @@ class Controller {
 			'api_root'        => esc_url_raw( rest_url() ),
 			'nonce'           => wp_create_nonce( 'wp_rest' ),
 			'js_root'         => WPReliableMD_URL . '/js/',
-			'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/'
+			'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
 		);
 
 //		wp_deregister_script( 'jquery' );
@@ -23,9 +23,7 @@ class Controller {
 		wp_register_script( 'require', WPReliableMD_URL . '/js/require.js', array(), WPReliableMD_VER, false );
 		wp_register_script( 'require-paths', WPReliableMD_URL . '/js/require_paths.js', array( 'require' ), WPReliableMD_VER, false );
 		wp_register_script( 'ReliableMD', WPReliableMD_URL . '/js/WPReliableMD_Admin.js', array( 'require-paths' ), WPReliableMD_VER, false );
-
 		wp_register_script( 'WPReliableMDFrontend', WPReliableMD_URL . '/js/WPReliableMDFrontend.js', array( 'require-paths' ), WPReliableMD_VER, false );
-		wp_localize_script( 'WPReliableMDFrontend', 'ReliableMD', $ReliableMDSetting );
 		wp_localize_script( 'ReliableMD', 'ReliableMD', $ReliableMDSetting );
 		wp_localize_script( 'require-paths', 'ReliableMD', $ReliableMDSetting );
 

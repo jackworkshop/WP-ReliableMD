@@ -137,6 +137,14 @@ class Controller {
 		wp_enqueue_script( 'require' );
 		wp_enqueue_script( 'require-paths' );
 		wp_enqueue_script( 'WPReliableMDFrontend' );
+		$ReliableMDSetting = array(
+			'api_root'        => esc_url_raw( rest_url() ),
+			'nonce'           => wp_create_nonce( 'wp_rest' ),
+			'js_root'         => WPReliableMD_URL . '/js/',
+			'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
+			'id'              => get_the_ID()
+		);
+		wp_localize_script( 'WPReliableMDFrontend', 'ReliableMD', $ReliableMDSetting );
 	}
 
 	public function WPReliableMD_Enqueue_Style() {
@@ -282,6 +290,7 @@ class Controller {
 				}
 			}
 		} else {
+			//短标签渲染器
 			$parser = new Parser();
 			$backend_rendered = $parser->makeHtml( $content );
 		}

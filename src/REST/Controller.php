@@ -59,12 +59,17 @@ class Controller {
 	}
 
 	public function WPReliableMD_Cache_markdown_render($request) {
-		$content_type = $this->get_content_type();
-		if ( empty( $content_type ) || 'text/html' !== $content_type['value'] ) {
-			return new WP_Error( 'rest_invalid_content_type', __( 'Invalid Content-type.' ));
+		$content_type = $request->get_content_type();
+		if ( empty( $content_type ) || 'application/x-www-form-urlencoded' !== $content_type['value'] ) {
+			return new \WP_Error( 'rest_invalid_content_type', __( 'Invalid Content-type.' ));
 		}
 		$id = $request['id'];
 		wp_cache_set($id,$request->get_body(),'markdown_backend_rendered');
+
+		return [
+			'id' => $id,
+			'result' => 'Success'
+		];
 	}
 
 	public function WPReliableMD_REST_Posts($response, $post, $request  ) {
