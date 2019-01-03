@@ -31,7 +31,7 @@ requirejs(['jquery'], function($){
 			++cnt;
 		else{
 			console.log("used cache", hash(text));
-			callback($(this)).html(ca).attr('class','tui-editor-contents');
+			callback($(this)).html(ca).attr('class','viewes-contents');
 		}
 	});
 	if(cnt > 0) {
@@ -40,7 +40,7 @@ requirejs(['jquery'], function($){
 		});
 	}
 
-	$('.tui-editor-contents').each(function() {
+	$('.posts .viewes-contents .tui-editor-contents').each(function() {
 		var text = $(this).html();
 		console.log(ReliableMD);
         $.ajax({
@@ -54,6 +54,27 @@ requirejs(['jquery'], function($){
         }).done(function (response) {
             console.log(response);
 			post_id = response.id;
+            console.log('Update Object Cached');
+        });
+	});
+	$('.shortcode .viewes-contents .tui-editor-contents').each(function() {
+		var text = $(this).html();
+		var shortcode = $(this).parents('.shortcode');
+		console.log(ReliableMD);
+        $.ajax({
+            url: ReliableMD.api_root + 'WP-ReliableMD/markdown/render/shortcode',
+            //url: ReliableMD.root + 'WPReliableMD/posts/' + post_id,
+            method: 'PUT',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', ReliableMD.nonce);
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+            	'hash':shortcode.attr('hash'),
+            	'cached':text
+            })
+        }).done(function (response) {
+            console.log(response);
             console.log('Update Object Cached');
         });
 	});
