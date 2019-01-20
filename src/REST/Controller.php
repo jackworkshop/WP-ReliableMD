@@ -15,9 +15,10 @@ class Controller {
 	}
 
 	public function WPReliableMD_Api_Init() {
+		global $GlobalEnvironment;
 		register_rest_route(WPReliableMD_NAME, 'config', [
 			'methods'   => 'GET',
-			'callback'  => array($this,'WPReliableMD_Config_Api')
+			'callback'  => array($GlobalEnvironment,'WPReliableMD_Config_Api')
 		]);
 		register_rest_route(WPReliableMD_NAME, 'config', [
 			'methods'   => 'POST',
@@ -37,19 +38,6 @@ class Controller {
 			'get_callback' => array($this,'WPReliableMD_REST_Post_markdown_Get'),
 			'update_callback' => array($this,'WPReliableMD_REST_Post_markdown_Update')
 		));
-	}
-	public function WPReliableMD_Config_Api() {
-		if ( file_exists( $this->config_filename ) ) {
-			$f = fopen($this->config_filename, "r");
-			$config = fread($f, filesize($this->config_filename));
-			return json_decode($config,TRUE);
-		} else {
-			return [
-				'enable' => true,
-				'latex' => "MathJax",
-				'info' => 'default config'
-			];
-		}
 	}
 
 	public function WPReliableMD_Config_Api_Set($request) {
