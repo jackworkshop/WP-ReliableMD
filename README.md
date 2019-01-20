@@ -18,12 +18,12 @@
   - [ ] MathJax
 - [x] 前端+后端，二次渲染支持
 - [ ] 可扩展 定制主题
-  - [ ] WP Editor.md
-  - [ ] WP HyperMD
 - [ ] 支持UML
   - [ ] 支持mermaid
   - [x] 支持自带的UML绘制
 - [ ] 插件兼容
+  - [ ] WP Editor.md
+  - [ ] WP HyperMD
 - [x] 支持图标绘制
 - [x] 表格扩展
 - [x] 支持shortcode解析markdown
