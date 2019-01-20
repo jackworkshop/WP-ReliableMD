@@ -134,11 +134,11 @@ class Controller {
 	}
 
 	public function WPReliableMD_Enqueue_Scripts() {
-		global $GlobalEnvironment;
+		global $ReliableMDAdminController;
 		wp_enqueue_script( 'require' );
 		wp_enqueue_script( 'require-paths' );
 		wp_enqueue_script( 'WPReliableMDFrontend' );
-		if(is_null($GlobalEnvironment)) {
+		if(is_null($ReliableMDAdminController)) {
 			$ReliableMDSetting = array(
 				'api_root'        => esc_url_raw( rest_url() ),
 				'nonce'           => wp_create_nonce( 'wp_rest' ),
@@ -154,7 +154,7 @@ class Controller {
 				'js_root'         => WPReliableMD_URL . '/js/',
 				'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
 				'id'              => get_the_ID(),
-				'config'          => $GlobalEnvironment->WPReliableMD_Config_Api()
+				'config'          => $ReliableMDAdminController->WPReliableMD_Config_Api()
 			);
 		}
 

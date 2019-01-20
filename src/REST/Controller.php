@@ -15,10 +15,10 @@ class Controller {
 	}
 
 	public function WPReliableMD_Api_Init() {
-		global $GlobalEnvironment;
+		global $ReliableMDAdminController;
 		register_rest_route(WPReliableMD_NAME, 'config', [
 			'methods'   => 'GET',
-			'callback'  => array($GlobalEnvironment,'WPReliableMD_Config_Api')
+			'callback'  => array($ReliableMDAdminController,'WPReliableMD_Config_Api')
 		]);
 		register_rest_route(WPReliableMD_NAME, 'config', [
 			'methods'   => 'POST',

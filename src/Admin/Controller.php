@@ -4,6 +4,8 @@ namespace WPReliableMD\Admin;
 
 class Controller {
 
+	protected $config_filename;
+
 	public function __construct() {
 
 		add_filter( 'replace_editor', array( $this, 'WPReliableMD_init' ), 10, 2 );
@@ -14,6 +16,7 @@ class Controller {
 		//add_filter( 'admin_head', array( $this, 'WPReliableMD_Enqueue_Style' ), 2 );
 
 		add_filter( 'admin_body_class', array( $this, 'WPReliableMD_admin_body_class' ) );
+		$this->config_filename = WPReliableMD_PATH.'/config.json';
 	}
 
 	public function WPReliableMD_Enqueue_Scripts() {
@@ -87,6 +90,20 @@ class Controller {
 		$this->WPReliableMD_Page_Init();   //初始化页面
 
 		return true;
+	}
+
+	public function WPReliableMD_Config_Api() {
+		if ( file_exists( $this->config_filename ) ) {
+			$f = fopen($this->config_filename, "r");
+			$config = fread($f, filesize($this->config_filename));
+			return json_decode($config,TRUE);
+		} else {
+			return [
+				'enable' => true,
+				'latex' => "MathJax",
+				'info' => 'default config'
+			];
+		}
 	}
 }
 

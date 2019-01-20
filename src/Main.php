@@ -12,17 +12,17 @@ class Main {
 
 	public function __construct() {
 
-		global $GlobalEnvironment;
+		global $ReliableMDAdminController;
 
 		add_action('plugins_loaded', array($this,'EnableLanguages'));
 
-		$GlobalEnvironment = new EnvironmentController(); //初始化插件环境控制器
+		new EnvironmentController(); //初始化插件环境控制器
 
 		new RestController();  //初始化REST控制器
 
 		new ViewController(); //初始化前端渲染控制器
 
-		new AdminController(); //初始化后台控制器
+		$ReliableMDAdminController = new AdminController(); //初始化后台控制器
 
 		new MetaController(); //初始化插件元信息控制器
 
