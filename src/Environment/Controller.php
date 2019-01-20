@@ -4,9 +4,12 @@ namespace WPReliableMD\Environment;
 
 class Controller {
 
+	protected $config_filename;
+
 	public function __construct() {
 		add_action( 'init', array( $this, 'WPReliableMD_Register_Script' ) );
 		add_action( 'init', array( $this, 'WPReliableMD_Register_Style' ) );
+		$this->config_filename = WPReliableMD_PATH.'/config.json';
 	}
 
 	public function WPReliableMD_Register_Script() {
@@ -16,6 +19,7 @@ class Controller {
 			'nonce'           => wp_create_nonce( 'wp_rest' ),
 			'js_root'         => WPReliableMD_URL . '/js/',
 			'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
+			'config' => $this->WPReliableMD_Config_Api()
 		);
 
 //		wp_deregister_script( 'jquery' );
@@ -40,6 +44,20 @@ class Controller {
 		wp_register_style( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.css', array( 'tui-editor' ), WPReliableMD_VER, false );
 		wp_register_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array( 'katex' ), WPReliableMD_VER, false );
 		wp_register_style( 'WPReliableMDFrontend', WPReliableMD_URL . '/css/WPReliableMDFrontend.css', array( 'katex' ), WPReliableMD_VER, false );
+	}
+
+	public function WPReliableMD_Config_Api() {
+		if ( file_exists( $this->config_filename ) ) {
+			$f = fopen($this->config_filename, "r");
+			$config = fread($f, filesize($this->config_filename));
+			return json_decode($config,TRUE);
+		} else {
+			return [
+				'enable' => true,
+				'latex' => "MathJax",
+				'info' => 'default config'
+			];
+		}
 	}
 }
 

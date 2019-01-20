@@ -12,9 +12,11 @@ class Main {
 
 	public function __construct() {
 
+		global $GlobalEnvironment;
+
 		add_action('plugins_loaded', array($this,'EnableLanguages'));
 
-		new EnvironmentController(); //初始化插件环境控制器
+		$GlobalEnvironment = new EnvironmentController(); //初始化插件环境控制器
 
 		new RestController();  //初始化REST控制器
 

@@ -134,16 +134,30 @@ class Controller {
 	}
 
 	public function WPReliableMD_Enqueue_Scripts() {
+		global $GlobalEnvironment;
 		wp_enqueue_script( 'require' );
 		wp_enqueue_script( 'require-paths' );
 		wp_enqueue_script( 'WPReliableMDFrontend' );
-		$ReliableMDSetting = array(
-			'api_root'        => esc_url_raw( rest_url() ),
-			'nonce'           => wp_create_nonce( 'wp_rest' ),
-			'js_root'         => WPReliableMD_URL . '/js/',
-			'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
-			'id'              => get_the_ID()
-		);
+		if(is_null($GlobalEnvironment)) {
+			$ReliableMDSetting = array(
+				'api_root'        => esc_url_raw( rest_url() ),
+				'nonce'           => wp_create_nonce( 'wp_rest' ),
+				'js_root'         => WPReliableMD_URL . '/js/',
+				'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
+				'id'              => get_the_ID(),
+				'config'          => false
+			);
+		} else {
+			$ReliableMDSetting = array(
+				'api_root'        => esc_url_raw( rest_url() ),
+				'nonce'           => wp_create_nonce( 'wp_rest' ),
+				'js_root'         => WPReliableMD_URL . '/js/',
+				'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
+				'id'              => get_the_ID(),
+				'config'          => $GlobalEnvironment->WPReliableMD_Config_Api()
+			);
+		}
+
 		wp_localize_script( 'WPReliableMDFrontend', 'ReliableMD', $ReliableMDSetting );
 	}
 
