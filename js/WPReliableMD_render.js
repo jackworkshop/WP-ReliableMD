@@ -23,8 +23,12 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
         return s;
     };
 	var save_cache = function(text, rendered){
-		console.log("saved cache", hash(text));
-		window.localStorage.setItem(hash(text), rendered);
+        var $date = new Date();
+        var $expire = 3600; //secs
+        var $expire_timestamp = $date.getTime() / 1000 + $expire;  //秒差形式
+        var $hash = hash(text);
+        window.localStorage.setItem("rmd_"+$hash+"_expire_timestamp", $expire_timestamp);
+		window.localStorage.setItem("rmd_"+$hash, rendered);
 	};
 	
     renderer.render = function () {

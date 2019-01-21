@@ -20,7 +20,38 @@ requirejs(['jquery'], function($){
     };
 	var cached = function(text)
 	{
-		return window.localStorage.getItem(hash(text));
+		var $date = new Date();
+		var $time = $date.getTime() / 1000;  //秒差形式
+		var $expire = 3600; //secs
+		//全局清理缓存功能
+		var $global_expire_timestamp = window.localStorage.getItem("rmd_global_expire_timestamp");
+		if(!$global_expire_timestamp) {
+			$global_expire_timestamp = $time + $expire;
+			window.localStorage.setItem("rmd_global_expire_timestamp",$global_expire_timestamp);
+		} else if($time - parseInt($global_expire_timestamp) > 0) {
+			//开始清理
+			for (var $key in window.localStorage) {
+				if($key.indexOf('rmd_') === 0 && $key.indexOf('_expire_timestamp')>0 && $key != "rmd_global_expire_timestamp") {
+					var $expire_timestamp = window.localStorage.getItem($key);
+					if($time - parseInt($expire_timestamp) > 0) {
+						//启动清理机制
+						window.localStorage.removeItem($key);
+						$key = $key.replace('_expire_timestamp', '');
+						window.localStorage.removeItem($key);
+					}
+				}
+
+			}
+		}
+		//开始获取缓存
+		var $hash = hash(text);
+		var $expire_timestamp =  window.localStorage.getItem("rmd_"+$hash+"_expire_timestamp");
+		if($time - parseInt($expire_timestamp) > 0) {
+			window.localStorage.removeItem("rmd_"+$hash);
+			window.localStorage.removeItem("rmd_"+$hash+"_expire_timestamp");
+			return null;
+		}
+		return window.localStorage.getItem("rmd_"+$hash);
 	};
 	var cnt = 0;
 	
