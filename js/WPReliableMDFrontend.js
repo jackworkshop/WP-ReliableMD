@@ -40,8 +40,10 @@ requirejs(['jquery'], function($){
 						window.localStorage.removeItem($key);
 					}
 				}
-
 			}
+			$global_expire_timestamp = $time + $expire;
+			window.localStorage.setItem("rmd_global_expire_timestamp",$global_expire_timestamp);
+
 		}
 		//开始获取缓存
 		var $hash = hash(text);
