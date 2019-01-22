@@ -63,7 +63,7 @@ requirejs(['jquery'], function($){
 		if(ca === null)
 			++cnt;
 		else{
-			console.log("used cache", hash(text));
+			console.log("used cache", "rmd_"+hash(text));
 			callback($(this)).html(ca).attr('class','viewes-contents');
 		}
 	});

@@ -29,6 +29,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
         var $hash = hash(text);
         window.localStorage.setItem("rmd_"+$hash+"_expire_timestamp", $expire_timestamp);
 		window.localStorage.setItem("rmd_"+$hash, rendered);
+        console.log("save cache", "rmd_"+$hash);
 	};
 	
     renderer.render = function () {
