@@ -55,6 +55,7 @@ requirejs(['jquery'], function($){
 		}
 		return window.localStorage.getItem("rmd_"+$hash);
 	};
+
 	var cnt = 0;
 	
 	$('.markdown').each(function () {

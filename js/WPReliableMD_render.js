@@ -41,10 +41,30 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
 
             //console.log(text);
 
+            var viewerLoader = function() {
+                setTimeout(function() {
+                    var is_saved = true;
+                    $('.tui-chart-series-custom-event-area').each(function() {
+                        is_saved = false;
+                        console.warn("Front-end browser cache processing is disabled due to the dynamic process of using tui-chart chart rendering.");
+                    })
+                    if(is_saved) {
+                        save_cache(ptext,ele.html()); //使用tui-chart图表的文章，不能使用前端缓存
+                    }
+                },3000);
+                var chart = document.getElementsByClassName('tui-chart-series-custom-event-area');
+                console.log(chart);
+                //chart[0].removeEventListener('mousemove',function() {});
+                console.log('loaded');
+            }
+
             var viewer = new Viewer({
                 el: ele[0],
                 viewer: true,
                 initialValue: ptext,
+                events: {
+                    load: viewerLoader
+                },
                 exts: [
                     {
                         name: 'chart',
@@ -61,7 +81,6 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
                 ]
             });
             $('[data-te-task]').removeAttr('data-te-task');
-			setTimeout(function(){save_cache(text, ele.html());}, 3000);
         });
     };
     // usage: make a div with class markdown, write it in markdown, and it will be converted into html

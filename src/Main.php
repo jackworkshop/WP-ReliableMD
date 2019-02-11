@@ -28,7 +28,7 @@ class Main {
 
 	}
 
-	function EnableLanguages() {
+	public function EnableLanguages() {
 		load_plugin_textdomain(WPReliableMD_FILE,false,WPReliableMD_PATH.'/languages/'); // 启用本地化
 	}
 
