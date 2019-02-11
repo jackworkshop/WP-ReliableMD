@@ -44,7 +44,7 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
             var viewerLoader = function() {
                 setTimeout(function() {
                     var is_saved = true;
-                    $('.tui-chart-series-custom-event-area').each(function() {
+                    ele.find('.tui-chart-series-custom-event-area').each(function() {
                         is_saved = false;
                         console.warn("Front-end browser cache processing is disabled due to the dynamic process of using tui-chart chart rendering.");
                     })
