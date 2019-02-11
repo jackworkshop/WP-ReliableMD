@@ -52,9 +52,6 @@ define(['jquery', 'tui-viewer', 'viewer-mathsupport'], function ($, Viewer) {
                         save_cache(ptext,ele.html()); //使用tui-chart图表的文章，不能使用前端缓存
                     }
                 },3000);
-                var chart = document.getElementsByClassName('tui-chart-series-custom-event-area');
-                console.log(chart);
-                //chart[0].removeEventListener('mousemove',function() {});
                 console.log('loaded');
             }
 
