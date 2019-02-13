@@ -61,21 +61,29 @@ horizontal line
 # Charts
 
 ```chart
-,Budget,Income,Expenses,Debt
-June,5000,8000,4000,6000
-July,3000,1000,4000,3000
-Aug,5000,7000,6000,3000
-Sep,7000,2000,3000,1000
-Oct,6000,5000,4000,2000
-Nov,4000,3000,5000,4000
+, Seoul , Sydney , Moskva
+Jan,20, 5, 30
+Feb,40, 30, 5
+Mar,25, 31, 18
+Apr,50, 18, 21
+May,15, 59, 33
+June,45, 50, 41
+July,33, 28, 29
+Aug,34, 33, 15
+Sep,20, 7, 30
+Oct,30, 20, 10
+Nov,22, 10, 33
+Dec,13, 3, 5
 
-type: column
-title: Monthly Revenue
+type: area
+title: 24-hr Average Temperature
 width: 465
-x.title: Amount
-y.title: Month
-y.suffix: $
-legend.visible: false
+x.title: Month
+y.title: Temperature (Celsius)
+y.pointOnColumn: true
+y.suffix: °C
+tooltip.suffix:°C
+legend.visible: true
 ```
 
 
