@@ -5,7 +5,6 @@
  * Description:       A reliable, beautiful and powerful markdown plugin for wordpress, supporting editing and rendering
  * Version:           0.5
  * Author:            WP-ReliableMD
- * Author URI:        https://github.com/jack9603301/WP-ReliableMD
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       ReliableMD
