@@ -17,7 +17,7 @@ class Controller {
 			'api_root'        => esc_url_raw( rest_url() ),
 			'nonce'           => wp_create_nonce( 'wp_rest' ),
 			'js_root'         => WPReliableMD_URL . '/js/',
-			'js_dep_lib_root' => WPReliableMD_URL . '/bower_components/',
+			'js_dep_lib_root' => 'https://cdn.jsdelivr.net/npm/',
 			'config' => $ReliableMDAdminController->WPReliableMD_Config_Api()
 		);
 
@@ -33,14 +33,16 @@ class Controller {
 	}
 
 	public function WPReliableMD_Register_Style() {
+
+		$js_dep_lib_root = 'https://cdn.jsdelivr.net/npm/';
 		wp_register_style( 'normalize', WPReliableMD_URL . '/css/normalize.css', array(), WPReliableMD_VER, false );
-		wp_register_style( 'codemirror', WPReliableMD_URL . '/bower_components/codemirror/lib/codemirror.css', array( 'normalize' ), WPReliableMD_VER, false );
-		wp_register_style( 'github', WPReliableMD_URL . '/bower_components/highlightjs/styles/github.css', array( 'codemirror' ), WPReliableMD_VER, false );
-		wp_register_style( 'tui-editor', WPReliableMD_URL . '/bower_components/tui-editor/dist/tui-editor.css', array( 'github' ), WPReliableMD_VER, false );
-		wp_register_style( 'tui-editor-contents', WPReliableMD_URL . '/bower_components/tui-editor/dist/tui-editor-contents.css', array( 'tui-editor' ), WPReliableMD_VER, false );
-		wp_register_style( 'tui-color-picker', WPReliableMD_URL . '/bower_components/tui-color-picker/dist/tui-color-picker.css', array( 'tui-editor-contents' ), WPReliableMD_VER, false );
-		wp_register_style( 'tui-chart', WPReliableMD_URL . '/bower_components/tui-chart/dist/tui-chart.css', array( 'tui-color-picker' ), WPReliableMD_VER, false );
-		wp_register_style( 'katex', WPReliableMD_URL . '/bower_components/katex/dist/katex.css', array( 'tui-editor' ), WPReliableMD_VER, false );
+		wp_register_style( 'codemirror', $js_dep_lib_root.'/codemirror/lib/codemirror.css', array( 'normalize' ), WPReliableMD_VER, false );
+		wp_register_style( 'github', $js_dep_lib_root.'/highlightjs/styles/github.css', array( 'codemirror' ), WPReliableMD_VER, false );
+		wp_register_style( 'tui-editor', WPReliableMD_URL . '/js/tui-editor/dist/tui-editor.css', array( 'github' ), WPReliableMD_VER, false );
+		wp_register_style( 'tui-editor-contents', WPReliableMD_URL . '/js/tui-editor/dist/tui-editor-contents.css', array( 'tui-editor' ), WPReliableMD_VER, false );
+		wp_register_style( 'tui-color-picker', WPReliableMD_URL . '/js/tui-color-picker/dist/tui-color-picker.css', array( 'tui-editor-contents' ), WPReliableMD_VER, false );
+		wp_register_style( 'tui-chart', WPReliableMD_URL . '/js/tui-chart/dist/tui-chart.css', array( 'tui-color-picker' ), WPReliableMD_VER, false );
+		wp_register_style( 'katex', $js_dep_lib_root.'/katex/dist/katex.css', array( 'tui-editor' ), WPReliableMD_VER, false );
 		wp_register_style( 'ReliableMD', WPReliableMD_URL . '/css/WPReliableMD_Admin.css', array( 'katex' ), WPReliableMD_VER, false );
 		wp_register_style( 'WPReliableMDFrontend', WPReliableMD_URL . '/css/WPReliableMDFrontend.css', array( 'katex' ), WPReliableMD_VER, false );
 	}
