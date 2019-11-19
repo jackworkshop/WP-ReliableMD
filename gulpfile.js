@@ -1,7 +1,17 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
+var babel = require("gulp-babel");
 
-gulp.task('copy-js', function(done) {
+
+gulp.task('build-MarkdownConvertor',function(done) {
+	return gulp.src('js/src/MarkdownConvertor/MarkdownConvertor.js')
+	    .pipe(babel())
+	    .pipe(gulp.dest('js/src/MarkdownConvertor/dist'));
+});
+
+gulp.task('build',gulp.parallel('build-MarkdownConvertor'));
+
+gulp.task('copy-js', gulp.series('build',function(done) {
 	gulp.src('bower_components/codemirror/lib/**.js')
 	    .pipe(gulp.dest('Assets/js/codemirror/'));
 	gulp.src('bower_components/eve/**.js')
@@ -20,16 +30,18 @@ gulp.task('copy-js', function(done) {
 	    .pipe(gulp.dest('Assets/js/squire-rte/'));
 	gulp.src('bower_components/to-mark/dist/**.js')
 	    .pipe(gulp.dest('Assets/js/to-mark/'));
+	gulp.src('js/src/MarkdownConvertor/dist/**.js')
+	    .pipe(gulp.dest('js/'));
 	done();
-});
+}));
 
-gulp.task('Copy-MathJax',function(done) {
+gulp.task('Copy-MathJax',gulp.series('build',function(done) {
 	gulp.src('bower_components/MathJax/unpacked/**')
 	    .pipe(gulp.dest('Assets/MathJax/'));
 	done();
-});
+}));
 
-gulp.task('copy-css', function(done) {
+gulp.task('copy-css', gulp.series('build',function(done) {
 	gulp.src('bower_components/codemirror/lib/**.css')
 	    .pipe(gulp.dest('Assets/css/codemirror/'));
 	gulp.src('bower_components/eve/**.css')
@@ -49,6 +61,6 @@ gulp.task('copy-css', function(done) {
 	gulp.src('bower_components/to-mark/dist/**.css')
 	    .pipe(gulp.dest('Assets/css/to-mark/'));
 	done();
-});
+}));
 
 gulp.task('default', gulp.parallel('copy-js','copy-css','Copy-MathJax'));

@@ -20,8 +20,8 @@ class Controller {
 		add_filter('markdown_shortcode_text',array($this,'WPReliableMD_MarkdownShortcodeText_AntiTransfer'),1);
 		add_filter('widget_text', 'do_shortcode');
 		add_filter('markdown_the_excerpt',array($this,'WPReliableMD_Encode_Process'),1,2);
-		add_filter('markdown_excerpt_encode_process',array($this,'WPReliableMD_Encode_Process_Utf8'),1,3);
-		add_filter('markdown_excerpt_encode_process',array($this,'WPReliableMD_Encode_Process_Gb2312'),1,3);
+		add_filter('auto_markdown_excerpt_process',array($this,'WPReliableMD_Encode_Process_Utf8'),1,3);
+		add_filter('auto_markdown_excerpt_process',array($this,'WPReliableMD_Encode_Process_Gb2312'),1,3);
 
 		add_shortcode('markdown',array($this,'WPReliableMD_Shortcode_Markdown'));
 
@@ -33,14 +33,23 @@ class Controller {
 		$sublen = apply_filters('excerpt_length',50);
 		if($is_auto_get_excerpt) {
 			/*
-			 * filter  : markdown_excerpt_cut_str($string,$sublen,$code)
+			 * filter  : auto_markdown_excerpt_process($string,$sublen,$code)
 			 * comment : Extended coding support function covering markdown automatic interception summary mechanism.
 			 * params  :
 			 *   - $string : Pre processing string.
 			 *   - $sublen : Processing string length.
 			 *   - $code : Encoding of processing data.
 			 */
-			$string = apply_filters('markdown_excerpt_encode_process',$string,$sublen,$code);
+			$string = apply_filters('auto_markdown_excerpt_process',$string,$sublen,$code);
+		} else {
+			/*
+			 * filter  : markdown_excerpt_process($string,$sublen,$code)
+			 * comment : Extended coding support function covering markdown automatic interception summary mechanism.
+			 * params  :
+			 *   - $string : Pre processing string.
+			 *   - $code : Encoding of processing data.
+			 */
+			$string = apply_filters('markdown_excerpt_process',$string,$code);
 		}
 		return $string;
 	}

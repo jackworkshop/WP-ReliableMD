@@ -1,5 +1,5 @@
 // Start the main app logic.
-requirejs(['jquery', 'tui-editor', 'editor-mathsupport', 'htmlToText'], function ($, Editor, mathsupport, htmlToText) {
+requirejs(['jquery', 'tui-editor', 'editor-mathsupport', 'htmlToText','MarkdowConvertor'], function ($, Editor, mathsupport, htmlToText,MarkdowConvertor) {
     var $_GET = (function () {
         var url = window.document.location.href.toString();
         var u = url.split("?");
@@ -54,7 +54,8 @@ requirejs(['jquery', 'tui-editor', 'editor-mathsupport', 'htmlToText'], function
                     'mark',
                     'table',
                     'mathsupport'
-                ]
+                ],
+                customConvertor: MarkdowConvertor
             });
 
             var post = function () {
