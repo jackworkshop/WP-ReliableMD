@@ -1,5 +1,9 @@
 # WP-ReliableMD
 
+[English document](README.md) [中文文档](README_zh_CN.md)
+
+[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Coverage Status](https://coveralls.io/repos/github/jackworkshop/WP-ReliableMD/badge.svg?branch=master)](https://coveralls.io/github/jackworkshop/WP-ReliableMD?branch=master) [![Build Status](https://travis-ci.org/jackworkshop/WP-ReliableMD.svg?branch=master)](https://travis-ci.org/jackworkshop/WP-ReliableMD)
+
 ## 简介
 
 一个可靠、美观、功能强大的WordPress的markdown插件，同时支持支持编辑和渲染，为了替换一只猫的编辑器而开发，成为下一代markdown编辑器 
