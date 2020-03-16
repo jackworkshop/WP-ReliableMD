@@ -4,7 +4,10 @@
 use mageekguy\atoum;
 use mageekguy\atoum\reports;
 
-$coveralls = new reports\asynchronous\coveralls('src', 'myCoverallsProjectToken');
+
+$stdOutWriter = new atoum\writers\std\out();
+
+$coveralls = new reports\asynchronous\coveralls('src', 'URuIeb1VklQC4lyITAg4ByKFYuDvFINOg');
 $defaultFinder = $coveralls->getBranchFinder();
 $coveralls
         ->setBranchFinder(function() use ($defaultFinder) {
@@ -17,8 +20,8 @@ $coveralls
         })
         ->setServiceName(getenv('TRAVIS') ? 'travis-ci' : null)
         ->setServiceJobId(getenv('TRAVIS_JOB_ID') ?: null)
-        ->addWriter()
-;
+        ->addWriter($stdOutWriter);
+
 $runner->addReport($coveralls);
 
 $script->addDefaultReport();
