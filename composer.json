@@ -41,6 +41,8 @@
   },
   "homepage": "https://github.com/jack9603301/WP-ReliableMD",
   "require-dev": {
-    "atoum/atoum": "^3.4"
+    "atoum/atoum": "^3.4",
+    "php-coveralls/php-coveralls": "^2.2",
+    "phpunit/phpunit": "^9.0"
   }
 }

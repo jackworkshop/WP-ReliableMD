@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php">
+ <logging>
+   <log type="coverage-clover" target="test/code_coverage/clover.xml"/>
+ </logging>
+ <filter>
+   <whitelist>
+     <directory>src</directory>
+   </whitelist>
+ </filter>
+</phpunit>
