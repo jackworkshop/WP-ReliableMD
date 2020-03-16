@@ -47,8 +47,8 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 ## 社区参与
 
 您可以以如下方式参与：
-1、负责人qq：744439622
-2、qq群：903666780
-3、起航天空chat频道，加入[起航天空——聊天频道](https://chat.qhjack.cn)并在# general 声明是来由，我们会拉里进# wp-reliablemd。
-4、加入这里[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-5、通过issus给我们提意见或者使用该插件遇到的问题
+1. 负责人qq：744439622
+2. qq群：903666780
+3. 起航天空chat频道，加入[起航天空——聊天频道](https://chat.qhjack.cn)并在# general 声明是来由，我们会拉里进# wp-reliablemd。
+4. 加入这里[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+5. 通过issus给我们提意见或者使用该插件遇到的问题
