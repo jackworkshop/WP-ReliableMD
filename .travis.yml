@@ -4,4 +4,4 @@ php:
   - 7.3
 script:
  - bundle install
- - bundle exec rake :test_with_coveralls
+ - ruby test/test_helper.rb
