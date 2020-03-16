@@ -15,7 +15,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 [English document](README.md) [中文文档](README_zh_CN.md)
 
-[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Coverage Status](https://coveralls.io/repos/github/jackworkshop/WP-ReliableMD/badge.svg?branch=master)](https://coveralls.io/github/jackworkshop/WP-ReliableMD?branch=master)
 
 ## brief introduction
 
