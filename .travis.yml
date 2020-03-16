@@ -4,4 +4,4 @@ php:
   - 7.3
 script:
  - bundle install
- - ruby test/test_helper.rb
+ - bin/atoum -f .atoum.php
