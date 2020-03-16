@@ -1,16 +1,3 @@
-=== WP-ReliableMD ===
-
-Contributors: WP ReliableMD
-Donate link: https://github.com/jackworkshop/WP-ReliableMD.git
-Tags: Editor,Markdown,Markdown Edit,WP ReliableMD,Wordpress,tui-editor
-Requires at least: 4.9.8
-Tested up to: 5.0
-Stable tag: 0.5-dev
-License: GPLv3 or later
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
-
-== Description ==
-
 # WP-ReliableMD
 
 ## 简介
