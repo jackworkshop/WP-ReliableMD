@@ -1,1 +1,3 @@
-gem 'coveralls', require: false
+source "https://rubygems.org" do
+    gem 'coveralls', require: false
+end
