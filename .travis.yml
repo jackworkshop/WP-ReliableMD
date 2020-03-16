@@ -3,4 +3,4 @@ sudo: false
 php:
   - 7.3
 script:
-  - echo "OK"
+ - bundle exec rake :test_with_coveralls
