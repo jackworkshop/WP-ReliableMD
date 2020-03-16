@@ -1,7 +1,6 @@
 language: php
 sudo: false
 php:
-  - 5.3
-  - 5.4
+  - 7.3
 script:
   - bin/atoum --test-all
