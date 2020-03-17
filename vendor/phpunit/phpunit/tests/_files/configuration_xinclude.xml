@@ -17,7 +17,7 @@
          failOnWarning="false"
          failOnRisky="false"
          extensionsDirectory="/tmp"
-         printerClass="PHPUnit\TextUI\DefaultResultPrinter"
+         printerClass="PHPUnit\TextUI\ResultPrinter"
          testSuiteLoaderClass="PHPUnit\Runner\StandardTestSuiteLoader"
          defaultTestSuite="My Test Suite"
          beStrictAboutChangesToGlobalState="false"
@@ -34,8 +34,7 @@
          timeoutForLargeTests="60"
          verbose="false"
          executionOrder="default"
-         resolveDependencies="false"
-         noInteraction="true">
+         resolveDependencies="false">
          <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
              href="configuration.xml"
              parse="xml"

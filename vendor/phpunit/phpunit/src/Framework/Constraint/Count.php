@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,11 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use PHPUnit\Framework\Exception;
+use Countable;
+use Generator;
+use Iterator;
+use IteratorAggregate;
+use Traversable;
 
 class Count extends Constraint
 {
@@ -20,6 +24,8 @@ class Count extends Constraint
 
     public function __construct(int $expected)
     {
+        parent::__construct();
+
         $this->expectedCount = $expected;
     }
 
@@ -34,8 +40,6 @@ class Count extends Constraint
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
-     *
-     * @throws Exception
      */
     protected function matches($other): bool
     {
@@ -43,11 +47,11 @@ class Count extends Constraint
     }
 
     /**
-     * @throws Exception
+     * @param iterable $other
      */
     protected function getCountOf($other): ?int
     {
-        if ($other instanceof \Countable || \is_array($other)) {
+        if ($other instanceof Countable || \is_array($other)) {
             return \count($other);
         }
 
@@ -55,26 +59,18 @@ class Count extends Constraint
             return 0;
         }
 
-        if ($other instanceof \Traversable) {
-            while ($other instanceof \IteratorAggregate) {
-                try {
-                    $other = $other->getIterator();
-                } catch (\Exception $e) {
-                    throw new Exception(
-                        $e->getMessage(),
-                        $e->getCode(),
-                        $e
-                    );
-                }
+        if ($other instanceof Traversable) {
+            while ($other instanceof IteratorAggregate) {
+                $other = $other->getIterator();
             }
 
             $iterator = $other;
 
-            if ($iterator instanceof \Generator) {
+            if ($iterator instanceof Generator) {
                 return $this->getCountOfGenerator($iterator);
             }
 
-            if (!$iterator instanceof \Iterator) {
+            if (!$iterator instanceof Iterator) {
                 return \iterator_count($iterator);
             }
 
@@ -93,15 +89,13 @@ class Count extends Constraint
 
             return $count;
         }
-
-        return null;
     }
 
     /**
      * Returns the total number of iterations from a generator.
      * This will fully exhaust the generator.
      */
-    protected function getCountOfGenerator(\Generator $generator): int
+    protected function getCountOfGenerator(Generator $generator): int
     {
         for ($count = 0; $generator->valid(); $generator->next()) {
             ++$count;
@@ -122,7 +116,7 @@ class Count extends Constraint
     {
         return \sprintf(
             'actual size %d matches expected size %d',
-            (int) $this->getCountOf($other),
+            $this->getCountOf($other),
             $this->expectedCount
         );
     }

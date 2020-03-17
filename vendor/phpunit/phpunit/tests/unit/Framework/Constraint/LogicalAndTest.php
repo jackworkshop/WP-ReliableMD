@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -13,9 +13,6 @@ use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestFailure;
 
-/**
- * @small
- */
 final class LogicalAndTest extends ConstraintTestCase
 {
     public function testSetConstraintsRejectsInvalidConstraint(): void
@@ -70,7 +67,9 @@ final class LogicalAndTest extends ConstraintTestCase
             return \NamedConstraint::fromName($name);
         }, $names);
 
-        $constraint = LogicalAnd::fromConstraints(...$constraints);
+        $constraint = new LogicalAnd;
+
+        $constraint->setConstraints($constraints);
 
         $expected = \implode(' and ', $names);
 

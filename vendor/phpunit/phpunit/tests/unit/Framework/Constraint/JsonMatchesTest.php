@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,13 +10,9 @@
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\TestFailure;
 use PHPUnit\Util\Json;
 
-/**
- * @small
- */
-final class JsonMatchesTest extends ConstraintTestCase
+class JsonMatchesTest extends ConstraintTestCase
 {
     public static function evaluateDataprovider(): array
     {
@@ -94,43 +90,5 @@ final class JsonMatchesTest extends ConstraintTestCase
         $constraint = new JsonMatches($jsonValue);
 
         $this->assertEquals('matches JSON string "' . $jsonValue . '"', $constraint->toString());
-    }
-
-    public function testFailErrorWithInvalidValueAndOther(): void
-    {
-        $constraint = new JsonMatches('{"Mascott"::}');
-
-        try {
-            $constraint->evaluate('{"Mascott"::}', '', false);
-            $this->fail(\sprintf('Expected %s to be thrown.', ExpectationFailedException::class));
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                <<<EOF
-Failed asserting that '{"Mascott"::}' matches JSON string "{"Mascott"::}".
-
-EOF
-                ,
-                TestFailure::exceptionToString($e)
-            );
-        }
-    }
-
-    public function testFailErrorWithValidValueAndInvalidOther(): void
-    {
-        $constraint = new JsonMatches('{"Mascott"::}');
-
-        try {
-            $constraint->evaluate('{"Mascott":"Tux"}', '', false);
-            $this->fail(\sprintf('Expected %s to be thrown.', ExpectationFailedException::class));
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                <<<EOF
-Failed asserting that '{"Mascott":"Tux"}' matches JSON string "{"Mascott"::}".
-
-EOF
-                ,
-                TestFailure::exceptionToString($e)
-            );
-        }
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,10 +9,10 @@
  */
 namespace PHPUnit\Framework\MockObject\Builder;
 
-use PHPUnit\Framework\MockObject\Rule\AnyParameters;
+use PHPUnit\Framework\MockObject\Matcher\AnyParameters;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Builder interface for parameter matchers.
  */
 interface ParametersMatch extends Match
 {
@@ -36,7 +36,7 @@ interface ParametersMatch extends Match
     public function with(...$arguments);
 
     /**
-     * Sets a rule which allows any kind of parameters.
+     * Sets a matcher which allows any kind of parameters.
      *
      * Some examples:
      * <code>

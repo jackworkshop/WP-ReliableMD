@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,100 +10,53 @@
 namespace PHPUnit\Util\TestDox;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Util\Color;
-use PHPUnit\Util\Exception as UtilException;
-use PHPUnit\Util\Test;
 use SebastianBergmann\Exporter\Exporter;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Prettifies class and method names for use in TestDox documentation.
  */
 final class NamePrettifier
 {
     /**
-     * @var string[]
+     * @var array
      */
     private $strings = [];
 
     /**
-     * @var bool
-     */
-    private $useColor;
-
-    public function __construct(bool $useColor = false)
-    {
-        $this->useColor = $useColor;
-    }
-
-    /**
      * Prettifies the name of a test class.
-     *
-     * @psalm-param class-string $className
      */
     public function prettifyTestClass(string $className): string
     {
         try {
-            $annotations = Test::parseTestMethodAnnotations($className);
+            $annotations = \PHPUnit\Util\Test::parseTestMethodAnnotations($className);
 
             if (isset($annotations['class']['testdox'][0])) {
                 return $annotations['class']['testdox'][0];
             }
-        } catch (UtilException $e) {
-            // ignore, determine className by parsing the provided name
+        } catch (\ReflectionException $e) {
         }
 
-        $parts     = \explode('\\', $className);
-        $className = \array_pop($parts);
+        $result = $className;
 
         if (\substr($className, -1 * \strlen('Test')) === 'Test') {
-            $className = \substr($className, 0, \strlen($className) - \strlen('Test'));
+            $result = \substr($result, 0, \strripos($result, 'Test'));
         }
 
         if (\strpos($className, 'Tests') === 0) {
-            $className = \substr($className, \strlen('Tests'));
+            $result = \substr($result, \strlen('Tests'));
         } elseif (\strpos($className, 'Test') === 0) {
-            $className = \substr($className, \strlen('Test'));
+            $result = \substr($result, \strlen('Test'));
         }
 
-        if (empty($className)) {
-            $className = 'UnnamedTests';
-        }
-
-        if (!empty($parts)) {
-            $parts[]            = $className;
-            $fullyQualifiedName = \implode('\\', $parts);
-        } else {
-            $fullyQualifiedName = $className;
-        }
-
-        $result       = '';
-        $wasLowerCase = false;
-
-        foreach (\range(0, \strlen($className) - 1) as $i) {
-            $isLowerCase = \mb_strtolower($className[$i], 'UTF-8') === $className[$i];
-
-            if ($wasLowerCase && !$isLowerCase) {
-                $result .= ' ';
-            }
-
-            $result .= $className[$i];
-
-            if ($isLowerCase) {
-                $wasLowerCase = true;
-            } else {
-                $wasLowerCase = false;
-            }
-        }
-
-        if ($fullyQualifiedName !== $className) {
-            return $result . ' (' . $fullyQualifiedName . ')';
+        if ($result[0] === '\\') {
+            $result = \substr($result, 1);
         }
 
         return $result;
     }
 
     /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \ReflectionException
      */
     public function prettifyTestCase(TestCase $test): string
     {
@@ -130,26 +83,11 @@ final class NamePrettifier
             $result = $this->prettifyTestMethod($test->getName(false));
         }
 
-        if (!$annotationWithPlaceholders && $test->usesDataProvider()) {
-            $result .= $this->prettifyDataSet($test);
+        if ($test->usesDataProvider() && !$annotationWithPlaceholders) {
+            $result .= $test->getDataSetAsString(false);
         }
 
         return $result;
-    }
-
-    public function prettifyDataSet(TestCase $test): string
-    {
-        if (!$this->useColor) {
-            return $test->getDataSetAsString(false);
-        }
-
-        if (\is_int($test->dataName())) {
-            $data = Color::dim(' with data set ') . Color::colorize('fg-cyan', (string) $test->dataName());
-        } else {
-            $data = Color::dim(' with ') . Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $test->dataName()));
-        }
-
-        return $data;
     }
 
     /**
@@ -159,11 +97,11 @@ final class NamePrettifier
     {
         $buffer = '';
 
-        if ($name === '') {
+        if (!\is_string($name) || $name === '') {
             return $buffer;
         }
 
-        $string = (string) \preg_replace('#\d+$#', '', $name, -1, $count);
+        $string = \preg_replace('#\d+$#', '', $name, -1, $count);
 
         if (\in_array($string, $this->strings)) {
             $name = $string;
@@ -187,9 +125,10 @@ final class NamePrettifier
             return \trim(\str_replace('_', ' ', $name));
         }
 
+        $max        = \strlen($name);
         $wasNumeric = false;
 
-        foreach (\range(0, \strlen($name) - 1) as $i) {
+        for ($i = 0; $i < $max; $i++) {
             if ($i > 0 && \ord($name[$i]) >= 65 && \ord($name[$i]) <= 90) {
                 $buffer .= ' ' . \strtolower($name[$i]);
             } else {
@@ -212,41 +151,18 @@ final class NamePrettifier
     }
 
     /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \ReflectionException
      */
     private function mapTestMethodParameterNamesToProvidedDataValues(TestCase $test): array
     {
-        try {
-            $reflector = new \ReflectionMethod(\get_class($test), $test->getName(false));
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new UtilException(
-                $e->getMessage(),
-                (int) $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
-
+        $reflector          = new \ReflectionMethod(\get_class($test), $test->getName(false));
         $providedData       = [];
         $providedDataValues = \array_values($test->getProvidedData());
         $i                  = 0;
 
-        $providedData['$_dataName'] = $test->dataName();
-
         foreach ($reflector->getParameters() as $parameter) {
             if (!\array_key_exists($i, $providedDataValues) && $parameter->isDefaultValueAvailable()) {
-                try {
-                    $providedDataValues[$i] = $parameter->getDefaultValue();
-                    // @codeCoverageIgnoreStart
-                } catch (\ReflectionException $e) {
-                    throw new UtilException(
-                        $e->getMessage(),
-                        (int) $e->getCode(),
-                        $e
-                    );
-                }
-                // @codeCoverageIgnoreEnd
+                $providedDataValues[$i] = $parameter->getDefaultValue();
             }
 
             $value = $providedDataValues[$i++] ?? null;
@@ -256,8 +172,6 @@ final class NamePrettifier
 
                 if ($reflector->hasMethod('__toString')) {
                     $value = (string) $value;
-                } else {
-                    $value = \get_class($value);
                 }
             }
 
@@ -266,24 +180,12 @@ final class NamePrettifier
             }
 
             if (\is_bool($value) || \is_int($value) || \is_float($value)) {
-                $value = (new Exporter)->export($value);
-            }
+                $exporter = new Exporter;
 
-            if (\is_string($value) && $value === '') {
-                if ($this->useColor) {
-                    $value = Color::colorize('dim,underlined', 'empty');
-                } else {
-                    $value = "''";
-                }
+                $value = $exporter->export($value);
             }
 
             $providedData['$' . $parameter->getName()] = $value;
-        }
-
-        if ($this->useColor) {
-            $providedData = \array_map(static function ($value) {
-                return Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $value, true));
-            }, $providedData);
         }
 
         return $providedData;

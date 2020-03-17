@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,12 +9,12 @@
  */
 class MethodCallbackByReference
 {
-    public function bar(&$a, &$b, $c): void
+    public function bar(&$a, &$b, $c)
     {
         Legacy::bar($a, $b, $c);
     }
 
-    public function callback(&$a, &$b, $c): void
+    public function callback(&$a, &$b, $c)
     {
         $b = 1;
     }

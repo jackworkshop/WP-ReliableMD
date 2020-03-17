@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,6 +9,8 @@
  */
 namespace PHPUnit\Util\Log;
 
+use DOMDocument;
+use DOMElement;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\ExceptionWrapper;
 use PHPUnit\Framework\SelfDescribing;
@@ -17,87 +19,94 @@ use PHPUnit\Framework\TestFailure;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
-use PHPUnit\Util\Exception;
 use PHPUnit\Util\Filter;
 use PHPUnit\Util\Printer;
 use PHPUnit\Util\Xml;
+use ReflectionClass;
+use ReflectionException;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A TestListener that generates a logfile of the test execution in XML markup.
+ *
+ * The XML markup used is the same as the one that is used by the JUnit Ant task.
  */
-final class JUnit extends Printer implements TestListener
+class JUnit extends Printer implements TestListener
 {
     /**
-     * @var \DOMDocument
+     * @var DOMDocument
      */
-    private $document;
+    protected $document;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
-    private $root;
+    protected $root;
 
     /**
      * @var bool
      */
-    private $reportRiskyTests = false;
+    protected $reportRiskyTests = false;
 
     /**
-     * @var \DOMElement[]
+     * @var bool
      */
-    private $testSuites = [];
+    protected $writeDocument = true;
 
     /**
-     * @var int[]
+     * @var DOMElement[]
      */
-    private $testSuiteTests = [0];
-
-    /**
-     * @var int[]
-     */
-    private $testSuiteAssertions = [0];
+    protected $testSuites = [];
 
     /**
      * @var int[]
      */
-    private $testSuiteErrors = [0];
+    protected $testSuiteTests = [0];
 
     /**
      * @var int[]
      */
-    private $testSuiteWarnings = [0];
+    protected $testSuiteAssertions = [0];
 
     /**
      * @var int[]
      */
-    private $testSuiteFailures = [0];
+    protected $testSuiteErrors = [0];
 
     /**
      * @var int[]
      */
-    private $testSuiteSkipped = [0];
+    protected $testSuiteFailures = [0];
 
     /**
      * @var int[]
      */
-    private $testSuiteTimes = [0];
+    protected $testSuiteSkipped = [0];
+
+    /**
+     * @var int[]
+     */
+    protected $testSuiteTimes = [0];
 
     /**
      * @var int
      */
-    private $testSuiteLevel = 0;
+    protected $testSuiteLevel = 0;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
-    private $currentTestCase;
+    protected $currentTestCase;
 
     /**
+     * Constructor.
+     *
      * @param null|mixed $out
+     *
+     * @throws \PHPUnit\Framework\Exception
      */
     public function __construct($out = null, bool $reportRiskyTests = false)
     {
-        $this->document               = new \DOMDocument('1.0', 'UTF-8');
+        $this->document               = new DOMDocument('1.0', 'UTF-8');
         $this->document->formatOutput = true;
 
         $this->root = $this->document->createElement('testsuites');
@@ -113,35 +122,43 @@ final class JUnit extends Printer implements TestListener
      */
     public function flush(): void
     {
-        $this->write($this->getXML());
+        if ($this->writeDocument === true) {
+            $this->write($this->getXML());
+        }
 
         parent::flush();
     }
 
     /**
      * An error occurred.
+     *
+     * @throws \InvalidArgumentException
      */
     public function addError(Test $test, \Throwable $t, float $time): void
     {
-        $this->doAddFault($test, $t, 'error');
+        $this->doAddFault($test, $t, $time, 'error');
         $this->testSuiteErrors[$this->testSuiteLevel]++;
     }
 
     /**
      * A warning occurred.
+     *
+     * @throws \InvalidArgumentException
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
-        $this->doAddFault($test, $e, 'warning');
-        $this->testSuiteWarnings[$this->testSuiteLevel]++;
+        $this->doAddFault($test, $e, $time, 'warning');
+        $this->testSuiteFailures[$this->testSuiteLevel]++;
     }
 
     /**
      * A failure occurred.
+     *
+     * @throws \InvalidArgumentException
      */
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
-        $this->doAddFault($test, $e, 'failure');
+        $this->doAddFault($test, $e, $time, 'failure');
         $this->testSuiteFailures[$this->testSuiteLevel]++;
     }
 
@@ -150,7 +167,7 @@ final class JUnit extends Printer implements TestListener
      */
     public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
     {
-        $this->doAddSkipped();
+        $this->doAddSkipped($test);
     }
 
     /**
@@ -182,7 +199,7 @@ final class JUnit extends Printer implements TestListener
      */
     public function addSkippedTest(Test $test, \Throwable $t, float $time): void
     {
-        $this->doAddSkipped();
+        $this->doAddSkipped($test);
     }
 
     /**
@@ -195,10 +212,10 @@ final class JUnit extends Printer implements TestListener
 
         if (\class_exists($suite->getName(), false)) {
             try {
-                $class = new \ReflectionClass($suite->getName());
+                $class = new ReflectionClass($suite->getName());
 
                 $testSuite->setAttribute('file', $class->getFileName());
-            } catch (\ReflectionException $e) {
+            } catch (ReflectionException $e) {
             }
         }
 
@@ -213,7 +230,6 @@ final class JUnit extends Printer implements TestListener
         $this->testSuiteTests[$this->testSuiteLevel]      = 0;
         $this->testSuiteAssertions[$this->testSuiteLevel] = 0;
         $this->testSuiteErrors[$this->testSuiteLevel]     = 0;
-        $this->testSuiteWarnings[$this->testSuiteLevel]   = 0;
         $this->testSuiteFailures[$this->testSuiteLevel]   = 0;
         $this->testSuiteSkipped[$this->testSuiteLevel]    = 0;
         $this->testSuiteTimes[$this->testSuiteLevel]      = 0;
@@ -226,32 +242,27 @@ final class JUnit extends Printer implements TestListener
     {
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'tests',
-            (string) $this->testSuiteTests[$this->testSuiteLevel]
+            $this->testSuiteTests[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'assertions',
-            (string) $this->testSuiteAssertions[$this->testSuiteLevel]
+            $this->testSuiteAssertions[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'errors',
-            (string) $this->testSuiteErrors[$this->testSuiteLevel]
-        );
-
-        $this->testSuites[$this->testSuiteLevel]->setAttribute(
-            'warnings',
-            (string) $this->testSuiteWarnings[$this->testSuiteLevel]
+            $this->testSuiteErrors[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'failures',
-            (string) $this->testSuiteFailures[$this->testSuiteLevel]
+            $this->testSuiteFailures[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'skipped',
-            (string) $this->testSuiteSkipped[$this->testSuiteLevel]
+            $this->testSuiteSkipped[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
@@ -263,7 +274,6 @@ final class JUnit extends Printer implements TestListener
             $this->testSuiteTests[$this->testSuiteLevel - 1] += $this->testSuiteTests[$this->testSuiteLevel];
             $this->testSuiteAssertions[$this->testSuiteLevel - 1] += $this->testSuiteAssertions[$this->testSuiteLevel];
             $this->testSuiteErrors[$this->testSuiteLevel - 1] += $this->testSuiteErrors[$this->testSuiteLevel];
-            $this->testSuiteWarnings[$this->testSuiteLevel - 1] += $this->testSuiteWarnings[$this->testSuiteLevel];
             $this->testSuiteFailures[$this->testSuiteLevel - 1] += $this->testSuiteFailures[$this->testSuiteLevel];
             $this->testSuiteSkipped[$this->testSuiteLevel - 1] += $this->testSuiteSkipped[$this->testSuiteLevel];
             $this->testSuiteTimes[$this->testSuiteLevel - 1] += $this->testSuiteTimes[$this->testSuiteLevel];
@@ -274,6 +284,9 @@ final class JUnit extends Printer implements TestListener
 
     /**
      * A test started.
+     *
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ReflectionException
      */
     public function startTest(Test $test): void
     {
@@ -286,37 +299,16 @@ final class JUnit extends Printer implements TestListener
         $testCase = $this->document->createElement('testcase');
         $testCase->setAttribute('name', $test->getName());
 
-        try {
-            $class = new \ReflectionClass($test);
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new Exception(
-                $e->getMessage(),
-                (int) $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
-
+        $class      = new ReflectionClass($test);
         $methodName = $test->getName(!$usesDataprovider);
 
         if ($class->hasMethod($methodName)) {
-            try {
-                $method = $class->getMethod($methodName);
-                // @codeCoverageIgnoreStart
-            } catch (\ReflectionException $e) {
-                throw new Exception(
-                    $e->getMessage(),
-                    (int) $e->getCode(),
-                    $e
-                );
-            }
-            // @codeCoverageIgnoreEnd
+            $method = $class->getMethod($methodName);
 
             $testCase->setAttribute('class', $class->getName());
             $testCase->setAttribute('classname', \str_replace('\\', '.', $class->getName()));
             $testCase->setAttribute('file', $class->getFileName());
-            $testCase->setAttribute('line', (string) $method->getStartLine());
+            $testCase->setAttribute('line', $method->getStartLine());
         }
 
         $this->currentTestCase = $testCase;
@@ -337,7 +329,7 @@ final class JUnit extends Printer implements TestListener
 
         $this->currentTestCase->setAttribute(
             'assertions',
-            (string) $numAssertions
+            $numAssertions
         );
 
         $this->currentTestCase->setAttribute(
@@ -378,7 +370,26 @@ final class JUnit extends Printer implements TestListener
         return $this->document->saveXML();
     }
 
-    private function doAddFault(Test $test, \Throwable $t, string $type): void
+    /**
+     * Enables or disables the writing of the document
+     * in flush().
+     *
+     * This is a "hack" needed for the integration of
+     * PHPUnit with Phing.
+     */
+    public function setWriteDocument(/*bool*/ $flag): void
+    {
+        if (\is_bool($flag)) {
+            $this->writeDocument = $flag;
+        }
+    }
+
+    /**
+     * Method which generalizes addError() and addFailure()
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function doAddFault(Test $test, \Throwable $t, float $time, $type): void
     {
         if ($this->currentTestCase === null) {
             return;
@@ -407,14 +418,13 @@ final class JUnit extends Printer implements TestListener
         $this->currentTestCase->appendChild($fault);
     }
 
-    private function doAddSkipped(): void
+    private function doAddSkipped(Test $test): void
     {
         if ($this->currentTestCase === null) {
             return;
         }
 
         $skipped = $this->document->createElement('skipped');
-
         $this->currentTestCase->appendChild($skipped);
 
         $this->testSuiteSkipped[$this->testSuiteLevel]++;

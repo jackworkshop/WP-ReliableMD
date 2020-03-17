@@ -2,18 +2,6 @@
 
 All notable changes in `sebastianbergmann/environment` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [5.0.1] - 2020-02-19
-
-### Changed
-
-* `Runtime::getNameWithVersionAndCodeCoverageDriver()` now prioritizes PCOV over Xdebug when both extensions are loaded (just like php-code-coverage does)
-
-## [5.0.0] - 2020-02-07
-
-### Removed
-
-* This component is no longer supported on PHP 7.1 and PHP 7.2
-
 ## [4.2.3] - 2019-11-20
 
 ### Changed
@@ -115,8 +103,6 @@ All notable changes in `sebastianbergmann/environment` are documented in this fi
 
 * This component is no longer supported on PHP 5.6
 
-[5.0.1]: https://github.com/sebastianbergmann/phpunit/compare/5.0.0...5.0.1
-[5.0.0]: https://github.com/sebastianbergmann/phpunit/compare/4.2.3...5.0.0
 [4.2.3]: https://github.com/sebastianbergmann/phpunit/compare/4.2.2...4.2.3
 [4.2.2]: https://github.com/sebastianbergmann/phpunit/compare/4.2.1...4.2.2
 [4.2.1]: https://github.com/sebastianbergmann/phpunit/compare/4.2.0...4.2.1

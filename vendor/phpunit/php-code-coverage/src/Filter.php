@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -48,13 +48,7 @@ final class Filter
      */
     public function addFileToWhitelist(string $filename): void
     {
-        $filename = \realpath($filename);
-
-        if (!$filename) {
-            return;
-        }
-
-        $this->whitelistedFiles[$filename] = true;
+        $this->whitelistedFiles[\realpath($filename)] = true;
     }
 
     /**
@@ -88,10 +82,6 @@ final class Filter
     public function removeFileFromWhitelist(string $filename): void
     {
         $filename = \realpath($filename);
-
-        if (!$filename || !isset($this->whitelistedFiles[$filename])) {
-            return;
-        }
 
         unset($this->whitelistedFiles[$filename]);
     }

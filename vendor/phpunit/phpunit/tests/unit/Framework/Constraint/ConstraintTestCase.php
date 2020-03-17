@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,9 +12,6 @@ namespace PHPUnit\Framework\Constraint;
 use PHPUnit\Framework\SelfDescribing;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
 abstract class ConstraintTestCase extends TestCase
 {
     final public function testIsCountable(): void

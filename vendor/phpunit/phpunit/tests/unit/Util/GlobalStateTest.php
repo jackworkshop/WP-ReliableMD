@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,10 +11,7 @@ namespace PHPUnit\Util;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
-final class GlobalStateTest extends TestCase
+class GlobalStateTest extends TestCase
 {
     public function testIncludedFilesAsStringSkipsVfsProtocols(): void
     {
@@ -24,7 +21,7 @@ final class GlobalStateTest extends TestCase
             $dir . '/ConfigurationTest.php',
             $dir . '/GlobalStateTest.php',
             'vfs://' . $dir . '/RegexTest.php',
-            'phpvfs53e46260465c7://' . $dir . '/TestClassTest.php',
+            'phpvfs53e46260465c7://' . $dir . '/TestTest.php',
             'file://' . $dir . '/XmlTest.php',
         ];
 

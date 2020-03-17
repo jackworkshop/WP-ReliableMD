@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\MockObject;
 use PHPUnit\Framework\ExpectationFailedException;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Interface for classes which must verify a given expectation.
  */
 interface Verifiable
 {
@@ -22,5 +22,5 @@ interface Verifiable
      *
      * @throws ExpectationFailedException
      */
-    public function verify(): void;
+    public function verify();
 }

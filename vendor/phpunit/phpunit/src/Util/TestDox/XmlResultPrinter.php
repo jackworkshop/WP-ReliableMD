@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -19,11 +19,9 @@ use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
 use PHPUnit\Util\Printer;
+use ReflectionClass;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class XmlResultPrinter extends Printer implements TestListener
+class XmlResultPrinter extends Printer implements TestListener
 {
     /**
      * @var DOMDocument
@@ -150,67 +148,35 @@ final class XmlResultPrinter extends Printer implements TestListener
             return;
         }
 
+        /* @var TestCase $test */
+
         $groups = \array_filter(
             $test->getGroups(),
-            static function ($group) {
+            function ($group) {
                 return !($group === 'small' || $group === 'medium' || $group === 'large');
             }
         );
 
-        $testNode = $this->document->createElement('test');
+        $node = $this->document->createElement('test');
 
-        $testNode->setAttribute('className', \get_class($test));
-        $testNode->setAttribute('methodName', $test->getName());
-        $testNode->setAttribute('prettifiedClassName', $this->prettifier->prettifyTestClass(\get_class($test)));
-        $testNode->setAttribute('prettifiedMethodName', $this->prettifier->prettifyTestCase($test));
-        $testNode->setAttribute('status', (string) $test->getStatus());
-        $testNode->setAttribute('time', (string) $time);
-        $testNode->setAttribute('size', (string) $test->getSize());
-        $testNode->setAttribute('groups', \implode(',', $groups));
+        $node->setAttribute('className', \get_class($test));
+        $node->setAttribute('methodName', $test->getName());
+        $node->setAttribute('prettifiedClassName', $this->prettifier->prettifyTestClass(\get_class($test)));
+        $node->setAttribute('prettifiedMethodName', $this->prettifier->prettifyTestCase($test));
+        $node->setAttribute('status', $test->getStatus());
+        $node->setAttribute('time', $time);
+        $node->setAttribute('size', $test->getSize());
+        $node->setAttribute('groups', \implode(',', $groups));
 
-        foreach ($groups as $group) {
-            $groupNode = $this->document->createElement('group');
-
-            $groupNode->setAttribute('name', $group);
-
-            $testNode->appendChild($groupNode);
-        }
-
-        $annotations = $test->getAnnotations();
-
-        foreach (['class', 'method'] as $type) {
-            foreach ($annotations[$type] as $annotation => $values) {
-                if ($annotation !== 'covers' && $annotation !== 'uses') {
-                    continue;
-                }
-
-                foreach ($values as $value) {
-                    $coversNode = $this->document->createElement($annotation);
-
-                    $coversNode->setAttribute('target', $value);
-
-                    $testNode->appendChild($coversNode);
-                }
-            }
-        }
-
-        foreach ($test->doubledTypes() as $doubledType) {
-            $testDoubleNode = $this->document->createElement('testDouble');
-
-            $testDoubleNode->setAttribute('type', $doubledType);
-
-            $testNode->appendChild($testDoubleNode);
-        }
-
-        $inlineAnnotations = \PHPUnit\Util\Test::getInlineAnnotations(\get_class($test), $test->getName(false));
+        $inlineAnnotations = \PHPUnit\Util\Test::getInlineAnnotations(\get_class($test), $test->getName());
 
         if (isset($inlineAnnotations['given'], $inlineAnnotations['when'], $inlineAnnotations['then'])) {
-            $testNode->setAttribute('given', $inlineAnnotations['given']['value']);
-            $testNode->setAttribute('givenStartLine', (string) $inlineAnnotations['given']['line']);
-            $testNode->setAttribute('when', $inlineAnnotations['when']['value']);
-            $testNode->setAttribute('whenStartLine', (string) $inlineAnnotations['when']['line']);
-            $testNode->setAttribute('then', $inlineAnnotations['then']['value']);
-            $testNode->setAttribute('thenStartLine', (string) $inlineAnnotations['then']['line']);
+            $node->setAttribute('given', $inlineAnnotations['given']['value']);
+            $node->setAttribute('givenStartLine', (string) $inlineAnnotations['given']['line']);
+            $node->setAttribute('when', $inlineAnnotations['when']['value']);
+            $node->setAttribute('whenStartLine', (string) $inlineAnnotations['when']['line']);
+            $node->setAttribute('then', $inlineAnnotations['then']['value']);
+            $node->setAttribute('thenStartLine', (string) $inlineAnnotations['then']['line']);
         }
 
         if ($this->exception !== null) {
@@ -220,29 +186,20 @@ final class XmlResultPrinter extends Printer implements TestListener
                 $steps = $this->exception->getTrace();
             }
 
-            try {
-                $file = (new \ReflectionClass($test))->getFileName();
-                // @codeCoverageIgnoreStart
-            } catch (\ReflectionException $e) {
-                throw new Exception(
-                    $e->getMessage(),
-                    (int) $e->getCode(),
-                    $e
-                );
-            }
-            // @codeCoverageIgnoreEnd
+            $class = new ReflectionClass($test);
+            $file  = $class->getFileName();
 
             foreach ($steps as $step) {
                 if (isset($step['file']) && $step['file'] === $file) {
-                    $testNode->setAttribute('exceptionLine', (string) $step['line']);
+                    $node->setAttribute('exceptionLine', $step['line']);
 
                     break;
                 }
             }
 
-            $testNode->setAttribute('exceptionMessage', $this->exception->getMessage());
+            $node->setAttribute('exceptionMessage', $this->exception->getMessage());
         }
 
-        $this->root->appendChild($testNode);
+        $this->root->appendChild($node);
     }
 }

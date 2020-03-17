@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Constraint that accepts finite.
  */
-final class IsFinite extends Constraint
+class IsFinite extends Constraint
 {
     /**
      * Returns a string representation of the constraint.

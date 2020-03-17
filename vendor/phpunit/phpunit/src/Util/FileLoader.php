@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Util;
 use PHPUnit\Framework\Exception;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Utility methods to load PHP sourcefiles.
  */
 final class FileLoader
 {
@@ -29,13 +29,14 @@ final class FileLoader
     public static function checkAndLoad(string $filename): string
     {
         $includePathFilename = \stream_resolve_include_path($filename);
+        $localFile           = __DIR__ . \DIRECTORY_SEPARATOR . $filename;
 
-        $localFile = __DIR__ . \DIRECTORY_SEPARATOR . $filename;
+        /**
+         * @see https://github.com/sebastianbergmann/phpunit/pull/2751
+         */
+        $isReadable = @\fopen($includePathFilename, 'r') !== false;
 
-        if (!$includePathFilename ||
-            $includePathFilename === $localFile ||
-            !self::isReadable($includePathFilename)
-        ) {
+        if (!$includePathFilename || !$isReadable || $includePathFilename === $localFile) {
             throw new Exception(
                 \sprintf('Cannot open file "%s".' . "\n", $filename)
             );
@@ -56,19 +57,12 @@ final class FileLoader
         include_once $filename;
 
         $newVariables     = \get_defined_vars();
+        $newVariableNames = \array_diff(\array_keys($newVariables), $oldVariableNames);
 
-        foreach (\array_diff(\array_keys($newVariables), $oldVariableNames) as $variableName) {
+        foreach ($newVariableNames as $variableName) {
             if ($variableName !== 'oldVariableNames') {
                 $GLOBALS[$variableName] = $newVariables[$variableName];
             }
         }
-    }
-
-    /**
-     * @see https://github.com/sebastianbergmann/phpunit/pull/2751
-     */
-    private static function isReadable(string $filename): bool
-    {
-        return @\fopen($filename, 'r') !== false;
     }
 }

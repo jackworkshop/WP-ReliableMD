@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -40,7 +40,7 @@ final class Tests
 
         $node->setAttribute('name', $test);
         $node->setAttribute('size', $result['size']);
-        $node->setAttribute('result', (string) $result['status']);
+        $node->setAttribute('result', (int) $result['status']);
         $node->setAttribute('status', $this->codeMap[(int) $result['status']]);
     }
 }

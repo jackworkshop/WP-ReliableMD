@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,12 +11,10 @@ namespace PHPUnit\Framework;
 
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\SameSize;
+use PHPUnit\Framework\Constraint\TraversableContains;
 use PHPUnit\Util\Filter;
 
-/**
- * @small
- */
-final class ConstraintTest extends TestCase
+class ConstraintTest extends TestCase
 {
     public function testConstraintArrayNotHasKey(): void
     {
@@ -997,9 +995,6 @@ EOF
         $this->fail();
     }
 
-    /**
-     * @testdox Constraint PCRE not match
-     */
     public function testConstraintPCRENotMatch(): void
     {
         $constraint = Assert::logicalNot(
@@ -1029,9 +1024,6 @@ EOF
         $this->fail();
     }
 
-    /**
-     * @testdox Constraint PCRE not match with custom message
-     */
     public function testConstraintPCRENotMatch2(): void
     {
         $constraint = Assert::logicalNot(
@@ -1241,6 +1233,120 @@ EOF
                 <<<EOF
 custom message
 Failed asserting that 'foosuffix' ends not with "suffix".
+
+EOF
+                ,
+                TestFailure::exceptionToString($e)
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testConstraintArrayNotContains(): void
+    {
+        $constraint = Assert::logicalNot(
+            new TraversableContains('foo')
+        );
+
+        $this->assertTrue($constraint->evaluate(['bar'], '', true));
+        $this->assertFalse($constraint->evaluate(['foo'], '', true));
+        $this->assertEquals("does not contain 'foo'", $constraint->toString());
+        $this->assertCount(1, $constraint);
+
+        try {
+            $constraint->evaluate(['foo']);
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                <<<EOF
+Failed asserting that an array does not contain 'foo'.
+
+EOF
+                ,
+                TestFailure::exceptionToString($e)
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testConstraintArrayNotContains2(): void
+    {
+        $constraint = Assert::logicalNot(
+            new TraversableContains('foo')
+        );
+
+        try {
+            $constraint->evaluate(['foo'], 'custom message');
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                <<<EOF
+custom message
+Failed asserting that an array does not contain 'foo'.
+
+EOF
+                ,
+                TestFailure::exceptionToString($e)
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testAttributeNotEqualTo(): void
+    {
+        $object     = new \ClassWithNonPublicAttributes;
+        $constraint = Assert::logicalNot(
+            Assert::attributeEqualTo('foo', 2)
+        );
+
+        $this->assertTrue($constraint->evaluate($object, '', true));
+        $this->assertEquals('attribute "foo" is not equal to 2', $constraint->toString());
+        $this->assertCount(1, $constraint);
+
+        $constraint = Assert::logicalNot(
+            Assert::attributeEqualTo('foo', 1)
+        );
+
+        $this->assertFalse($constraint->evaluate($object, '', true));
+
+        try {
+            $constraint->evaluate($object);
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                <<<EOF
+Failed asserting that attribute "foo" is not equal to 1.
+
+EOF
+                ,
+                TestFailure::exceptionToString($e)
+            );
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testAttributeNotEqualTo2(): void
+    {
+        $object     = new \ClassWithNonPublicAttributes;
+        $constraint = Assert::logicalNot(
+            Assert::attributeEqualTo('foo', 1)
+        );
+
+        try {
+            $constraint->evaluate($object, 'custom message');
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                <<<EOF
+custom message\nFailed asserting that attribute "foo" is not equal to 1.
 
 EOF
                 ,

@@ -1,10 +1,11 @@
 --TEST--
-phpunit --list-tests ../../_files/DataProviderTest.php
+phpunit --list-tests DataProviderTest ../../_files/DataProviderTest.php
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--list-tests';
-$_SERVER['argv'][3] = __DIR__ . '/../_files/DataProviderTest.php';
+$_SERVER['argv'][3] = 'DataProviderTest';
+$_SERVER['argv'][4] = __DIR__ . '/../_files/DataProviderTest.php';
 
 require __DIR__ . '/../bootstrap.php';
 PHPUnit\TextUI\Command::main();

@@ -1,9 +1,22 @@
 language: php
 sudo: false
+addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+      - mysql-client
 php:
   - 7.3
+services:
+  - mysql
 before_install:
-    - mkdir -p test/code_coverage/
+    - sudo service mysql restart
+    - mysql -e 'create database wptest;'
+    - mysql -e "CREATE USER 'wptest'@'localhost' IDENTIFIED BY 'wptest';"
+    - mysql -e "GRANT privileges ON wptest.* TO 'wptest'@'localhost';"
+    - mkdir -p tests/code_coverage/
 install:
   - composer require --dev php-coveralls/php-coveralls
   - composer require --dev phpunit/phpunit

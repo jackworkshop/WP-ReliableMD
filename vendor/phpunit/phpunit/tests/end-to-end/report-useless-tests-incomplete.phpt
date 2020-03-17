@@ -1,9 +1,10 @@
 --TEST--
-phpunit ../../_files/IncompleteTest.php
+phpunit IncompleteTest ../../_files/IncompleteTest.php
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
-$_SERVER['argv'][2] = __DIR__ . '/../_files/IncompleteTest.php';
+$_SERVER['argv'][2] = 'IncompleteTest';
+$_SERVER['argv'][3] = __DIR__ . '/../_files/IncompleteTest.php';
 
 require __DIR__ . '/../bootstrap.php';
 PHPUnit\TextUI\Command::main();

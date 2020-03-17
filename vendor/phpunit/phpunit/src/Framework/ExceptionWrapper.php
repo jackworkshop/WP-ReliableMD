@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -20,10 +20,8 @@ use Throwable;
  *
  * Unlike PHPUnit\Framework_\Exception, the complete stack of previous Exceptions
  * is processed.
- *
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExceptionWrapper extends Exception
+class ExceptionWrapper extends Exception
 {
     /**
      * @var string
@@ -43,6 +41,9 @@ final class ExceptionWrapper extends Exception
         $this->setOriginalException($t);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function __toString(): string
     {
         $string = TestFailure::exceptionToString($this);
@@ -83,8 +84,8 @@ final class ExceptionWrapper extends Exception
 
         $this->serializableTrace = $t->getTrace();
 
-        foreach (\array_keys($this->serializableTrace) as $key) {
-            unset($this->serializableTrace[$key]['args']);
+        foreach ($this->serializableTrace as $i => $call) {
+            unset($this->serializableTrace[$i]['args']);
         }
 
         if ($t->getPrevious()) {

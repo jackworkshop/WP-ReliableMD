@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -23,7 +23,7 @@ use SebastianBergmann\Comparator\ComparisonFailure;
  *
  * The expected value is passed in the constructor.
  */
-final class IsIdentical extends Constraint
+class IsIdentical extends Constraint
 {
     /**
      * @var float
@@ -37,6 +37,8 @@ final class IsIdentical extends Constraint
 
     public function __construct($value)
     {
+        parent::__construct();
+
         $this->value = $value;
     }
 
@@ -50,10 +52,14 @@ final class IsIdentical extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
+     * @param mixed  $other        value or object to evaluate
+     * @param string $description  Additional information about the test
+     * @param bool   $returnResult Whether to return a result or throw an exception
+     *
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         if (\is_float($this->value) && \is_float($other) &&
             !\is_infinite($this->value) && !\is_infinite($other) &&
@@ -85,15 +91,13 @@ final class IsIdentical extends Constraint
                 $f = new ComparisonFailure(
                     $this->value,
                     $other,
-                    $this->exporter()->export($this->value),
-                    $this->exporter()->export($other)
+                    $this->exporter->export($this->value),
+                    $this->exporter->export($other)
                 );
             }
 
             $this->fail($other, $description, $f);
         }
-
-        return null;
     }
 
     /**
@@ -108,7 +112,7 @@ final class IsIdentical extends Constraint
                 \get_class($this->value) . '"';
         }
 
-        return 'is identical to ' . $this->exporter()->export($this->value);
+        return 'is identical to ' . $this->exporter->export($this->value);
     }
 
     /**

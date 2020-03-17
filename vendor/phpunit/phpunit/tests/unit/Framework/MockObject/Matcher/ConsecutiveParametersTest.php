@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,10 +12,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\InvalidParameterGroupException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
-final class ConsecutiveParametersTest extends TestCase
+class ConsecutiveParametersTest extends TestCase
 {
     public function testIntegration(): void
     {

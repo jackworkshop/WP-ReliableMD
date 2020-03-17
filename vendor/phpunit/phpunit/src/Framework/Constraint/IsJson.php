@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Constraint that asserts that a string is valid JSON.
  */
-final class IsJson extends Constraint
+class IsJson extends Constraint
 {
     /**
      * Returns a string representation of the constraint.
@@ -60,13 +60,13 @@ final class IsJson extends Constraint
         }
 
         \json_decode($other);
-        $error = (string) JsonMatchesErrorMessageProvider::determineJsonError(
-            (string) \json_last_error()
+        $error = JsonMatchesErrorMessageProvider::determineJsonError(
+            \json_last_error()
         );
 
         return \sprintf(
             '%s is valid JSON (%s)',
-            $this->exporter()->shortenedExport($other),
+            $this->exporter->shortenedExport($other),
             $error
         );
     }

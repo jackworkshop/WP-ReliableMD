@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -16,11 +16,11 @@ class PartialMockTestClass
         $this->constructorCalled = true;
     }
 
-    public function doSomething(): void
+    public function doSomething()
     {
     }
 
-    public function doAnotherThing(): void
+    public function doAnotherThing()
     {
     }
 }

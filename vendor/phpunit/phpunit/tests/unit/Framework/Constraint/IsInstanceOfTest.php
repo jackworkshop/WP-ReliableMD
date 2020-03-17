@@ -12,9 +12,6 @@ namespace PHPUnit\Framework\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestFailure;
 
-/**
- * @small
- */
 final class IsInstanceOfTest extends ConstraintTestCase
 {
     public function testConstraintInstanceOf(): void
@@ -40,17 +37,5 @@ EOT
                 TestFailure::exceptionToString($e)
             );
         }
-    }
-
-    public function testCronstraintsThrowsReflectionException(): void
-    {
-        $this->throwException(new \ReflectionException);
-
-        $constraint = new IsInstanceOf(NotExistingClass::class);
-
-        self::assertSame(
-            'is instance of class "PHPUnit\Framework\Constraint\NotExistingClass"',
-            $constraint->toString()
-        );
     }
 }

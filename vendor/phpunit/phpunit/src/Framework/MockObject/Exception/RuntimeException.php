@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,9 +9,6 @@
  */
 namespace PHPUnit\Framework\MockObject;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class RuntimeException extends \RuntimeException implements Exception
+class RuntimeException extends \RuntimeException implements Exception
 {
 }

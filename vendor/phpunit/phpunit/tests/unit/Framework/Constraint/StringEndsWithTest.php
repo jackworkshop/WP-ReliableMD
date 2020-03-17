@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,10 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestFailure;
 
-/**
- * @small
- */
-final class StringEndsWithTest extends ConstraintTestCase
+class StringEndsWithTest extends ConstraintTestCase
 {
     public function testConstraintStringEndsWithCorrectValueAndReturnResult(): void
     {

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,10 +11,7 @@ namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\ExpectationFailedException;
 
-/**
- * @small
- */
-final class CallbackTest extends ConstraintTestCase
+class CallbackTest extends ConstraintTestCase
 {
     public static function staticCallbackReturningTrue()
     {

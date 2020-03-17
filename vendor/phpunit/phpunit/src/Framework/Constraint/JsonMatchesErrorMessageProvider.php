@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Provides human readable messages for each JSON error.
  */
-final class JsonMatchesErrorMessageProvider
+class JsonMatchesErrorMessageProvider
 {
     /**
      * Translates JSON error to a human readable string.

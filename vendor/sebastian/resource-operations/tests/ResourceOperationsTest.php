@@ -20,7 +20,7 @@ final class ResourceOperationsTest extends TestCase
     {
         $functions = ResourceOperations::getFunctions();
 
-        $this->assertIsArray($functions);
+        $this->assertInternalType('array', $functions);
         $this->assertContains('fopen', $functions);
     }
 }

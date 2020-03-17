@@ -1,7 +1,7 @@
 --TEST--
 PHPT runner supports XFAIL section
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--verbose';
 $_SERVER['argv'][3] = \realpath(__DIR__ . '/../_files/phpt-unsupported-section.phpt');

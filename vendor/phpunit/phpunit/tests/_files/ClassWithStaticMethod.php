@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,7 @@
  */
 class ClassWithStaticMethod
 {
-    public static function staticMethod(): void
+    public static function staticMethod()
     {
     }
 }

@@ -10,22 +10,11 @@
             "email": "sebastian@phpunit.de"
         }
     ],
-    "prefer-stable": true,
-    "config": {
-        "platform": {
-            "php": "7.3.0"
-        },
-        "optimize-autoloader": true,
-        "sort-packages": true
-    },
     "require": {
-        "php": "^7.3",
-        "sebastian/object-reflector": "^2.0",
-        "sebastian/recursion-context": "^4.0"
+        "php": "^7.0"
     },
     "require-dev": {
-        "ext-dom": "*",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^6.0"
     },
     "suggest": {
         "ext-uopz": "*"
@@ -45,7 +34,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.0-dev"
+            "dev-master": "2.0-dev"
         }
     }
 }

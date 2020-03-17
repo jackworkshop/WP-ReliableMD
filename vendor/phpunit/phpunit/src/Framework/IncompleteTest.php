@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,8 +10,9 @@
 namespace PHPUnit\Framework;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A marker interface for marking any exception/error as result of an unit
+ * test as incomplete implementation or currently not implemented.
  */
-interface IncompleteTest extends \Throwable
+interface IncompleteTest
 {
 }

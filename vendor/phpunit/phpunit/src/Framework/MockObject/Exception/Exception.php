@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,7 @@
 namespace PHPUnit\Framework\MockObject;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Interface for exceptions used by PHPUnit_MockObject.
  */
 interface Exception extends \Throwable
 {

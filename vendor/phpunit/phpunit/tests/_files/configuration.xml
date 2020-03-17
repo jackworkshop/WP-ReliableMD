@@ -16,7 +16,7 @@
          failOnWarning="false"
          failOnRisky="false"
          extensionsDirectory="/tmp"
-         printerClass="PHPUnit\TextUI\DefaultResultPrinter"
+         printerClass="PHPUnit\TextUI\ResultPrinter"
          testSuiteLoaderClass="PHPUnit\Runner\StandardTestSuiteLoader"
          defaultTestSuite="My Test Suite"
          beStrictAboutChangesToGlobalState="false"
@@ -32,8 +32,7 @@
          timeoutForMediumTests="10"
          timeoutForLargeTests="60"
          verbose="false"
-         executionOrder="default"
-         noInteraction="true">
+         executionOrder="default">
     <testsuites>
         <testsuite name="My Test Suite">
             <directory suffix="Test.php" phpVersion="5.3.0" phpVersionOperator=">=">/path/to/files</directory>
@@ -131,7 +130,9 @@
         <log type="coverage-clover" target="/tmp/clover.xml"/>
         <log type="coverage-crap4j" threshold="50" target="/tmp/crap4j.xml"/>
         <log type="coverage-text" showUncoveredFiles="true" showOnlySummary="true" target="/tmp/coverage.txt"/>
+        <log type="json" target="/tmp/logfile.json"/>
         <log type="plain" target="/tmp/logfile.txt"/>
+        <log type="tap" target="/tmp/logfile.tap"/>
         <log type="junit" target="/tmp/logfile.xml"/>
         <log type="testdox-html" target="/tmp/testdox.html"/>
         <log type="testdox-text" target="/tmp/testdox.txt"/>
@@ -143,6 +144,7 @@
         <includePath>/path/to/lib</includePath>
         <ini name="foo" value="bar"/>
         <ini name="highlight.keyword" value="#123456"/>
+        <ini name="highlight.string" value="TEST_FILES_PATH"/>
         <const name="FOO" value="false"/>
         <const name="BAR" value="true"/>
         <var name="foo" value="false"/>

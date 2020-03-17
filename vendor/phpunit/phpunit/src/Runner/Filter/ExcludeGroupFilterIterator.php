@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,10 +9,7 @@
  */
 namespace PHPUnit\Runner\Filter;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class ExcludeGroupFilterIterator extends GroupFilterIterator
+class ExcludeGroupFilterIterator extends GroupFilterIterator
 {
     protected function doAccept(string $hash): bool
     {

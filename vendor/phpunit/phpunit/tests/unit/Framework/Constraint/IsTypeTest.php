@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -13,10 +13,7 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestFailure;
 
-/**
- * @small
- */
-final class IsTypeTest extends ConstraintTestCase
+class IsTypeTest extends ConstraintTestCase
 {
     public function testConstraintIsType(): void
     {
@@ -77,9 +74,7 @@ EOF
 
         $this->assertTrue($constraint->evaluate($resource, '', true));
 
-        if (\is_resource($resource)) {
-            @\fclose($resource);
-        }
+        @\fclose($resource);
     }
 
     public function resources()
@@ -100,30 +95,6 @@ EOF
         $this->assertFalse($constraint->evaluate('', '', true));
         $this->assertTrue($constraint->evaluate([], '', true));
         $this->assertEquals('is of type "iterable"', $constraint->toString());
-    }
-
-    public function testTypeCanBeNull(): void
-    {
-        $constraint = Assert::isType('null');
-
-        $this->assertNull($constraint->evaluate(null));
-        $this->assertEquals('is of type "null"', $constraint->toString());
-    }
-
-    public function testTypeCanNotBeAnUndefinedOne(): void
-    {
-        try {
-            Assert::isType('diverse');
-        } catch (\PHPUnit\Framework\Exception $e) {
-            $this->assertEquals(
-                <<<EOF
-PHPUnit\Framework\Exception: Type specified for PHPUnit\Framework\Constraint\IsType <diverse> is not a valid type.
-
-EOF
-                ,
-                TestFailure::exceptionToString($e)
-            );
-        }
     }
 
     /**

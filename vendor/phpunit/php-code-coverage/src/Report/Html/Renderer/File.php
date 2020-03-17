@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -11,7 +11,6 @@ namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use SebastianBergmann\CodeCoverage\Node\File as FileNode;
 use SebastianBergmann\CodeCoverage\Util;
-use SebastianBergmann\Template\Template;
 
 /**
  * Renders a file node.
@@ -28,7 +27,7 @@ final class File extends Renderer
      */
     public function render(FileNode $node, string $file): void
     {
-        $template = new Template($this->templatePath . 'file.html', '{{', '}}');
+        $template = new \Text_Template($this->templatePath . 'file.html', '{{', '}}');
 
         $template->setVar(
             [
@@ -44,9 +43,9 @@ final class File extends Renderer
 
     protected function renderItems(FileNode $node): string
     {
-        $template = new Template($this->templatePath . 'file_item.html', '{{', '}}');
+        $template = new \Text_Template($this->templatePath . 'file_item.html', '{{', '}}');
 
-        $methodItemTemplate = new Template(
+        $methodItemTemplate = new \Text_Template(
             $this->templatePath . 'method_item.html',
             '{{',
             '}}'
@@ -92,7 +91,7 @@ final class File extends Renderer
         return $items;
     }
 
-    protected function renderTraitOrClassItems(array $items, Template $template, Template $methodItemTemplate): string
+    protected function renderTraitOrClassItems(array $items, \Text_Template $template, \Text_Template $methodItemTemplate): string
     {
         $buffer = '';
 
@@ -178,7 +177,7 @@ final class File extends Renderer
         return $buffer;
     }
 
-    protected function renderFunctionItems(array $functions, Template $template): string
+    protected function renderFunctionItems(array $functions, \Text_Template $template): string
     {
         if (empty($functions)) {
             return '';
@@ -196,7 +195,7 @@ final class File extends Renderer
         return $buffer;
     }
 
-    protected function renderFunctionOrMethodItem(Template $template, array $item, string $indent = ''): string
+    protected function renderFunctionOrMethodItem(\Text_Template $template, array $item, string $indent = ''): string
     {
         $numMethods       = 0;
         $numTestedMethods = 0;
@@ -340,14 +339,14 @@ final class File extends Renderer
 
             if (!empty($popoverTitle)) {
                 $popover = \sprintf(
-                    ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
+                    ' data-title="%s" data-content="%s" data-placement="bottom" data-html="true"',
                     $popoverTitle,
                     \htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags)
                 );
             }
 
             $lines .= \sprintf(
-                '     <tr%s><td%s><div align="right"><a name="%d"></a><a href="#%d">%d</a></div></td><td class="codeLine">%s</td></tr>' . "\n",
+                '     <tr%s%s><td><div align="right"><a name="%d"></a><a href="#%d">%d</a></div></td><td class="codeLine">%s</td></tr>' . "\n",
                 $trClass,
                 $popover,
                 $i,

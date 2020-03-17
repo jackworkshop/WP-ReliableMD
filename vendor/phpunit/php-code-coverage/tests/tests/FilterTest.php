@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage;
 
 use PHPUnit\Framework\TestCase;
@@ -24,9 +25,9 @@ class FilterTest extends TestCase
      */
     private $files = [];
 
-    protected function setUp(): void
+    protected function setUp()
     {
-        $this->filter = \unserialize('O:37:"SebastianBergmann\CodeCoverage\Filter":0:{}');
+        $this->filter = unserialize('O:37:"SebastianBergmann\CodeCoverage\Filter":0:{}');
 
         $this->files = [
             TEST_FILES_PATH . 'BankAccount.php',
@@ -69,9 +70,8 @@ class FilterTest extends TestCase
             TEST_FILES_PATH . 'source_with_ignore.php',
             TEST_FILES_PATH . 'source_with_namespace.php',
             TEST_FILES_PATH . 'source_with_oneline_annotations.php',
-            TEST_FILES_PATH . 'source_with_use_statements.php',
             TEST_FILES_PATH . 'source_without_ignore.php',
-            TEST_FILES_PATH . 'source_without_namespace.php',
+            TEST_FILES_PATH . 'source_without_namespace.php'
         ];
     }
 
@@ -79,7 +79,7 @@ class FilterTest extends TestCase
      * @covers SebastianBergmann\CodeCoverage\Filter::addFileToWhitelist
      * @covers SebastianBergmann\CodeCoverage\Filter::getWhitelist
      */
-    public function testAddingAFileToTheWhitelistWorks(): void
+    public function testAddingAFileToTheWhitelistWorks()
     {
         $this->filter->addFileToWhitelist($this->files[0]);
 
@@ -93,7 +93,7 @@ class FilterTest extends TestCase
      * @covers SebastianBergmann\CodeCoverage\Filter::removeFileFromWhitelist
      * @covers SebastianBergmann\CodeCoverage\Filter::getWhitelist
      */
-    public function testRemovingAFileFromTheWhitelistWorks(): void
+    public function testRemovingAFileFromTheWhitelistWorks()
     {
         $this->filter->addFileToWhitelist($this->files[0]);
         $this->filter->removeFileFromWhitelist($this->files[0]);
@@ -106,12 +106,12 @@ class FilterTest extends TestCase
      * @covers  SebastianBergmann\CodeCoverage\Filter::getWhitelist
      * @depends testAddingAFileToTheWhitelistWorks
      */
-    public function testAddingADirectoryToTheWhitelistWorks(): void
+    public function testAddingADirectoryToTheWhitelistWorks()
     {
         $this->filter->addDirectoryToWhitelist(TEST_FILES_PATH);
 
         $whitelist = $this->filter->getWhitelist();
-        \sort($whitelist);
+        sort($whitelist);
 
         $this->assertEquals($this->files, $whitelist);
     }
@@ -120,7 +120,7 @@ class FilterTest extends TestCase
      * @covers SebastianBergmann\CodeCoverage\Filter::addFilesToWhitelist
      * @covers SebastianBergmann\CodeCoverage\Filter::getWhitelist
      */
-    public function testAddingFilesToTheWhitelistWorks(): void
+    public function testAddingFilesToTheWhitelistWorks()
     {
         $facade = new FileIteratorFacade;
 
@@ -132,7 +132,7 @@ class FilterTest extends TestCase
         $this->filter->addFilesToWhitelist($files);
 
         $whitelist = $this->filter->getWhitelist();
-        \sort($whitelist);
+        sort($whitelist);
 
         $this->assertEquals($this->files, $whitelist);
     }
@@ -142,7 +142,7 @@ class FilterTest extends TestCase
      * @covers  SebastianBergmann\CodeCoverage\Filter::getWhitelist
      * @depends testAddingADirectoryToTheWhitelistWorks
      */
-    public function testRemovingADirectoryFromTheWhitelistWorks(): void
+    public function testRemovingADirectoryFromTheWhitelistWorks()
     {
         $this->filter->addDirectoryToWhitelist(TEST_FILES_PATH);
         $this->filter->removeDirectoryFromWhitelist(TEST_FILES_PATH);
@@ -153,7 +153,7 @@ class FilterTest extends TestCase
     /**
      * @covers SebastianBergmann\CodeCoverage\Filter::isFile
      */
-    public function testIsFile(): void
+    public function testIsFile()
     {
         $this->assertFalse($this->filter->isFile('vfs://root/a/path'));
         $this->assertFalse($this->filter->isFile('xdebug://debug-eval'));
@@ -167,7 +167,7 @@ class FilterTest extends TestCase
     /**
      * @covers SebastianBergmann\CodeCoverage\Filter::isFiltered
      */
-    public function testWhitelistedFileIsNotFiltered(): void
+    public function testWhitelistedFileIsNotFiltered()
     {
         $this->filter->addFileToWhitelist($this->files[0]);
         $this->assertFalse($this->filter->isFiltered($this->files[0]));
@@ -176,7 +176,7 @@ class FilterTest extends TestCase
     /**
      * @covers SebastianBergmann\CodeCoverage\Filter::isFiltered
      */
-    public function testNotWhitelistedFileIsFiltered(): void
+    public function testNotWhitelistedFileIsFiltered()
     {
         $this->filter->addFileToWhitelist($this->files[0]);
         $this->assertTrue($this->filter->isFiltered($this->files[1]));
@@ -186,7 +186,7 @@ class FilterTest extends TestCase
      * @covers SebastianBergmann\CodeCoverage\Filter::isFiltered
      * @covers SebastianBergmann\CodeCoverage\Filter::isFile
      */
-    public function testNonFilesAreFiltered(): void
+    public function testNonFilesAreFiltered()
     {
         $this->assertTrue($this->filter->isFiltered('vfs://root/a/path'));
         $this->assertTrue($this->filter->isFiltered('xdebug://debug-eval'));
@@ -194,20 +194,5 @@ class FilterTest extends TestCase
         $this->assertTrue($this->filter->isFiltered('runtime-created function'));
         $this->assertTrue($this->filter->isFiltered('assert code'));
         $this->assertTrue($this->filter->isFiltered('regexp code'));
-    }
-
-    /**
-     * @covers SebastianBergmann\CodeCoverage\Filter::addFileToWhitelist
-     * @covers SebastianBergmann\CodeCoverage\Filter::getWhitelist
-     *
-     * @ticket https://github.com/sebastianbergmann/php-code-coverage/issues/664
-     */
-    public function testTryingToAddFileThatDoesNotExistDoesNotChangeFilter(): void
-    {
-        $filter = new Filter;
-
-        $filter->addFileToWhitelist('does_not_exist');
-
-        $this->assertEmpty($filter->getWhitelistedFiles());
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,9 +11,6 @@ namespace PHPUnit\Framework;
 
 use MyTestListener;
 
-/**
- * @small
- */
 final class TestListenerTest extends TestCase
 {
     /**

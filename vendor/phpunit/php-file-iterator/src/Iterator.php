@@ -12,8 +12,8 @@ namespace SebastianBergmann\FileIterator;
 
 class Iterator extends \FilterIterator
 {
-    public const PREFIX = 0;
-    public const SUFFIX = 1;
+    const PREFIX = 0;
+    const SUFFIX = 1;
 
     /**
      * @var string
@@ -52,7 +52,7 @@ class Iterator extends \FilterIterator
         parent::__construct($iterator);
     }
 
-    public function accept(): bool
+    public function accept()
     {
         $current  = $this->getInnerIterator()->current();
         $filename = $current->getFilename();

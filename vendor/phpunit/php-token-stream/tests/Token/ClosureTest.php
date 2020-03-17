@@ -17,7 +17,7 @@ class PHP_Token_ClosureTest extends TestCase
      */
     private $functions;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'closure.php') as $token) {
             if ($token instanceof PHP_Token_FUNCTION) {

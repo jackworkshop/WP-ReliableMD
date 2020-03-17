@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,7 @@
  */
 class ClassWithSelfTypeHint
 {
-    public function foo(self $foo): void
+    public function foo(self $foo)
     {
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,7 @@ use Countable;
 /**
  * Constraint that checks whether a variable is empty().
  */
-final class IsEmpty extends Constraint
+class IsEmpty extends Constraint
 {
     /**
      * Returns a string representation of the constraint.
@@ -57,7 +57,7 @@ final class IsEmpty extends Constraint
 
         return \sprintf(
             '%s %s %s',
-            \strpos($type, 'a') === 0 || \strpos($type, 'o') === 0 ? 'an' : 'a',
+            $type[0] == 'a' || $type[0] == 'o' ? 'an' : 'a',
             $type,
             $this->toString()
         );

@@ -17,7 +17,7 @@ class PHP_Token_IncludeTest extends TestCase
      */
     private $ts;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         $this->ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source3.php');
     }

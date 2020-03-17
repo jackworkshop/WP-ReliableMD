@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -13,9 +13,6 @@ use PHPUnit\Framework\TestSuite;
 use RecursiveFilterIterator;
 use RecursiveIterator;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
 abstract class GroupFilterIterator extends RecursiveFilterIterator
 {
     /**

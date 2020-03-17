@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,7 @@
 namespace PHPUnit;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Marker interface for PHPUnit exceptions.
  */
 interface Exception extends \Throwable
 {

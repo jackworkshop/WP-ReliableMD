@@ -1,10 +1,11 @@
 --TEST--
-phpunit --process-isolation ../../_files/FailureTest.php
+phpunit --process-isolation FailureTest ../../_files/FailureTest.php
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--process-isolation';
-$_SERVER['argv'][3] = __DIR__ . '/../_files/FailureTest.php';
+$_SERVER['argv'][3] = 'FailureTest';
+$_SERVER['argv'][4] = __DIR__ . '/../_files/FailureTest.php';
 
 require __DIR__ . '/../bootstrap.php';
 PHPUnit\TextUI\Command::main();

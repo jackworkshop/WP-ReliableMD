@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,10 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestFailure;
 
-/**
- * @small
- */
-final class ClassHasStaticAttributeTest extends ConstraintTestCase
+class ClassHasStaticAttributeTest extends ConstraintTestCase
 {
     public function testConstraintClassHasStaticAttribute(): void
     {

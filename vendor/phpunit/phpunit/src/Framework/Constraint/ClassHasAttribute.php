@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,7 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use PHPUnit\Framework\Exception;
+use ReflectionClass;
 
 /**
  * Constraint that asserts that the class it is evaluated for has a given
@@ -26,6 +26,8 @@ class ClassHasAttribute extends Constraint
 
     public function __construct(string $attributeName)
     {
+        parent::__construct();
+
         $this->attributeName = $attributeName;
     }
 
@@ -48,17 +50,9 @@ class ClassHasAttribute extends Constraint
      */
     protected function matches($other): bool
     {
-        try {
-            return (new \ReflectionClass($other))->hasProperty($this->attributeName);
-            // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new Exception(
-                $e->getMessage(),
-                (int) $e->getCode(),
-                $e
-            );
-        }
-        // @codeCoverageIgnoreEnd
+        $class = new ReflectionClass($other);
+
+        return $class->hasProperty($this->attributeName);
     }
 
     /**

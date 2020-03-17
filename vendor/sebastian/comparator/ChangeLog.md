@@ -2,12 +2,6 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [4.0.0] - 2020-02-07
-
-### Removed
-
-* Removed support for PHP 7.1 and PHP 7.2
-
 ## [3.0.2] - 2018-07-12
 
 ### Changed
@@ -56,7 +50,6 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Added `SebastianBergmann\Comparator\Factory::reset()` to unregister all non-default comparators
 * Added support for `phpunit/phpunit-mock-objects` version `^5.0`
 
-[4.0.0]: https://github.com/sebastianbergmann/comparator/compare/3.0.2...master
 [3.0.2]: https://github.com/sebastianbergmann/comparator/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/sebastianbergmann/comparator/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/sebastianbergmann/comparator/compare/2.1.3...3.0.0

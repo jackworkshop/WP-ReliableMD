@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -17,7 +17,7 @@ use ReflectionObject;
  *
  * The attribute name is passed in the constructor.
  */
-final class ObjectHasAttribute extends ClassHasAttribute
+class ObjectHasAttribute extends ClassHasAttribute
 {
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
@@ -27,6 +27,8 @@ final class ObjectHasAttribute extends ClassHasAttribute
      */
     protected function matches($other): bool
     {
-        return (new ReflectionObject($other))->hasProperty($this->attributeName());
+        $object = new ReflectionObject($other);
+
+        return $object->hasProperty($this->attributeName());
     }
 }

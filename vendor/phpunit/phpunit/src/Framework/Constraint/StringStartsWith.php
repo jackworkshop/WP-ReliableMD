@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,13 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Util\InvalidArgumentHelper;
 
 /**
  * Constraint that asserts that the string it is evaluated for begins with a
  * given prefix.
  */
-final class StringStartsWith extends Constraint
+class StringStartsWith extends Constraint
 {
     /**
      * @var string
@@ -24,8 +24,10 @@ final class StringStartsWith extends Constraint
 
     public function __construct(string $prefix)
     {
+        parent::__construct();
+
         if (\strlen($prefix) === 0) {
-            throw InvalidArgumentException::create(1, 'non-empty string');
+            throw InvalidArgumentHelper::factory(1, 'non-empty string');
         }
 
         $this->prefix = $prefix;
@@ -47,6 +49,6 @@ final class StringStartsWith extends Constraint
      */
     protected function matches($other): bool
     {
-        return \strpos((string) $other, $this->prefix) === 0;
+        return \strpos($other, $this->prefix) === 0;
     }
 }

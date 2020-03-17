@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,10 +12,7 @@ namespace PHPUnit\Runner;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Util\PHP\AbstractPhpProcess;
 
-/**
- * @medium
- */
-final class PhptTestCaseTest extends TestCase
+class PhptTestCaseTest extends TestCase
 {
     private const EXPECT_CONTENT = <<<EOF
 --TEST--
@@ -244,7 +241,7 @@ EOF
 --TEST--
 Something to describe it
 --FILE--
-<?php declare(strict_types=1);
+<?php
 echo "Hello world!\n";
 ?>
 EOF

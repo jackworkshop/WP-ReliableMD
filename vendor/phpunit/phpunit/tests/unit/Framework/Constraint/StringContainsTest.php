@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,10 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestFailure;
 
-/**
- * @small
- */
-final class StringContainsTest extends ConstraintTestCase
+class StringContainsTest extends ConstraintTestCase
 {
     public function testConstraintStringContains(): void
     {
@@ -95,14 +92,5 @@ EOF
         }
 
         $this->fail();
-    }
-
-    public function testEvaluateEmptyStringInFoo(): void
-    {
-        $stringContains = new StringContains('');
-
-        $stringContains->evaluate('foo');
-
-        $this->assertSame('contains ""', $stringContains->toString());
     }
 }

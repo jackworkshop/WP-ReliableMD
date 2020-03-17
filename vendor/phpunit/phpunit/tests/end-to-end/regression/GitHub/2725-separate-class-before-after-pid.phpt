@@ -1,7 +1,8 @@
 --TEST--
 GH-2725: Verify that @runClassInSeparateProcess runs @beforeclass and @afterclass methods in the same process as test methods.
 --FILE--
-<?php declare(strict_types=1);
+<?php
+
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = __DIR__ . '/2725/BeforeAfterClassPidTest.php';
 

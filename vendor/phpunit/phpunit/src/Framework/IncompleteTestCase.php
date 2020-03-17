@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,10 +10,15 @@
 namespace PHPUnit\Framework;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * An incomplete test case
  */
-final class IncompleteTestCase extends TestCase
+class IncompleteTestCase extends TestCase
 {
+    /**
+     * @var string
+     */
+    protected $message = '';
+
     /**
      * @var bool
      */
@@ -35,9 +40,9 @@ final class IncompleteTestCase extends TestCase
     protected $useErrorHandler = false;
 
     /**
-     * @var string
+     * @var bool
      */
-    private $message;
+    protected $useOutputBuffering = false;
 
     public function __construct(string $className, string $methodName, string $message = '')
     {

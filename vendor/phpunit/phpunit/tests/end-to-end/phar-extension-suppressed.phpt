@@ -1,7 +1,7 @@
 --TEST--
-phpunit --configuration tests/_files/phpunit-example-extension --no-extensions
+phpunit --configuration tests/_files/phpunit-example-extension
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--configuration';
 $_SERVER['argv'][2] = __DIR__ . '/../_files/phpunit-example-extension';
 $_SERVER['argv'][3] = '--no-extensions';

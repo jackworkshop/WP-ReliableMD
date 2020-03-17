@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of sebastian/global-state.
  *
@@ -7,12 +7,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace SebastianBergmann\GlobalState;
 
 /**
  * Exports parts of a Snapshot as PHP code.
  */
-final class CodeExporter
+class CodeExporter
 {
     public function constants(Snapshot $snapshot): string
     {
@@ -32,11 +35,11 @@ final class CodeExporter
 
     public function globalVariables(Snapshot $snapshot): string
     {
-        $result = '$GLOBALS = [];' . \PHP_EOL;
+        $result = '$GLOBALS = [];' . PHP_EOL;
 
         foreach ($snapshot->globalVariables() as $name => $value) {
             $result .= \sprintf(
-                '$GLOBALS[%s] = %s;' . \PHP_EOL,
+                '$GLOBALS[%s] = %s;' . PHP_EOL,
                 $this->exportVariable($name),
                 $this->exportVariable($value)
             );
@@ -62,7 +65,7 @@ final class CodeExporter
 
     private function exportVariable($variable): string
     {
-        if (\is_scalar($variable) || null === $variable ||
+        if (\is_scalar($variable) || \is_null($variable) ||
             (\is_array($variable) && $this->arrayOnlyContainsScalars($variable))) {
             return \var_export($variable, true);
         }
@@ -76,8 +79,8 @@ final class CodeExporter
 
         foreach ($array as $element) {
             if (\is_array($element)) {
-                $result = $this->arrayOnlyContainsScalars($element);
-            } elseif (!\is_scalar($element) && null !== $element) {
+                $result = self::arrayOnlyContainsScalars($element);
+            } elseif (!\is_scalar($element) && !\is_null($element)) {
                 $result = false;
             }
 

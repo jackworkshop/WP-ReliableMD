@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.0/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.0/phpunit.xsd"
          bootstrap="tests/bootstrap.php"
-         executionOrder="depends,defects"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
+         backupGlobals="false"
          verbose="true">
-    <testsuites>
-        <testsuite name="default">
-            <directory suffix="Test.php">tests/tests</directory>
-        </testsuite>
-    </testsuites>
+    <testsuite name="default">
+        <directory suffix="Test.php">tests/tests</directory>
+    </testsuite>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
@@ -22,3 +18,4 @@
         <ini name="serialize_precision" value="14"/>
     </php>
 </phpunit>
+

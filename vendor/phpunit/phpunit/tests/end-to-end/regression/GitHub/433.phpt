@@ -1,12 +1,15 @@
 --TEST--
 GH-433: expectOutputString not completely working as expected
 --FILE--
-<?php declare(strict_types=1);
+<?php
+
 $_SERVER['argv'][1] = '--no-configuration';
-$_SERVER['argv'][2] = __DIR__ . '/433/Issue433Test.php';
+$_SERVER['argv'][2] = 'Issue433Test';
+$_SERVER['argv'][3] = __DIR__ . '/433/Issue433Test.php';
 
 require __DIR__ . '/../../../bootstrap.php';
 PHPUnit\TextUI\Command::main();
+?>
 --EXPECTF--
 PHPUnit %s by Sebastian Bergmann and contributors.
 

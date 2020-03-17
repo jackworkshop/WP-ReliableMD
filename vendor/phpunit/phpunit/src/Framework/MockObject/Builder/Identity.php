@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,12 @@
 namespace PHPUnit\Framework\MockObject\Builder;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Builder interface for unique identifiers.
+ *
+ * Defines the interface for recording unique identifiers. The identifiers
+ * can be used to define the invocation order of expectations. The expectation
+ * is recorded using id() and then defined in order using
+ * PHPUnit\Framework\MockObject\Builder\Match::after().
  */
 interface Identity
 {

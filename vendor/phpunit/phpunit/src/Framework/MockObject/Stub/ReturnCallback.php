@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,11 +10,9 @@
 namespace PHPUnit\Framework\MockObject\Stub;
 
 use PHPUnit\Framework\MockObject\Invocation;
+use PHPUnit\Framework\MockObject\Stub;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class ReturnCallback implements Stub
+class ReturnCallback implements Stub
 {
     private $callback;
 

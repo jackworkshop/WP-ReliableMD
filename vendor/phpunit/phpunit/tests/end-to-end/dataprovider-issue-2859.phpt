@@ -1,7 +1,7 @@
 --TEST--
 phpunit -c ../../_files/DataProviderIssue2859/phpunit.xml
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '-c';
 $_SERVER['argv'][2] = __DIR__ . '/../_files/DataProviderIssue2859/phpunit.xml';
 

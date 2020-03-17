@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -34,9 +34,9 @@ $filter = $coverage->filter();
 $filter->setWhitelistedFiles(%s);
 
 return $coverage;',
-            \var_export($coverage->getData(true), true),
-            \var_export($coverage->getTests(), true),
-            \var_export($filter->getWhitelistedFiles(), true)
+            \var_export($coverage->getData(true), 1),
+            \var_export($coverage->getTests(), 1),
+            \var_export($filter->getWhitelistedFiles(), 1)
         );
 
         if ($target !== null) {

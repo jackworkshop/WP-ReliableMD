@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 /**
  * Logical AND.
  */
-final class LogicalAnd extends Constraint
+class LogicalAnd extends Constraint
 {
     /**
      * @var Constraint[]
@@ -42,7 +42,8 @@ final class LogicalAnd extends Constraint
         foreach ($constraints as $constraint) {
             if (!($constraint instanceof Constraint)) {
                 throw new \PHPUnit\Framework\Exception(
-                    'All parameters to ' . __CLASS__ . ' must be a constraint object.'
+                    'All parameters to ' . __CLASS__ .
+                    ' must be a constraint object.'
                 );
             }
 
@@ -60,10 +61,14 @@ final class LogicalAnd extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
+     * @param mixed  $other        value or object to evaluate
+     * @param string $description  Additional information about the test
+     * @param bool   $returnResult Whether to return a result or throw an exception
+     *
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         $success = true;
 
@@ -82,8 +87,6 @@ final class LogicalAnd extends Constraint
         if (!$success) {
             $this->fail($other, $description);
         }
-
-        return null;
     }
 
     /**

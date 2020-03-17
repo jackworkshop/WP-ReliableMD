@@ -1,8 +1,9 @@
 --TEST--
 PHPT runner handles unsupported --SECTION-- gracefully
 --FILE--
-<?php declare(strict_types=1);
+<?php
 echo "Hello world";
+?>
 --GET--
 Gerste, Hopfen und Wasser
 --EXPECT--

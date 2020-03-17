@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,7 @@
  */
 class SingletonClass
 {
-    public static function getInstance(): void
+    public static function getInstance()
     {
     }
 
@@ -17,11 +17,11 @@ class SingletonClass
     {
     }
 
-    private function __sleep(): void
+    private function __sleep()
     {
     }
 
-    private function __wakeup(): void
+    private function __wakeup()
     {
     }
 
@@ -29,7 +29,7 @@ class SingletonClass
     {
     }
 
-    public function doSomething(): void
+    public function doSomething()
     {
     }
 }

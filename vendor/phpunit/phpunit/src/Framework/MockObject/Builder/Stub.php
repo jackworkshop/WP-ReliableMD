@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,16 +9,18 @@
  */
 namespace PHPUnit\Framework\MockObject\Builder;
 
-use PHPUnit\Framework\MockObject\Stub\Stub as BaseStub;
+use PHPUnit\Framework\MockObject\Stub as BaseStub;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Builder interface for stubs which are actions replacing an invocation.
  */
 interface Stub extends Identity
 {
     /**
      * Stubs the matching method with the stub object $stub. Any invocations of
      * the matched method will now be handled by the stub instead.
+     *
+     * @return Identity
      */
-    public function will(BaseStub $stub): Identity;
+    public function will(BaseStub $stub);
 }

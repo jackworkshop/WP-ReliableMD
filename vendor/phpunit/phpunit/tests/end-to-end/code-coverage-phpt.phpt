@@ -1,12 +1,13 @@
 --TEST--
 phpunit --colors=never --coverage-text=php://stdout ../../_files/phpt-for-coverage.phpt --whitelist ../../_files/CoveredClass.php
 --SKIPIF--
-<?php declare(strict_types=1);
+<?php
 if (!extension_loaded('xdebug')) {
     print 'skip: Extension xdebug is required.';
 }
+?>
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--bootstrap';
 $_SERVER['argv'][3] = __DIR__ . '/../bootstrap.php';

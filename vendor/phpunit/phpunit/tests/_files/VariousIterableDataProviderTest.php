@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class VariousIterableDataProviderTest extends AbstractVariousIterableDataProviderTest
+class VariousIterableDataProviderTest
 {
-    public static function asArrayStaticProvider()
+    public static function asArrayProvider()
     {
         return [
             ['A'],
@@ -18,7 +18,7 @@ class VariousIterableDataProviderTest extends AbstractVariousIterableDataProvide
         ];
     }
 
-    public static function asIteratorStaticProvider()
+    public static function asIteratorProvider()
     {
         yield ['D'];
 
@@ -27,7 +27,7 @@ class VariousIterableDataProviderTest extends AbstractVariousIterableDataProvide
         yield ['F'];
     }
 
-    public static function asTraversableStaticProvider()
+    public static function asTraversableProvider()
     {
         return new WrapperIteratorAggregate([
             ['G'],
@@ -37,56 +37,11 @@ class VariousIterableDataProviderTest extends AbstractVariousIterableDataProvide
     }
 
     /**
-     * @dataProvider asArrayStaticProvider
-     * @dataProvider asIteratorStaticProvider
-     * @dataProvider asTraversableStaticProvider
-     */
-    public function testStatic(): void
-    {
-    }
-
-    public function asArrayProvider()
-    {
-        return [
-            ['S'],
-            ['T'],
-            ['U'],
-        ];
-    }
-
-    public function asIteratorProvider()
-    {
-        yield ['V'];
-
-        yield ['W'];
-
-        yield ['X'];
-    }
-
-    public function asTraversableProvider()
-    {
-        return new WrapperIteratorAggregate([
-            ['Y'],
-            ['Z'],
-            ['P'],
-        ]);
-    }
-
-    /**
      * @dataProvider asArrayProvider
      * @dataProvider asIteratorProvider
      * @dataProvider asTraversableProvider
      */
-    public function testNonStatic(): void
-    {
-    }
-
-    /**
-     * @dataProvider asArrayProviderInParent
-     * @dataProvider asIteratorProviderInParent
-     * @dataProvider asTraversableProviderInParent
-     */
-    public function testFromParent(): void
+    public function test(): void
     {
     }
 }

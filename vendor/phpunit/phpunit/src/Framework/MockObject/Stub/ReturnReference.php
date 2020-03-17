@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,12 +10,13 @@
 namespace PHPUnit\Framework\MockObject\Stub;
 
 use PHPUnit\Framework\MockObject\Invocation;
+use PHPUnit\Framework\MockObject\Stub;
 use SebastianBergmann\Exporter\Exporter;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Stubs a method by returning a user-defined reference to a value.
  */
-final class ReturnReference implements Stub
+class ReturnReference implements Stub
 {
     /**
      * @var mixed

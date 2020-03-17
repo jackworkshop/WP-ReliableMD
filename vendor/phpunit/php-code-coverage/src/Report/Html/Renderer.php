@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -14,7 +14,6 @@ use SebastianBergmann\CodeCoverage\Node\Directory as DirectoryNode;
 use SebastianBergmann\CodeCoverage\Node\File as FileNode;
 use SebastianBergmann\CodeCoverage\Version;
 use SebastianBergmann\Environment\Runtime;
-use SebastianBergmann\Template\Template;
 
 /**
  * Base class for node renderers.
@@ -61,7 +60,7 @@ abstract class Renderer
         $this->version        = Version::id();
     }
 
-    protected function renderItemTemplate(Template $template, array $data): string
+    protected function renderItemTemplate(\Text_Template $template, array $data): string
     {
         $numSeparator  = '&nbsp;/&nbsp;';
 
@@ -136,7 +135,7 @@ abstract class Renderer
         return $template->render();
     }
 
-    protected function setCommonTemplateVariables(Template $template, AbstractNode $node): void
+    protected function setCommonTemplateVariables(\Text_Template $template, AbstractNode $node): void
     {
         $template->setVar(
             [
@@ -223,7 +222,7 @@ abstract class Renderer
     {
         $level = $this->getColorLevel($percent);
 
-        $template = new Template(
+        $template = new \Text_Template(
             $this->templatePath . 'coverage_bar.html',
             '{{',
             '}}'
@@ -259,16 +258,7 @@ abstract class Renderer
             $runtime->getVersion()
         );
 
-        if ($runtime->hasPHPDBGCodeCoverage()) {
-            return $buffer;
-        }
-
-        if ($runtime->hasPCOV()) {
-            $buffer .= \sprintf(
-                ' with <a href="https://github.com/krakjoe/pcov">PCOV %s</a>',
-                \phpversion('pcov')
-            );
-        } elseif ($runtime->hasXdebug()) {
+        if ($runtime->hasXdebug() && !$runtime->hasPHPDBGCodeCoverage()) {
             $buffer .= \sprintf(
                 ' with <a href="https://xdebug.org/">Xdebug %s</a>',
                 \phpversion('xdebug')

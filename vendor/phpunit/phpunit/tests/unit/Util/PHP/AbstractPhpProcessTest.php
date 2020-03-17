@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,10 +11,7 @@ namespace PHPUnit\Util\PHP;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
-final class AbstractPhpProcessTest extends TestCase
+class AbstractPhpProcessTest extends TestCase
 {
     /**
      * @var AbstractPhpProcess|\PHPUnit\Framework\MockObject\MockObject

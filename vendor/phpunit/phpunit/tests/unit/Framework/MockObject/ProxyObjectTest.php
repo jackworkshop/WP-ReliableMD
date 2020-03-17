@@ -11,9 +11,6 @@
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
 final class ProxyObjectTest extends TestCase
 {
     public function testProxyingWorksForMethodThatReturnsUndeclaredScalarValue(): void

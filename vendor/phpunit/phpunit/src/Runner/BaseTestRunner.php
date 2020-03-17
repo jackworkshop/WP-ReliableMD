@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,10 +12,12 @@ namespace PHPUnit\Runner;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestSuite;
+use ReflectionClass;
+use ReflectionException;
 use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Base class for all test runners.
  */
 abstract class BaseTestRunner
 {
@@ -81,30 +83,25 @@ abstract class BaseTestRunner
      *
      * @throws Exception
      */
-    public function getTest(string $suiteClassFile, $suffixes = ''): ?Test
+    public function getTest(string $suiteClassName, string $suiteClassFile = '', $suffixes = ''): ?Test
     {
-        if (\is_dir($suiteClassFile)) {
-            /** @var string[] $files */
-            $files = (new FileIteratorFacade)->getFilesAsArray(
-                $suiteClassFile,
+        if (\is_dir($suiteClassName) &&
+            !\is_file($suiteClassName . '.php') && empty($suiteClassFile)) {
+            $facade = new FileIteratorFacade;
+            $files  = $facade->getFilesAsArray(
+                $suiteClassName,
                 $suffixes
             );
 
-            $suite = new TestSuite($suiteClassFile);
+            $suite = new TestSuite($suiteClassName);
             $suite->addTestFiles($files);
-
-            return $suite;
-        }
-
-        if (\is_file($suiteClassFile) && \substr($suiteClassFile, -5, 5) === '.phpt') {
-            $suite = new TestSuite;
-            $suite->addTestFile($suiteClassFile);
 
             return $suite;
         }
 
         try {
             $testClass = $this->loadSuiteClass(
+                $suiteClassName,
                 $suiteClassFile
             );
         } catch (Exception $e) {
@@ -124,9 +121,25 @@ abstract class BaseTestRunner
                 return null;
             }
 
-            $test = $suiteMethod->invoke(null, $testClass->getName());
-        } catch (\ReflectionException $e) {
-            $test = new TestSuite($testClass);
+            try {
+                $test = $suiteMethod->invoke(null, $testClass->getName());
+            } catch (ReflectionException $e) {
+                $this->runFailed(
+                    \sprintf(
+                        "Failed to invoke suite() method.\n%s",
+                        $e->getMessage()
+                    )
+                );
+
+                return null;
+            }
+        } catch (ReflectionException $e) {
+            try {
+                $test = new TestSuite($testClass);
+            } catch (Exception $e) {
+                $test = new TestSuite;
+                $test->setName($suiteClassName);
+            }
         }
 
         $this->clearStatus();
@@ -137,9 +150,11 @@ abstract class BaseTestRunner
     /**
      * Returns the loaded ReflectionClass for a suite name.
      */
-    protected function loadSuiteClass(string $suiteClassFile): \ReflectionClass
+    protected function loadSuiteClass(string $suiteClassName, string $suiteClassFile = ''): ReflectionClass
     {
-        return $this->getLoader()->load($suiteClassFile);
+        $loader = $this->getLoader();
+
+        return $loader->load($suiteClassName, $suiteClassFile);
     }
 
     /**
@@ -153,5 +168,5 @@ abstract class BaseTestRunner
      * Override to define how to handle a failed loading of
      * a test suite.
      */
-    abstract protected function runFailed(string $message): void;
+    abstract protected function runFailed(string $message);
 }

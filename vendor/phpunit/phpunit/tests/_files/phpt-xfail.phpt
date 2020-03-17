@@ -1,9 +1,10 @@
 --TEST--
 PHPT runner supports XFAIL section
 --FILE--
-<?php declare(strict_types=1);
+<?php
 {syntaxError}
 echo "Should not see this";
+?>
 --XFAIL--
 Syntax Error in PHPT is supposed to fail
 --EXPECT--

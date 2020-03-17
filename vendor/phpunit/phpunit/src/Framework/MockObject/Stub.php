@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,16 +9,21 @@
  */
 namespace PHPUnit\Framework\MockObject;
 
-use PHPUnit\Framework\MockObject\Builder\InvocationStubber;
+use PHPUnit\Framework\SelfDescribing;
 
 /**
- * @method InvocationStubber method($constraint)
+ * An object that stubs the process of a normal method for a mock object.
+ *
+ * The stub object will replace the code for the stubbed method and return a
+ * specific value instead of the original value.
  */
-interface Stub
+interface Stub extends SelfDescribing
 {
-    public function __phpunit_getInvocationHandler(): InvocationHandler;
-
-    public function __phpunit_hasMatchers(): bool;
-
-    public function __phpunit_setReturnValueGeneration(bool $returnValueGeneration): void;
+    /**
+     * Fakes the processing of the invocation $invocation by returning a
+     * specific value.
+     *
+     * @param Invocation $invocation The invocation which was mocked and matched by the current method and argument matchers
+     */
+    public function invoke(Invocation $invocation);
 }

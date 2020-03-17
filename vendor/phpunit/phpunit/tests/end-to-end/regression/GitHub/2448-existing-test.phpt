@@ -1,9 +1,9 @@
 --TEST--
 #2448: Weird error when trying to run `Test` from `Test.php` but `Test.php` does not exist
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
-$_SERVER['argv'][2] = 'Test.php';
+$_SERVER['argv'][2] = 'Test';
 
 \chdir(__DIR__ . '/2448');
 

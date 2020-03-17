@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -24,14 +24,14 @@ class Issue2366Test extends TestCase
      */
     public function testOne($o): void
     {
-        $this->assertEquals(true, $o->foo());
+        $this->assertEquals(1, $o->foo());
     }
 
     public function provider()
     {
         $o = $this->createMock(Issue2366::class);
 
-        $o->method('foo')->willReturn(true);
+        $o->method('foo')->willReturn(1);
 
         return [
             [$o],

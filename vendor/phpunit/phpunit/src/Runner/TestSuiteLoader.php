@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -16,7 +16,7 @@ use ReflectionClass;
  */
 interface TestSuiteLoader
 {
-    public function load(string $suiteClassFile): ReflectionClass;
+    public function load(string $suiteClassName, string $suiteClassFile = ''): ReflectionClass;
 
     public function reload(ReflectionClass $aClass): ReflectionClass;
 }

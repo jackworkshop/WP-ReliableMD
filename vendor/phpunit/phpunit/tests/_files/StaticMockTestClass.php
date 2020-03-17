@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,7 @@
  */
 class StaticMockTestClass
 {
-    public static function doSomething(): void
+    public static function doSomething()
     {
     }
 

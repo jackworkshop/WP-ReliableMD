@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of sebastian/global-state.
  *
@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace SebastianBergmann\GlobalState;
 
 use PHPUnit\Framework\TestCase;
@@ -18,31 +21,31 @@ use SebastianBergmann\GlobalState\TestFixture\BlacklistedInterface;
 /**
  * @covers \SebastianBergmann\GlobalState\Blacklist
  */
-final class BlacklistTest extends TestCase
+class BlacklistTest extends TestCase
 {
     /**
      * @var \SebastianBergmann\GlobalState\Blacklist
      */
     private $blacklist;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         $this->blacklist = new Blacklist;
     }
 
-    public function testGlobalVariableThatIsNotBlacklistedIsNotTreatedAsBlacklisted(): void
+    public function testGlobalVariableThatIsNotBlacklistedIsNotTreatedAsBlacklisted()
     {
         $this->assertFalse($this->blacklist->isGlobalVariableBlacklisted('variable'));
     }
 
-    public function testGlobalVariableCanBeBlacklisted(): void
+    public function testGlobalVariableCanBeBlacklisted()
     {
         $this->blacklist->addGlobalVariable('variable');
 
         $this->assertTrue($this->blacklist->isGlobalVariableBlacklisted('variable'));
     }
 
-    public function testStaticAttributeThatIsNotBlacklistedIsNotTreatedAsBlacklisted(): void
+    public function testStaticAttributeThatIsNotBlacklistedIsNotTreatedAsBlacklisted()
     {
         $this->assertFalse(
             $this->blacklist->isStaticAttributeBlacklisted(
@@ -52,7 +55,7 @@ final class BlacklistTest extends TestCase
         );
     }
 
-    public function testClassCanBeBlacklisted(): void
+    public function testClassCanBeBlacklisted()
     {
         $this->blacklist->addClass(BlacklistedClass::class);
 
@@ -64,7 +67,7 @@ final class BlacklistTest extends TestCase
         );
     }
 
-    public function testSubclassesCanBeBlacklisted(): void
+    public function testSubclassesCanBeBlacklisted()
     {
         $this->blacklist->addSubclassesOf(BlacklistedClass::class);
 
@@ -76,7 +79,7 @@ final class BlacklistTest extends TestCase
         );
     }
 
-    public function testImplementorsCanBeBlacklisted(): void
+    public function testImplementorsCanBeBlacklisted()
     {
         $this->blacklist->addImplementorsOf(BlacklistedInterface::class);
 
@@ -88,7 +91,7 @@ final class BlacklistTest extends TestCase
         );
     }
 
-    public function testClassNamePrefixesCanBeBlacklisted(): void
+    public function testClassNamePrefixesCanBeBlacklisted()
     {
         $this->blacklist->addClassNamePrefix('SebastianBergmann\GlobalState');
 
@@ -100,7 +103,7 @@ final class BlacklistTest extends TestCase
         );
     }
 
-    public function testStaticAttributeCanBeBlacklisted(): void
+    public function testStaticAttributeCanBeBlacklisted()
     {
         $this->blacklist->addStaticAttribute(
             BlacklistedClass::class,

@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -41,11 +41,6 @@ final class BuildInformation
         if ($runtime->hasXdebug()) {
             $driverNode->setAttribute('name', 'xdebug');
             $driverNode->setAttribute('version', \phpversion('xdebug'));
-        }
-
-        if ($runtime->hasPCOV()) {
-            $driverNode->setAttribute('name', 'pcov');
-            $driverNode->setAttribute('version', \phpversion('pcov'));
         }
     }
 

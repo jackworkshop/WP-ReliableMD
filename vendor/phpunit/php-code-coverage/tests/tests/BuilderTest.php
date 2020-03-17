@@ -1,31 +1,35 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report;
 
-use SebastianBergmann\CodeCoverage\Node\Builder;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\TestCase;
+use SebastianBergmann\CodeCoverage\Node\Builder;
 
 class BuilderTest extends TestCase
 {
     protected $factory;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         $this->factory = new Builder;
     }
 
-    public function testSomething(): void
+    public function testSomething()
     {
         $root = $this->getCoverageForBankAccount()->getReport();
 
-        $expectedPath = \rtrim(TEST_FILES_PATH, \DIRECTORY_SEPARATOR);
+        $expectedPath = rtrim(TEST_FILES_PATH, DIRECTORY_SEPARATOR);
         $this->assertEquals($expectedPath, $root->getName());
         $this->assertEquals($expectedPath, $root->getPath());
         $this->assertEquals(10, $root->getNumExecutableLines());
@@ -112,11 +116,11 @@ class BuilderTest extends TestCase
                         'fullPackage' => '',
                         'category'    => '',
                         'package'     => '',
-                        'subpackage'  => '',
+                        'subpackage'  => ''
                     ],
                     'link'      => 'BankAccount.php.html#2',
-                    'className' => 'BankAccount',
-                ],
+                    'className' => 'BankAccount'
+                ]
             ],
             $root->getClasses()
         );
@@ -124,22 +128,22 @@ class BuilderTest extends TestCase
         $this->assertEquals([], $root->getFunctions());
     }
 
-    public function testNotCrashParsing(): void
+    public function testNotCrashParsing()
     {
         $coverage = $this->getCoverageForCrashParsing();
-        $root     = $coverage->getReport();
+        $root = $coverage->getReport();
 
-        $expectedPath = \rtrim(TEST_FILES_PATH, \DIRECTORY_SEPARATOR);
+        $expectedPath = rtrim(TEST_FILES_PATH, DIRECTORY_SEPARATOR);
         $this->assertEquals($expectedPath, $root->getName());
         $this->assertEquals($expectedPath, $root->getPath());
         $this->assertEquals(2, $root->getNumExecutableLines());
         $this->assertEquals(0, $root->getNumExecutedLines());
-        $data         = $coverage->getData();
-        $expectedFile = $expectedPath . \DIRECTORY_SEPARATOR . 'Crash.php';
+        $data = $coverage->getData();
+        $expectedFile = $expectedPath . DIRECTORY_SEPARATOR . 'Crash.php';
         $this->assertSame([$expectedFile => [1 => [], 2 => []]], $data);
     }
 
-    public function testBuildDirectoryStructure(): void
+    public function testBuildDirectoryStructure()
     {
         $s = \DIRECTORY_SEPARATOR;
 
@@ -155,20 +159,20 @@ class BuilderTest extends TestCase
                 'src' => [
                     'Money.php/f'    => [],
                     'MoneyBag.php/f' => [],
-                    'Foo'            => [
+                    'Foo' => [
                         'Bar' => [
                             'Baz' => [
                                 'Foo.php/f' => [],
                             ],
                         ],
                     ],
-                ],
+                ]
             ],
             $method->invoke(
                 $this->factory,
                 [
-                    "src{$s}Money.php"                    => [],
-                    "src{$s}MoneyBag.php"                 => [],
+                    "src{$s}Money.php" => [],
+                    "src{$s}MoneyBag.php" => [],
                     "src{$s}Foo{$s}Bar{$s}Baz{$s}Foo.php" => [],
                 ]
             )
@@ -178,7 +182,7 @@ class BuilderTest extends TestCase
     /**
      * @dataProvider reducePathsProvider
      */
-    public function testReducePaths($reducedPaths, $commonPath, $paths): void
+    public function testReducePaths($reducedPaths, $commonPath, $paths)
     {
         $method = new \ReflectionMethod(
             Builder::class,
@@ -199,45 +203,45 @@ class BuilderTest extends TestCase
 
         yield [
             [],
-            '.',
-            [],
+            ".",
+            []
         ];
 
         $prefixes = ["C:$s", "$s"];
 
-        foreach ($prefixes as $p) {
+        foreach($prefixes as $p){
             yield [
                 [
-                    'Money.php' => [],
+                    "Money.php" => []
                 ],
                 "{$p}home{$s}sb{$s}Money{$s}",
                 [
-                    "{$p}home{$s}sb{$s}Money{$s}Money.php" => [],
-                ],
+                    "{$p}home{$s}sb{$s}Money{$s}Money.php" => []
+                ]
             ];
 
             yield [
                 [
-                    'Money.php'    => [],
-                    'MoneyBag.php' => [],
+                    "Money.php"    => [],
+                    "MoneyBag.php" => []
                 ],
                 "{$p}home{$s}sb{$s}Money",
                 [
                     "{$p}home{$s}sb{$s}Money{$s}Money.php"    => [],
-                    "{$p}home{$s}sb{$s}Money{$s}MoneyBag.php" => [],
-                ],
+                    "{$p}home{$s}sb{$s}Money{$s}MoneyBag.php" => []
+                ]
             ];
 
             yield [
                 [
-                    'Money.php'             => [],
-                    'MoneyBag.php'          => [],
+                    "Money.php"          => [],
+                    "MoneyBag.php"       => [],
                     "Cash.phar{$s}Cash.php" => [],
                 ],
                 "{$p}home{$s}sb{$s}Money",
                 [
-                    "{$p}home{$s}sb{$s}Money{$s}Money.php"                    => [],
-                    "{$p}home{$s}sb{$s}Money{$s}MoneyBag.php"                 => [],
+                    "{$p}home{$s}sb{$s}Money{$s}Money.php"                 => [],
+                    "{$p}home{$s}sb{$s}Money{$s}MoneyBag.php"              => [],
                     "phar://{$p}home{$s}sb{$s}Money{$s}Cash.phar{$s}Cash.php" => [],
                 ],
             ];

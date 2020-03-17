@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Constraint that accepts null.
  */
-final class IsNull extends Constraint
+class IsNull extends Constraint
 {
     /**
      * Returns a string representation of the constraint.

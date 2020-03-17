@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,10 +9,7 @@
  */
 namespace PHPUnit\Framework;
 
-/**
- * @small
- */
-final class ExceptionWrapperTest extends TestCase
+class ExceptionWrapperTest extends TestCase
 {
     /**
      * @runInSeparateProcess
@@ -47,9 +44,9 @@ final class ExceptionWrapperTest extends TestCase
         // Replace the only mention of "BadFunctionCallException" in wrapper
         $wrapper->setClassName('MyException');
 
-        $data = \print_r($wrapper, true);
+        $data = \print_r($wrapper, 1);
 
-        $this->assertStringNotContainsString(
+        $this->assertNotContains(
             'BadFunctionCallException',
             $data,
             'Assert there is s no other BadFunctionCallException mention in stacktrace'
