@@ -207,7 +207,7 @@ requirejs(['jquery', 'htmlToText', 'tui-mathsupport', 'js-yaml'],
         var cut_mn = jQuery('#cur_mn').val();
         var cut_ss = jQuery('#ss').val();
         var datestr;
-        var date = new Date();
+        var date = new Date('2000-0-1');
         if (
           aa == cut_aa &&
           mm == cut_mm &&
@@ -217,9 +217,9 @@ requirejs(['jquery', 'htmlToText', 'tui-mathsupport', 'js-yaml'],
         ) {
           datestr = new String(date.getFullYear());
         } else {
-          date.setFullYear(aa, mm, jj);
-          date.setHours(hh);
-          date.setMinutes(mn);
+          date.setFullYear(cut_aa, cut_mm - 1, cut_jj);
+          date.setHours(cut_hh);
+          date.setMinutes(cut_mn);
           date.setSeconds(cut_ss);
         }
         datestr = date.format('YYYY-MM-DDTHH:mm:SS');
