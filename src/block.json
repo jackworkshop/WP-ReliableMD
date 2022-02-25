@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wp-reliablemd/toast-editor",
+	"version": "0.1.0",
+	"title": "WP ReliableMD",
+	"category": "widgets",
+	"icon": "design",
+	"description": "或许这是WordPress中很好用的Markdown插件.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "wp-reliablemd",
+	"editorScript": "file:./block.js",
+	"editorStyle": "file:./block.css",
+	"style": "file:./css/style-block.css"
+}
