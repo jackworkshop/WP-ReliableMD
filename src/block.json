@@ -6,7 +6,7 @@
 	"title": "WP ReliableMD",
 	"category": "widgets",
 	"icon": "design",
-	"description": "或许这是WordPress中很好用的Markdown插件.",
+	"description": "Maybe this is a good Markdown plugin for WordPress.",
 	"supports": {
 		"html": false
 	},
