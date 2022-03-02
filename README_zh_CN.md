@@ -2,7 +2,7 @@
 
 [English document](README.md) [中文文档](README_zh_CN.md)
 
-[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=jackworkshop:WP-ReliableMD)](https://sonarcloud.io/dashboard?id=jackworkshop%3AWP-ReliableMD) [![PHP Composer](https://github.com/jackworkshop/WP-ReliableMD/workflows/PHP%20Composer/badge.svg)](https://github.com/jackworkshop/WP-ReliableMD/actions)
+[![Gitter](https://badges.gitter.im/WP-ReliableMD/community.svg)](https://gitter.im/WP-ReliableMD/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jackworkshop_WP-ReliableMD&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jackworkshop_WP-ReliableMD) [![PHP Composer](https://github.com/jackworkshop/WP-ReliableMD/workflows/PHP%20Composer/badge.svg)](https://github.com/jackworkshop/WP-ReliableMD/actions)
 
 ## 简介
 
