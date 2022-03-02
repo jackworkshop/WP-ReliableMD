@@ -1,8 +1,8 @@
 import "./block.scss";
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import CoreEditor, { EventMap } from '@toast-ui/editor';
-import { Editor, Viewer } from '@toast-ui/react-editor';
+import CoreEditor from '@toast-ui/editor';
+import { Editor } from '@toast-ui/react-editor';
 import uml from '@toast-ui/editor-plugin-uml';
 import chart from '@toast-ui/editor-plugin-chart';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
@@ -144,7 +144,6 @@ registerBlockType( 'wp-reliablemd/toast-editor', {
 		const {
             attributes: { content,markdown },
             setAttributes,
-            className,
         } = props;
 
 		const widgetRules= [
@@ -206,7 +205,7 @@ registerBlockType( 'wp-reliablemd/toast-editor', {
 			});
 
 			return button;
-		};
+		}
 
 		function createCustomBlockButton() {
 			const button = document.createElement('button');
@@ -220,7 +219,7 @@ registerBlockType( 'wp-reliablemd/toast-editor', {
 			});
 
 			return button;
-		};
+		}
 
 		CoreEditor.setLanguage('zh-CN', zh_cn_loc);
 
