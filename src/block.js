@@ -253,7 +253,7 @@ registerBlockType( 'wp-reliablemd/toast-editor', {
 				referenceDefinition={ false }
 				hideModeSwitch={ false }
 				frontMatter={ false }
-				language={ 'zh-CN' }
+				language={ navigator.language }
 				onChange={ onChangeContent }
 				customHTMLRenderer={ customHTMLRenderer }
 				customMarkdownRenderer={ customMarkdownRenderer }

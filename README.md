@@ -5,7 +5,7 @@ Donate link: https://github.com/jackworkshop/WP-ReliableMD.git
 Tags: Editor,Markdown,Markdown Edit,WP ReliableMD,Wordpress,tui-editor
 Requires at least: 5.0
 Tested up to: 5.9
-Stable tag: 0.9-dev
+Stable tag: 0.10-dev
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
